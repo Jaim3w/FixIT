@@ -89,8 +89,12 @@
         android:text="Lleva un registro de tus citas y crea solicitudes"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="116dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <Button
         android:id="@+id/btnContinuarInfo3"
@@ -101,6 +105,8 @@
         android:text="Continuar"
         android:textColor="#000000"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="627dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 </androidx.constraintlayout.widget.ConstraintLayout>
