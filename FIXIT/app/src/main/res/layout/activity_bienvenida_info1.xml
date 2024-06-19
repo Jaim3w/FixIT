@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1E1E1E"
+    tools:context=".BienvenidaInfo1">
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="631dp"
+        android:layout_height="576dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="240dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/mancha31" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="468dp"
+        android:layout_height="467dp"
+        app:srcCompat="@drawable/mancha32"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="307dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="251dp"
+        android:layout_height="111dp"
+        android:text="La mejor aplicación para la gestión de tu coche"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.212" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="141dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#C3FFFFFF"
+        android:fontFamily="sans-serif"
+        android:text="Continuar"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.926" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
