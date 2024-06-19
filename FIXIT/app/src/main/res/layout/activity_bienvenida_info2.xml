@@ -9,21 +9,6 @@
     android:backgroundTint="#1E1E1E"
     tools:context=".BienvenidaInfo2">
 
-    <Button
-        android:id="@+id/btnContinuarInfo1"
-        android:layout_width="141dp"
-        android:layout_height="55dp"
-        android:backgroundTint="#C3FFFFFF"
-        android:fontFamily="sans-serif"
-        android:text="Continuar"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.926" />
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="760dp"
@@ -103,8 +88,12 @@
         android:text="Cotiza tus repuestos con FIXIT"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="116dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <Button
         android:id="@+id/btnContinuarInfo2"
@@ -115,7 +104,9 @@
         android:text="Continuar"
         android:textColor="#000000"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="627dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
