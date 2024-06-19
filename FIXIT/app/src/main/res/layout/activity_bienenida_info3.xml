@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#1E1E1E"
     android:backgroundTint="#1E1E1E"
-    tools:context=".BienvenidaInfo2">
+    tools:context=".BienenidaInfo3">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -22,19 +22,7 @@
         app:srcCompat="@drawable/opacity" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/pag2" />
-
-    <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/imageView10"
         android:layout_width="400dp"
         android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,14 +30,26 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/pag3" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/pag22" />
+        app:srcCompat="@drawable/pag33" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="211dp"
         android:layout_height="94dp"
-        android:text="Cotiza tus repuestos con FIXIT"
+        android:text="Lleva un registro de tus citas y crea solicitudes"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +69,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7"
         app:layout_constraintVertical_bias="0.48"
-        app:srcCompat="@drawable/circle_on" />
+        app:srcCompat="@drawable/circle_off" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -79,7 +79,7 @@
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/imageView7"
         app:layout_constraintVertical_bias="0.79"
-        app:srcCompat="@drawable/circle_off"
+        app:srcCompat="@drawable/circle_on"
         tools:layout_editor_absoluteX="211dp" />
 
     <ImageView
@@ -119,5 +119,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.926" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

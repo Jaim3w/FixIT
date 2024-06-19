@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="31">
         <activity
+            android:name=".BienenidaInfo3"
+            android:exported="false" />
+        <activity
             android:name=".BienvenidaInfo2"
             android:exported="false" />
         <activity
