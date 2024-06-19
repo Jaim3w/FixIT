@@ -10,6 +10,43 @@
     tools:context=".BienenidaInfo3">
 
     <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.744"
+        app:srcCompat="@drawable/circle_on" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginBottom="184dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView9"
+        app:layout_constraintVertical_bias="0.744"
+        app:srcCompat="@drawable/circle_off" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.744"
+        app:srcCompat="@drawable/circle_off" />
+
+    <ImageView
         android:id="@+id/imageView3"
         android:layout_width="760dp"
         android:layout_height="731dp"
@@ -46,67 +83,17 @@
         app:srcCompat="@drawable/pag33" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="211dp"
-        android:layout_height="94dp"
+        android:id="@+id/txtInfoBienvenida3"
+        android:layout_width="213dp"
+        android:layout_height="92dp"
         android:text="Lleva un registro de tus citas y crea solicitudes"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.196"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.202" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.48"
-        app:srcCompat="@drawable/circle_off" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.79"
-        app:srcCompat="@drawable/circle_on"
-        tools:layout_editor_absoluteX="211dp" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="209dp"
-        android:layout_height="207dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
-        app:layout_constraintVertical_bias="0.583"
-        app:srcCompat="@android:drawable/btn_star" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.468"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7"
-        app:layout_constraintVertical_bias="0.48"
-        app:srcCompat="@drawable/circle_off" />
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="116dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnContinuarInfo3"
         android:layout_width="141dp"
         android:layout_height="55dp"
         android:backgroundTint="#C3FFFFFF"
@@ -114,9 +101,6 @@
         android:text="Continuar"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.926" />
+        tools:layout_editor_absoluteX="135dp"
+        tools:layout_editor_absoluteY="627dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
