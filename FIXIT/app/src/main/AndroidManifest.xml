@@ -17,6 +17,14 @@
             android:resource="@xml/buton" />
 
         <activity
+            android:name=".RecuperarContra"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/buton" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
