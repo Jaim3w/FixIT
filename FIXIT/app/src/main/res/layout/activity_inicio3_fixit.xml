@@ -20,6 +20,16 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/imgbienvenida1" />
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="139dp"
+        android:layout_height="266dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/imgbienvenida3" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
