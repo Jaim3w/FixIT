@@ -13,17 +13,22 @@
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="31">
         <activity
-            android:name=".Inicio2"
+            android:name=".Inicio3"
             android:exported="false" />
         <activity
-            android:name=".BienvenidaFixit"
+            android:name=".Inicio2"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+           </intent-filter>
         </activity>
+
+        <activity
+            android:name=".BienvenidaFixit"
+            android:exported="true"/>
+
         <activity
             android:name=".RecuperarContra"
             android:exported="false" />
