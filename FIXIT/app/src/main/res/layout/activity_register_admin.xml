@@ -30,8 +30,8 @@
 
     <LinearLayout
         android:id="@+id/cardAdminNombres"
-        android:layout_width="322dp"
-        android:layout_height="73dp"
+        android:layout_width="326dp"
+        android:layout_height="74dp"
         android:layout_marginHorizontal="44dp"
         android:background="@drawable/textview"
         android:elevation="10dp"
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="44dp"
-        android:background="@drawable/sff000000sw1cr40lr270ffd9d9d9ffffffff"
+        android:background="@drawable/imputtext"
         android:elevation="10dp"
         android:orientation="vertical"
         android:paddingHorizontal="33dp"
@@ -83,7 +83,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="44dp"
-        android:background="@drawable/sff000000sw1cr40lr270ffd9d9d9ffffffff"
+        android:background="@drawable/imputtext"
         android:elevation="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -134,10 +134,10 @@
             android:id="@+id/btnSiguienteAdmin1"
             android:layout_width="147dp"
             android:layout_height="wrap_content"
-            android:background="FFFFFFFF"
-            android:text="Siguiente"
-            android:textAllCaps="false"
-            android:textSize="20sp" />
+            android:background="#FFFFFFFF"
+        android:text="Siguiente"
+        android:textAllCaps="false"
+        android:textSize="20sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
