@@ -12,9 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="31">
+        <activity
+            android:name=".prueba"
+            android:exported="false"
+            android:label="@string/title_activity_prueba" />
+        <activity
+            android:name=".MenuAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".CodigoTaller"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.actions"
-            android:resource="@xml/buton" />
+            android:resource="" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".RecuperarContra"
