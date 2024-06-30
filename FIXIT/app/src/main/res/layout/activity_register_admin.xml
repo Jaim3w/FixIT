@@ -30,8 +30,8 @@
 
     <LinearLayout
         android:id="@+id/cardAdminNombres"
-        android:layout_width="379dp"
-        android:layout_height="77dp"
+        android:layout_width="326dp"
+        android:layout_height="74dp"
         android:layout_marginHorizontal="44dp"
         android:background="@drawable/textview"
         android:elevation="10dp"
