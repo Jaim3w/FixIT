@@ -30,7 +30,7 @@
         android:layout_width="322dp"
         android:layout_height="75dp"
         android:layout_marginHorizontal="44dp"
-        android:background="@drawable/sff000000sw1cr40lr270ffd9d9d9ffffffff"
+        android:background="@drawable/imputtext"
         android:elevation="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -81,7 +81,7 @@
             android:id="@+id/btnSiguienteCodigoTaller"
             android:layout_width="134dp"
             android:layout_height="wrap_content"
-            android:background="#FFFFFFF"
+            android:background="#FFFFFF"
             android:text="Siguiente"
             android:textAllCaps="false"
             android:textSize="20sp" />
