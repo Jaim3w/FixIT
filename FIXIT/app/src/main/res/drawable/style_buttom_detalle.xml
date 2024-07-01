@@ -3,8 +3,9 @@
 
     <item>
         <shape>
-            <solid android:color="#FFFFFF" />
+            <solid android:color="#000000" />
             <corners android:radius="32dp" />
+
         </shape>
     </item>
 
@@ -13,21 +14,13 @@
         <shape>
             <gradient
                 android:angle="0"
-                android:startColor="#EDEDED"
+                android:startColor="#F3F3F3"
                 android:centerColor="#FFFFFF"
-                android:endColor="#EDEDED"
+                android:endColor="#F3F3F3"
                 android:type="linear" />
             <corners android:radius="32dp"/>
 
-            <padding
-                android:bottom="1dp"
-                android:left="1dp"
-                android:right="1dp"
-                android:top="1dp" />
+
         </shape>
     </item>
-
-
-
-
 </layer-list>
