@@ -9,13 +9,31 @@
     tools:context=".Repuesto">
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/imageView11"
+        android:layout_width="419dp"
+        android:layout_height="807dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058"
-        app:srcCompat="@drawable/FIXIT" />
+        app:srcCompat="@drawable/imagenadmin" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="344dp"
+        android:layout_height="572dp"
+        android:background="@drawable/drawable"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="94dp">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="323dp"
+            android:layout_height="191dp"
+            android:background="@drawable/drawable1"
+            android:orientation="vertical"></LinearLayout>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
