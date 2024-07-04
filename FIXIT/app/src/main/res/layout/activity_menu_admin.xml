@@ -80,6 +80,87 @@
             app:layout_constraintStart_toEndOf="@+id/imageView9"
             app:srcCompat="@drawable/citasicon" />
 
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/fixit1" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="201dp"
+            android:layout_height="41dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Historial de coches despachados recientemente"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="109dp"
+            tools:layout_editor_absoluteY="381dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="226dp"
+            android:layout_height="36dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="¡Bienvenido de vuelta!   "
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="100dp"
+            tools:layout_editor_absoluteY="137dp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="28dp"
+            android:layout_height="27dp"
+            app:srcCompat="@drawable/calendar"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="205dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Citas por completar"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            tools:layout_editor_absoluteX="102dp"
+            tools:layout_editor_absoluteY="205dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvCitas"
+            android:layout_width="298dp"
+            android:layout_height="98dp"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="246dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvCochesDespachados"
+            android:layout_width="337dp"
+            android:layout_height="95dp"
+            tools:layout_editor_absoluteX="42dp"
+            tools:layout_editor_absoluteY="437dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="317dp"
+            android:layout_height="1dp"
+            android:background="#08172E"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="365dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="317dp"
+            android:layout_height="1dp"
+            android:background="#08172E"
+            tools:layout_editor_absoluteX="51dp"
+            tools:layout_editor_absoluteY="189dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
 
@@ -114,69 +195,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="259dp"
-        android:layout_height="62dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="Historial de coches despachados recientemente"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        tools:layout_editor_absoluteX="78dp"
-        tools:layout_editor_absoluteY="361dp" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="215dp"
-        android:layout_height="66dp"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="¡Bienvenido de vuelta!   Tu taller"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="103dp"
-        tools:layout_editor_absoluteY="75dp" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/calendar"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="164dp" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_medium"
-        android:text="Citas por completar"
-        android:textColor="@color/black"
-        android:textSize="15sp"
-        tools:layout_editor_absoluteX="112dp"
-        tools:layout_editor_absoluteY="176dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvCitas"
-        android:layout_width="314dp"
-        android:layout_height="133dp"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="207dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvCochesDespachados"
-        android:layout_width="324dp"
-        android:layout_height="150dp"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="466dp" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="317dp"
-        android:layout_height="1dp"
-        android:background="#08172E"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="450dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
