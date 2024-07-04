@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+<<<<<<< HEAD
         <item>@font/montserrat_bold</item>
+=======
+        <item>@font/istok_web_bold</item>
+        <item>@font/montserrat_medium</item>
+        <item>@font/montserrat_thin</item>
+        <item>@font/roboto_bold</item>
+        <item>@font/roboto_thin</item>
+>>>>>>> master
     </array>
 </resources>
