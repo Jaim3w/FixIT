@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/FIXIT" />
+        app:srcCompat="@drawable/fixit1" />
 
     <ScrollView
         android:id="@+id/main"
