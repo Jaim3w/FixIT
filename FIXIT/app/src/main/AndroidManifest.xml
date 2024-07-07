@@ -17,6 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="34" >
+
+        <activity
+            android:name=".proveedores_admin"
+            android:exported="false" />
+
         <activity
             android:name=".RecuperarContraParte2"
             android:exported="false" />
