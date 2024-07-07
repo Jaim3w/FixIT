@@ -7,8 +7,10 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
-class navbar : AppCompatActivity() {
+class nav : AppCompatActivity() {
 
     private lateinit var fadeIn: Animation
     private lateinit var fadeOut: Animation
