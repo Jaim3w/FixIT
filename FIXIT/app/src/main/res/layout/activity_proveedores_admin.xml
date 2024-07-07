@@ -14,25 +14,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        layout="@layout/activity_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        layout="@layout/activity_nav"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include
-        layout="@layout/activity_nav"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include
+        android:id="@+id/include_nav"
         layout="@layout/activity_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
