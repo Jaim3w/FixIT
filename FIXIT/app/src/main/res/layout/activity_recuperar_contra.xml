@@ -5,87 +5,145 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_fondo"
+    android:background="@drawable/fondo_recuperar"
     tools:context=".RecuperarContra">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="43dp"
-        android:layout_height="45dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022"
-        app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
-
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="274dp"
-        android:layout_height="58dp"
-        android:background="@drawable/bordes_redondos"
-        android:ems="10"
-        android:hint="Nueva contraseña"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.394" />
-
-    <EditText
-        android:id="@+id/editTextText2"
-        android:layout_width="282dp"
-        android:layout_height="60dp"
-        android:background="@drawable/bordes_redondos"
-        android:ems="10"
-        android:hint="Repita la contraseña"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="241dp"
-        android:layout_height="58dp"
-        android:background="@drawable/style_boton"
-        android:text="Button"
+        android:id="@+id/imageView13"
+        android:layout_width="184dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.726" />
+        app:layout_constraintVertical_bias="0.083"
+        app:srcCompat="@drawable/fixit1" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="198dp"
-        android:layout_height="68dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="FIXIT"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.676"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09" />
-
-    <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
         android:text="Recuperar contraseña"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintVertical_bias="0.263" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="36dp"
+        android:layout_height="33dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.035"
+        app:srcCompat="@drawable/atras1" />
+
+    <EditText
+        android:id="@+id/txtCuartoNum"
+        android:layout_width="81dp"
+        android:layout_height="81dp"
+        android:layout_weight="1"
+        android:background="@drawable/recuperar_contra_txt"
+        android:gravity="center"
+        android:inputType="number"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
+
+    <EditText
+        android:id="@+id/txtSegundoNum"
+        android:layout_width="81dp"
+        android:layout_height="81dp"
+        android:layout_weight="1"
+        android:background="@drawable/recuperar_contra_txt"
+        android:gravity="center"
+        android:inputType="number"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.345"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
+
+    <EditText
+        android:id="@+id/txtPrimerNum"
+        android:layout_width="81dp"
+        android:layout_height="81dp"
+        android:layout_weight="1"
+        android:background="@drawable/recuperar_contra_txt"
+        android:gravity="center"
+        android:inputType="number"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
+
+
+    <EditText
+        android:id="@+id/txtTercerNum"
+        android:layout_width="81dp"
+        android:layout_height="81dp"
+        android:layout_weight="1"
+        android:background="@drawable/recuperar_contra_txt"
+        android:gravity="center"
+        android:inputType="number"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.657"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.48" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="228dp"
+        android:layout_height="72dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="Introduzca el código que enviamos a su correo electrónico para continuar"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.682" />
+
+    <Button
+        android:id="@+id/btnGuardarNuevaContra"
+        android:layout_width="181dp"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_amarillo"
+        android:fontFamily="@font/inter"
+        android:text="Continuar"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.829" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

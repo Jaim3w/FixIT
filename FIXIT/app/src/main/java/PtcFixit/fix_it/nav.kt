@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class navbar : AppCompatActivity() {
+class nav : AppCompatActivity() {
 
     private lateinit var fadeIn: Animation
     private lateinit var fadeOut: Animation
@@ -20,7 +20,7 @@ class navbar : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_navbar)
+        setContentView(R.layout.activity_header)
         setupAnimations()
         setupImageClickListeners()
     }

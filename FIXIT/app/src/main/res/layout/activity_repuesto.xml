@@ -5,24 +5,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/citasfondo"
+    android:background="@drawable/nigga"
     tools:context=".Repuesto"
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="140dp"
-        android:layout_height="46dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/FIXIT" />
+        android:id="@+id/imageView11"
+        android:layout_width="419dp"
+        android:layout_height="807dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/imagenadmin" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="344dp"
+        android:layout_height="572dp"
+        android:background="@drawable/drawable"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="94dp">
+
+
+    </LinearLayout>
+
 
     <ScrollView
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageView5"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="81dp"
         android:layout_marginBottom="-49dp">
@@ -35,7 +49,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Nombre y Apellidos -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -99,7 +113,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Teléfono y Fecha -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,7 +121,6 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <!-- LinearLayout para Teléfono -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -127,8 +140,6 @@
                         android:text="7867-8976"
                         android:textColor="@android:color/black" />
                 </LinearLayout>
-
-                <!-- LinearLayout para Fecha -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -171,7 +182,7 @@
                     android:textColor="@android:color/black" />
             </LinearLayout>
 
-            <!-- DUI -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -285,5 +296,6 @@
 
         </LinearLayout>
     </ScrollView>
+
 
 </RelativeLayout>
