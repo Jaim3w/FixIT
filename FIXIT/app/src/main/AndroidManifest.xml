@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="31">
-        <activity
-            android:name=".Menu1Activity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".Menu1Activity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".MenuAdmin"
             android:exported="false" />
@@ -39,7 +39,6 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-<<<<<<< HEAD
             android:name=".MenuCitaCard"
             android:exported="false" />
         <activity
@@ -52,17 +51,6 @@
             android:name=".RecuperarContra"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-=======
-<<<<<<< HEAD
-            android:name=".RecuperarContra"
-            android:exported="false" />
-
-        <meta-data
-            android:name="com.google.android.actions"
-            android:resource="@xml/buton" />
-
-        <activity
             android:name=".BienenidaInfo3"
             android:exported="false" />
         <activity
@@ -72,11 +60,7 @@
             android:name=".BienvenidaInfo1"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-=======
-            android:name=".navbar"
->>>>>>> master
->>>>>>> master
+            android:name=".Menu1Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -85,5 +69,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
