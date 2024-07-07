@@ -51,10 +51,6 @@
             android:name=".BienvenidaInfo1"
             android:exported="false" />
 
-        <activity
-            android:name=".navbar"
-            android:exported="false"> <!-- No tiene intent-filter para MAIN/LAUNCHER -->
-        </activity>
 
         <activity
             android:name=".MenuAdmin"
