@@ -39,6 +39,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
+<<<<<<< HEAD
             android:name=".MenuCitaCard"
             android:exported="false" />
         <activity
@@ -52,6 +53,30 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+=======
+<<<<<<< HEAD
+            android:name=".RecuperarContra"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/buton" />
+
+        <activity
+            android:name=".BienenidaInfo3"
+            android:exported="false" />
+        <activity
+            android:name=".BienvenidaInfo2"
+            android:exported="false" />
+        <activity
+            android:name=".BienvenidaInfo1"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+=======
+            android:name=".navbar"
+>>>>>>> master
+>>>>>>> master
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
