@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/istok_web_bold</item>
-        <item>@font/barlow_medium</item>
         <item>@font/inter</item>
+        <item>@font/istok_web</item>
+        <item>@font/istok_web_bold</item>
+        <item>@font/montserrat</item>
         <item>@font/montserrat_medium</item>
         <item>@font/montserrat_thin</item>
-        <item>@font/montserrat_bold</item>
+        <item>@font/roboto</item>
         <item>@font/roboto_bold</item>
         <item>@font/roboto_thin</item>
     </array>
