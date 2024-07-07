@@ -66,7 +66,7 @@
         app:layout_constraintVertical_bias="0.794" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/txtRepetir"
         android:layout_width="299dp"
         android:layout_height="63dp"
         android:background="@drawable/imputtext"
@@ -81,7 +81,7 @@
         app:layout_constraintVertical_bias="0.603" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/txtNuevaContrasena"
         android:layout_width="303dp"
         android:layout_height="59dp"
         android:background="@drawable/imputtext"
