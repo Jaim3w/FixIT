@@ -55,7 +55,7 @@
         android:id="@+id/button3"
         android:layout_width="127dp"
         android:layout_height="81dp"
-        android:layout_marginStart="6dp"
+        android:layout_marginStart="10dp"
         android:text="Dueño del taller"
         android:shadowRadius="3"
         android:background="@drawable/btninicio3"
@@ -81,7 +81,7 @@
         android:id="@+id/button5"
         android:layout_width="127dp"
         android:layout_height="81dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="10dp"
         android:text="Emleado de un taller"
         android:background="@drawable/btninicio3"
 
