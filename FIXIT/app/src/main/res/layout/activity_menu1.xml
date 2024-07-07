@@ -46,7 +46,7 @@
 
     <LinearLayout
         android:id="@+id/fondo"
-        android:layout_width="388dp"
+        android:layout_width="375dp"
         android:layout_height="482dp"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="30dp"

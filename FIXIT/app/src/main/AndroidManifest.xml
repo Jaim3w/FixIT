@@ -53,9 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MenuAdmin"
-            android:exported="false" />
+
         <activity
             android:name=".RegisterAdmin"
             android:exported="false" />
