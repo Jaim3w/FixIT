@@ -18,6 +18,9 @@
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="34">
         <activity
+            android:name=".ProveedorCardActivity"
+            android:exported="false" />
+        <activity
             android:name=".ListaProveedoresActivity"
             android:exported="false" />
         <activity
