@@ -51,7 +51,7 @@
             android:name=".BienvenidaInfo1"
             android:exported="false" />
         <activity
-            android:name=".citas"
+            android:name=".proveedores_admin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
