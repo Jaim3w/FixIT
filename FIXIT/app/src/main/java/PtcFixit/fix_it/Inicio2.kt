@@ -33,7 +33,7 @@ class Inicio2 : AppCompatActivity() {
 
         val clickListener = View.OnClickListener { v ->
             val intent = when (v.id) {
-                R.id.imageView6 -> Intent(this, MenuAdmin::class.java)
+                R.id.imageView6 -> Intent(this, Menu1Activity::class.java)
                 R.id.imageView8 -> Intent(this, repuestos_admin::class.java)
                 R.id.imageView7 -> Intent(this, proveedores_admin::class.java)
                 R.id.imageView9 -> Intent(this, carros_admin::class.java)

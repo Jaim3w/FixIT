@@ -18,6 +18,9 @@
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="34">
         <activity
+            android:name=".ListaProveedoresActivity"
+            android:exported="false" />
+        <activity
             android:name=".CochesDespachadosCardActivity"
             android:exported="false" />
         <activity
@@ -45,7 +48,7 @@
             android:name=".BienvenidaInfo1"
             android:exported="false" />
         <activity
-            android:name=".Menu1Activity"
+            android:name=".citas"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +56,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegisterAdmin"
             android:exported="false" />
