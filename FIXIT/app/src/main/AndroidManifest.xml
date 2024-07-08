@@ -17,6 +17,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="34">
+
+        <!-- Actividad principal: MenuAdmin -->
+        <activity
+            android:name=".MenuAdmin"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".citas"
+            android:exported="false" />
+
+        <activity
+            android:name=".repuestos_admin"
+            android:exported="false" />
         <activity
             android:name=".carros_admin"
             android:exported="false" />
@@ -25,13 +44,7 @@
             android:exported="false" />
         <activity
             android:name=".proveedores_admin"
-            android:exported="true"> <!-- Actividad principal de la aplicación -->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".RecuperarContraParte2"
             android:exported="false" />
@@ -48,14 +61,13 @@
             android:name=".BienvenidaInfo1"
             android:exported="false" />
         <activity
-            android:name=".MenuAdmin"
-            android:exported="false" />
-        <activity
             android:name=".RegisterAdmin"
             android:exported="false" />
         <activity
             android:name=".CodigoTaller"
             android:exported="false" />
+
+
 
         <meta-data
             android:name="preloaded_fonts"
