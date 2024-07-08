@@ -14,10 +14,9 @@
 
     <ImageView
         android:id="@+id/imageView17"
-        android:layout_width="442dp"
-        android:layout_height="161dp"
+        android:layout_width="439dp"
+        android:layout_height="156dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_navrectangle" />
