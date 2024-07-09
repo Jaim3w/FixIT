@@ -99,5 +99,18 @@
         app:layout_constraintVertical_bias="0.466"
         app:srcCompat="@drawable/ic_circle_carros" />
 
+    <ScrollView
+        android:layout_width="377dp"
+        android:layout_height="341dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView21"
+        app:layout_constraintEnd_toEndOf="@+id/imageView21"
+        app:layout_constraintStart_toStartOf="@+id/imageView21"
+        app:layout_constraintTop_toTopOf="@+id/imageView21">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
