@@ -18,10 +18,19 @@
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="34">
         <activity
+            android:name=".crear_proveedores"
+            android:exported="false" />
+        <activity
             android:name=".ProveedorCardActivity"
             android:exported="false" />
         <activity
-            android:name=".ListaProveedoresActivity"
+            android:name=".citas"
+            android:exported="false" />
+        <activity
+            android:name=".Menu1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".carros_admin"
             android:exported="false" />
         <activity
             android:name=".CochesDespachadosCardActivity"
@@ -59,6 +68,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".repuestos_admin"
+            android:exported="false" />
         <activity
             android:name=".RegisterAdmin"
             android:exported="false" />
