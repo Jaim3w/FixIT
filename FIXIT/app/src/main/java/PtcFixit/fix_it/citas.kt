@@ -8,6 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 
 class citas : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +23,7 @@ class citas : AppCompatActivity() {
         }
 
         setupNavClickListeners()
-
+        setupTabClickListeners()
     }
 
     private fun setupNavClickListeners() {
@@ -52,4 +54,23 @@ class citas : AppCompatActivity() {
         imgCitasnav.setOnClickListener(clickListener)
     }
 
+    private fun setupTabClickListeners() {
+        val txtCrearcita = findViewById<View>(R.id.txtCrearcita)
+        val txtCitasPendientes = findViewById<View>(R.id.txtCitasPendientes)
+
+        txtCrearcita.setOnClickListener {
+            loadFragment(citasFragment())
+        }
+
+        txtCitasPendientes.setOnClickListener {
+            loadFragment(citas_fragment2())
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.commit {
+            replace(R.id.fragmentContainerView, fragment)
+            addToBackStack(null)
+        }
+    }
 }
