@@ -92,17 +92,6 @@
             android:inputType="text"
             android:paddingStart="18dp" />
 
-        <EditText
-            android:id="@+id/txtNumeroProveedor"
-            android:layout_width="275dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="55dp"
-            android:background="@drawable/imputtext"
-            android:ems="10"
-            android:hint="Numero proveedor"
-            android:inputType="text"
-            android:paddingStart="18dp" />
 
         <EditText
             android:id="@+id/txtTelefonoProveedor"
@@ -142,13 +131,14 @@
 
         <Button
             android:id="@+id/btnIngresarProveedor"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:background="@drawable/style_buttom_detalle"
+            android:background="@drawable/button_agregar"
             android:text="Agregar nuevo proveedor"
-            android:textSize="12dp"
-            android:layout_gravity="center_horizontal" />
+            android:textColor="#FFFFFF"
+            android:textSize="10dp" />
 
     </LinearLayout>
 

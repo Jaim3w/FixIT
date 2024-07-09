@@ -1,0 +1,19 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo negro con esquinas redondeadas -->
+    <item android:id="@+id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp"/>
+            <solid android:color="@android:color/black"/>
+        </shape>
+    </item>
+    <!-- Borde con gradiente y esquinas redondeadas -->
+    <item android:id="@+id/foreground" android:left="2dp" android:right="2dp" android:top="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="19dp"/>
+            <stroke android:width="2dp" android:color="@drawable/gradient_stroke"/>
+        </shape>
+    </item>
+</layer-list>
+
+
+
