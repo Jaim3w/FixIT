@@ -27,7 +27,7 @@ class Inicio2 : AppCompatActivity() {
 
         val imageView6 = navView.findViewById<ImageView>(R.id.imageView6)
         val imageView8 = navView.findViewById<ImageView>(R.id.imageView8)
-        val imageView7 = navView.findViewById<ImageView>(R.id.imageView7)
+        val imageView7 = navView.findViewById<ImageView>(R.id.imgSiguiente)
         val imageView9 = navView.findViewById<ImageView>(R.id.imageView9)
         val imageView10 = navView.findViewById<ImageView>(R.id.imageView10)
 
@@ -35,7 +35,7 @@ class Inicio2 : AppCompatActivity() {
             val intent = when (v.id) {
                 R.id.imageView6 -> Intent(this, Menu1Activity::class.java)
                 R.id.imageView8 -> Intent(this, repuestos_admin::class.java)
-                R.id.imageView7 -> Intent(this, proveedores_admin::class.java)
+                R.id.imgSiguiente -> Intent(this, proveedores_admin::class.java)
                 R.id.imageView9 -> Intent(this, carros_admin::class.java)
                 R.id.imageView10 -> Intent(this, citas::class.java)
                 else -> null

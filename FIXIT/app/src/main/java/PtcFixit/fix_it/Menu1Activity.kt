@@ -19,32 +19,37 @@ class Menu1Activity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        setupNavClickListeners()
+
     }
+
     private fun setupNavClickListeners() {
         val navView = findViewById<View>(R.id.include_nav)
 
-        val imageView6 = navView.findViewById<ImageView>(R.id.imageView6)
-        val imageView8 = navView.findViewById<ImageView>(R.id.imageView8)
-        val imageView7 = navView.findViewById<ImageView>(R.id.imageView7)
-        val imageView9 = navView.findViewById<ImageView>(R.id.imageView9)
-        val imageView10 = navView.findViewById<ImageView>(R.id.imageView10)
+        val imgHomenav = navView.findViewById<ImageView>(R.id.imgHomenav)
+        val imgRepuestosnav = navView.findViewById<ImageView>(R.id.imgRepuestosnav)
+        val imgProveedoresnav = navView.findViewById<ImageView>(R.id.imgProveedoresnav)
+        val imgCarrosnav = navView.findViewById<ImageView>(R.id.imgCarrosnav)
+        val imgCitasnav = navView.findViewById<ImageView>(R.id.imgCitasnav)
 
         val clickListener = View.OnClickListener { v ->
             val intent = when (v.id) {
-                R.id.imageView6 -> Intent(this, Menu1Activity::class.java)
-                R.id.imageView8 -> Intent(this, repuestos_admin::class.java)
-                R.id.imageView7 -> Intent(this, proveedores_admin::class.java)
-                R.id.imageView9 -> Intent(this, carros_admin::class.java)
-                R.id.imageView10 -> Intent(this, citas::class.java)
+                R.id.imgHomenav -> Intent(this, Menu1Activity::class.java)
+                R.id.imgRepuestosnav -> Intent(this, repuestos_admin::class.java)
+                R.id.imgProveedoresnav -> Intent(this, proveedores_admin::class.java)
+                R.id.imgCarrosnav -> Intent(this, carros_admin::class.java)
+                R.id.imgCitasnav -> Intent(this, citas::class.java)
                 else -> null
             }
             intent?.let { startActivity(it) }
         }
 
-        imageView6.setOnClickListener(clickListener)
-        imageView8.setOnClickListener(clickListener)
-        imageView7.setOnClickListener(clickListener)
-        imageView9.setOnClickListener(clickListener)
-        imageView10.setOnClickListener(clickListener)
+        imgHomenav.setOnClickListener(clickListener)
+        imgRepuestosnav.setOnClickListener(clickListener)
+        imgProveedoresnav.setOnClickListener(clickListener)
+        imgCarrosnav.setOnClickListener(clickListener)
+        imgCitasnav.setOnClickListener(clickListener)
     }
+
 }

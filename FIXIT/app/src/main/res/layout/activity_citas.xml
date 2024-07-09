@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -18,112 +18,82 @@
         layout="@layout/activity_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <LinearLayout
-        android:id="@+id/fondo"
-        android:layout_width="375dp"
-        android:layout_height="452dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_weight="1"
-        android:background="@drawable/card_citas"
-        android:orientation="vertical"
-        android:paddingVertical="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.468" >
-
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            app:srcCompat="@drawable/baseline_arrow_back_ios_new_24" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="103dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="140dp"
-            android:layout_marginTop="-32dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Citas"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-
-            />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="148dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="80dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Ingresa los datos"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/editTextText9"
-            android:layout_width="275dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="55dp"
-            android:background="@drawable/imputtext"
-            android:ems="10"
-            android:hint="    Dui del cliente"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/editTextText10"
-            android:layout_width="275dp"
-            android:layout_height="37dp"
-            android:background="@drawable/imputtext"
-            android:ems="10"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="55dp"
-            android:hint="   Dui del encargado"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/editTextText11"
-            android:layout_width="269dp"
-            android:layout_height="40dp"
-            android:background="@drawable/imputtext"
-            android:ems="10"
-            android:hint="    Fecha"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="55dp"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/editTextText12"
-            android:layout_width="270dp"
-            android:layout_height="42dp"
-            android:background="@drawable/imputtext"
-            android:ems="10"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="55dp"
-            android:hint="    Descripcion"
-            android:inputType="text" />
-
-        <Button
-            android:id="@+id/btncitaTaller"
-            android:layout_width="148dp"
-            android:layout_height="42dp"
-            android:background="@drawable/btn2"
-            android:text="Crear"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="120dp"
-            android:textAllCaps="false"
-            android:textSize="20sp" />
+        app:layout_constraintTop_toBottomOf="parent">
 
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/txtCitasPendientes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="Citas pendientes"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.222" />
+
+    <TextView
+        android:id="@+id/txtCrearcita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="Crear cita"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.228" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="PtcFixit.fix_it.citasFragment"
+        android:layout_width="408dp"
+        android:layout_height="417dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.678" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Citas"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
