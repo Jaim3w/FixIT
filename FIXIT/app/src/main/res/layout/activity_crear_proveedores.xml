@@ -60,85 +60,92 @@
             android:id="@+id/txtDuiProveedor"
             android:layout_width="275dp"
             android:layout_height="36dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="55dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/imputtext"
             android:ems="10"
             android:hint="Dui"
             android:inputType="text"
-            android:paddingStart="18dp" />
+            android:paddingStart="18dp"
+            android:textColorHint="#B5B5B5" />
 
         <EditText
             android:id="@+id/txtNombreProveedor"
             android:layout_width="275dp"
             android:layout_height="36dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="55dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/imputtext"
             android:ems="10"
             android:hint="Nombre"
             android:inputType="text"
-            android:paddingStart="18dp" />
+            android:paddingStart="18dp"
+            android:textColorHint="#B5B5B5" />
 
         <EditText
             android:id="@+id/txtApellidosProveedor"
             android:layout_width="275dp"
             android:layout_height="36dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="55dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/imputtext"
             android:ems="10"
             android:hint="Apellidos"
             android:inputType="text"
-            android:paddingStart="18dp" />
+            android:paddingStart="18dp"
+            android:textColorHint="#B5B5B5" />
 
         <EditText
             android:id="@+id/txtNumeroProveedor"
             android:layout_width="275dp"
             android:layout_height="36dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="55dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/imputtext"
             android:ems="10"
             android:hint="Numero proveedor"
             android:inputType="text"
-            android:paddingStart="18dp" />
+            android:paddingStart="18dp"
+            android:textColorHint="#B5B5B5" />
 
         <EditText
             android:id="@+id/txtTelefonoProveedor"
             android:layout_width="275dp"
             android:layout_height="36dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="55dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/imputtext"
             android:ems="10"
             android:hint="Telefono"
             android:inputType="text"
-            android:paddingStart="18dp" />
+            android:paddingStart="18dp"
+            android:textColorHint="#B5B5B5" />
 
         <EditText
             android:id="@+id/txtCorreoElectronicoProveedor"
             android:layout_width="275dp"
             android:layout_height="36dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="55dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/imputtext"
             android:ems="10"
             android:hint="Correo electronico"
             android:inputType="text"
-            android:paddingStart="18dp" />
+            android:paddingStart="18dp"
+            android:textColorHint="#B5B5B5" />
 
         <EditText
             android:id="@+id/txtDirecccionProveedor"
             android:layout_width="275dp"
             android:layout_height="36dp"
-            android:layout_marginTop="15dp"
             android:layout_marginLeft="55dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/imputtext"
             android:ems="10"
             android:hint="Dirección"
             android:inputType="text"
-            android:paddingStart="18dp" />
+            android:paddingStart="18dp"
+            android:textColorHint="#B5B5B5" />
 
         <Button
             android:id="@+id/btnIngresarProveedor"
