@@ -15,8 +15,8 @@
         android:layout_marginHorizontal="90dp"
         android:layout_weight="1"
         android:fontFamily="@font/montserrat_medium"
-        android:text="Ingresa tus datos"
         android:paddingStart="18dp"
+        android:text="Ingresa tus datos"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#000000"
@@ -24,26 +24,26 @@
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.318"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.076" />
 
     <EditText
         android:id="@+id/txtNombreAdmin"
-        android:layout_width="306dp"
-        android:layout_height="52dp"
+        android:layout_width="311dp"
+        android:layout_height="49dp"
+        android:background="@drawable/imputtext"
         android:ems="10"
         android:hint="Nombres"
-        android:paddingStart="18dp"
         android:inputType="text"
-        android:background="@drawable/imputtext"
+        android:paddingStart="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.232" />
+        app:layout_constraintVertical_bias="0.231" />
 
     <Button
         android:id="@+id/btnSiguienteAdmin1"
