@@ -8,19 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".carros_admin">
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ver vehiculos"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView21"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
     <include
         layout="@layout/activity_header"
         android:layout_width="match_parent"
@@ -61,7 +48,7 @@
         app:srcCompat="@drawable/card_citas" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/txvAgregarVehiculo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agregar vehiculo"
@@ -73,6 +60,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
+    <TextView
+        android:id="@+id/txvVerVehiculos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ver vehiculos"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView21"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
     <ImageView
         android:id="@+id/ic_circle_activate"
         android:layout_width="12dp"
@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/txvVerVehiculos"
         app:srcCompat="@drawable/ic_circle_carros" />
 
     <ScrollView

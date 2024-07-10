@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="0.73" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/txvVerVehiculos_agr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ver vehiculos"
@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/txvAgregarVehiculo_agr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agregar vehiculos"
@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.683"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/txvAgregarVehiculo_agr"
         app:srcCompat="@drawable/ic_circle_carros" />
 
     <ScrollView
@@ -101,77 +101,122 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/editTextText4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtAddPlacas"
+                android:layout_width="240dp"
+                android:layout_height="40dp"
+                android:background="@drawable/imputtext"
                 android:ems="10"
                 android:hint="Numero de placas"
                 android:inputType="text"
-                android:text="Name"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="16dp" />
+                android:paddingStart="14dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtAddMarca"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.116"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.622" />
 
             <EditText
-                android:id="@+id/editTextText5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtAddMarca"
+                android:layout_width="240dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/imputtext"
                 android:ems="10"
                 android:hint="Marca"
                 android:inputType="text"
-                android:text="Name"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="77dp" />
+                android:paddingStart="14dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtAddModelo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.819" />
 
             <EditText
-                android:id="@+id/editTextText6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtAddModelo"
+                android:layout_width="240dp"
+                android:layout_height="40dp"
+                android:background="@drawable/imputtext"
                 android:ems="10"
                 android:hint="Modelo y Año"
                 android:inputType="text"
-                android:text="Name"
-                tools:layout_editor_absoluteX="17dp"
-                tools:layout_editor_absoluteY="141dp" />
+                android:paddingStart="14dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtAddColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.116"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.886" />
 
             <EditText
-                android:id="@+id/editTextText7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtAddPropietario"
+                android:layout_width="240dp"
+                android:layout_height="40dp"
+                android:background="@drawable/imputtext"
                 android:ems="10"
                 android:hint="Nombre del propietario"
                 android:inputType="text"
-                android:text="Name"
-                tools:layout_editor_absoluteX="22dp"
-                tools:layout_editor_absoluteY="208dp" />
+                android:paddingStart="14dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtAddDui"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.116"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.937" />
 
             <EditText
-                android:id="@+id/editTextText13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtAddDui"
+                android:layout_width="240dp"
+                android:layout_height="40dp"
+                android:background="@drawable/imputtext"
                 android:ems="10"
                 android:hint="Dui del propietario"
                 android:inputType="text"
-                android:text="Name"
-                tools:layout_editor_absoluteX="22dp"
-                tools:layout_editor_absoluteY="287dp" />
+                android:paddingStart="14dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtAddServicio"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.116"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.947" />
 
             <EditText
-                android:id="@+id/editTextText14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/txtAddServicio"
+                android:layout_width="344dp"
+                android:layout_height="73dp"
+                android:background="@drawable/imputtext"
                 android:ems="10"
+                android:hint="Descripcion del servicio que se realizara"
                 android:inputType="text"
-                android:text="Name"
-                tools:layout_editor_absoluteX="25dp"
-                tools:layout_editor_absoluteY="425dp" />
+                android:paddingStart="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.484"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="384dp" />
+
+            <EditText
+                android:id="@+id/txtAddColor"
+                android:layout_width="240dp"
+                android:layout_height="40dp"
+                android:background="@drawable/imputtext"
+                android:ems="10"
+                android:hint="Color"
+                android:inputType="text"
+                android:paddingStart="14dp"
+                app:layout_constraintBottom_toTopOf="@+id/txtAddPropietario"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.116"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.921" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/btnRegistrarNuevoCarro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1000dp"
+                android:layout_marginTop="500dp"
                 android:layout_marginBottom="30dp"
-                android:text="Ingresar"
+                android:padding="20dp"
+                android:text="Registrar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.898"
