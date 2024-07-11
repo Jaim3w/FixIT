@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="PtcFixit.fix_it">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:allowClearUserData="true"
@@ -26,9 +28,6 @@
             android:exported="false" />
         <activity
             android:name=".ProveedorCardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".citas"
             android:exported="false" />
         <activity
             android:name=".Menu1Activity"
