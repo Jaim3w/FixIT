@@ -29,10 +29,10 @@ class RegisterAdmin : AppCompatActivity() {
             insets
         }
 
-        val CorreoAdmin=findViewById<EditText>(R.id.txtCorreoAdmin)
+        val CorreoAdmin=findViewById<EditText>(R.id.txtCorreoRegister)
         val ContrasenaAdmin=findViewById<EditText>(R.id.txtContrasenaAdmin)
-        val Registrar=findViewById<Button>(R.id.btnSiguienteAdmin1)
-        val Vercontrasena=findViewById<ImageView>(R.id.imgVercontraAdmin)
+        val Registrar=findViewById<Button>(R.id.btnSiguienteRegister)
+        val Vercontrasena=findViewById<ImageView>(R.id.imgVerContraRegister)
 
         fun hashSHA256(contrasenaEscrita: String):String{
             val bytes=MessageDigest.getInstance("SHA-256").digest(contrasenaEscrita.toByteArray())

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,10 @@ class crear_proveedores : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
+
+
         setupNavClickListeners()
 
 
@@ -31,6 +36,7 @@ class crear_proveedores : AppCompatActivity() {
             }
         })
     }
+    val txtduiproverdor = findViewById<TextView>(R.id.txtDuiProveedor)
 
     private fun setupNavClickListeners() {
         val navView = findViewById<View>(R.id.include_nav)
