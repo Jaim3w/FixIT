@@ -7,6 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RecuperarContraParte2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,8 +21,22 @@ class RecuperarContraParte2 : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val Nuevacontra=findViewById<EditText>(R.id.txtNuevaContrasena)
-        val Repetircontra=findViewById<EditText>(R.id.txtRepetir)
-        val btnGuardar=findViewById<Button>(R.id.btnGuardarNuevaContra)
+
+        val txtCorreo=findViewById<EditText>(R.id.txtCorreo)
+        val btnGuardar=findViewById<Button>(R.id.btnContinuar)
+
+        btnGuardar.setOnClickListener{
+            CoroutineScope(Dispatchers.Main).launch {
+                val correoIngresado=txtCorreo.text.toString()
+
+                val codigoRecu=(1000..9000).random()
+
+                EnviarRecuperacion(
+                    correoIngresado,
+                    "Recuperacion de contraseña",
+                    "Este es tu codigo de verificacion $codigoRecu"
+                )
+            }
+        }
     }
 }

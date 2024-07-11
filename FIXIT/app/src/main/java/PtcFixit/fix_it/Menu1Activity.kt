@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -18,10 +19,18 @@ class Menu1Activity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }
 
+        }
         setupNavClickListeners()
 
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@Menu1Activity, Menu1Activity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
     }
 
     private fun setupNavClickListeners() {
@@ -34,15 +43,20 @@ class Menu1Activity : AppCompatActivity() {
         val imgCitasnav = navView.findViewById<ImageView>(R.id.imgCitasnav)
 
         val clickListener = View.OnClickListener { v ->
-            val intent = when (v.id) {
-                R.id.imgHomenav -> Intent(this, Menu1Activity::class.java)
-                R.id.imgRepuestosnav -> Intent(this, repuestos_admin::class.java)
-                R.id.imgProveedoresnav -> Intent(this, proveedores_admin::class.java)
-                R.id.imgCarrosnav -> Intent(this, carros_admin::class.java)
-                R.id.imgCitasnav -> Intent(this, citas::class.java)
+            val currentActivity = this::class.java
+            val targetActivity = when (v.id) {
+                R.id.imgHomenav -> Menu1Activity::class.java
+                R.id.imgRepuestosnav -> repuestos_admin::class.java
+                R.id.imgProveedoresnav -> proveedores_admin::class.java
+                R.id.imgCarrosnav -> carros_admin::class.java
+                R.id.imgCitasnav -> citas::class.java
                 else -> null
             }
-            intent?.let { startActivity(it) }
+            if (targetActivity != null && currentActivity != targetActivity) {
+                val intent = Intent(this, targetActivity)
+                startActivity(intent)
+                finish()
+            }
         }
 
         imgHomenav.setOnClickListener(clickListener)
@@ -51,5 +65,4 @@ class Menu1Activity : AppCompatActivity() {
         imgCarrosnav.setOnClickListener(clickListener)
         imgCitasnav.setOnClickListener(clickListener)
     }
-
 }
