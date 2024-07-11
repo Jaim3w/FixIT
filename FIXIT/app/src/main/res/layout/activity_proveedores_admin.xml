@@ -70,8 +70,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvProveedores"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
+            android:layout_width="320dp"
+            android:layout_height="278dp"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="20dp" />
 
