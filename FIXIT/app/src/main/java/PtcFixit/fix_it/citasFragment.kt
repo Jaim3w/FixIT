@@ -1,6 +1,7 @@
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
+import PtcFixit.fix_it.CitasHelpers.tbCita
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -98,6 +99,26 @@ class citasFragment : Fragment() {
         return empleado
     }
 
+    fun obtenerDatos(): List<tbCita>{
+        val objConexion = ClaseConexion().cadenaConexion()
+        val statement = objConexion?.createStatement()
+        val resultSet = statement?.executeQuery("select * from Citas")!!
+
+        val listadoCitas = mutableListOf<tbCita>()
+
+        while (resultSet.next()){
+            val uuid = resultSet.getString("uuid")
+            val cliente = resultSet.getString("cliente")
+            val empleado = resultSet.getString("empleado")
+            val fecha = resultSet.getString("fecha")
+            val hora = resultSet.getString("hora")
+            val descripcion = resultSet.getString("descripcion")
+        }
+        return listadoCitas
+    }
+
+
+
 
 
     // TODO: Rename and change types of parameters
@@ -133,11 +154,13 @@ class citasFragment : Fragment() {
             val empleados = getEmpleados()
 
             withContext(Dispatchers.Main) {
-                val clienteAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, clientes)
+                val clienteAdapter =
+                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, clientes)
                 clienteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 txtClienteCita.adapter = clienteAdapter
 
-                val empleadoAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, empleados)
+                val empleadoAdapter =
+                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, empleados)
                 empleadoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 txtEmpleadoCita.adapter = empleadoAdapter
             }
@@ -156,7 +179,8 @@ class citasFragment : Fragment() {
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
                 { view, anioSeleccionado, mesSeleccionado, diaSeleccionado ->
-                    val fechaSeleccionada = "$diaSeleccionado/${mesSeleccionado + 1}/$anioSeleccionado"
+                    val fechaSeleccionada =
+                        "$diaSeleccionado/${mesSeleccionado + 1}/$anioSeleccionado"
                     txtFecha.setText(fechaSeleccionada)
                 },
                 anio, mes, dia
@@ -167,27 +191,27 @@ class citasFragment : Fragment() {
             datePickerDialog.show()
         }
 
-        txtHora.setOnClickListener{
+        txtHora.setOnClickListener {
             showTimePickerDialog(txtHora)
         }
 
         btnCrearCita.setOnClickListener {
-            if(txtFecha.text.toString().isEmpty() || txtHora.text.toString().isEmpty()
-                || txtDescripcion.text.toString().isEmpty())
-            {
+            if (txtFecha.text.toString().isEmpty() || txtHora.text.toString().isEmpty()
+                || txtDescripcion.text.toString().isEmpty()
+            ) {
                 Toast.makeText(
                     requireContext(),
                     "Por favor, complete todos los campos.",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
-            else{
-                GlobalScope.launch(Dispatchers.IO){
+            } else {
+                GlobalScope.launch(Dispatchers.IO) {
 
                     //1- Crear un objeto de la clase de conexion
                     val objConexion = ClaseConexion().cadenaConexion()
 
-                    val addCita = objConexion?.prepareStatement("INSERT INTO Cita (UUID_cita,Dui_cliente,Dui_empleado,Fecha_cita,Hora_cita,Descripcion) VALUES (!,!,!,!,!,!)")!!
+                    val addCita =
+                        objConexion?.prepareStatement("INSERT INTO Cita (UUID_cita,Dui_cliente,Dui_empleado,Fecha_cita,Hora_cita,Descripcion) VALUES (!,!,!,!,!,!)")!!
                     addCita.setString(1, UUID.randomUUID().toString())
                     addCita.setString(2, txtClienteCita.selectedItem.toString())
                     addCita.setInt(3, txtEmpleadoCita.selectedItem.toString().toInt())
@@ -197,36 +221,39 @@ class citasFragment : Fragment() {
 
                     addCita.executeUpdate()
 
+                    val nuevasCitas = obtenerDatos()
+
+                    withContext(Dispatchers.Main){
+                        (rcvDatos.adapter as? Adaptador)?.actualizarRecyclerView(nuevosProductos)
+                    }
+
                 }
+
+            }
+
 
         }
 
-
-
-    }
-
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment citasFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            citasFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        companion object {
+            /**
+             * Use this factory method to create a new instance of
+             * this fragment using the provided parameters.
+             *
+             * @param param1 Parameter 1.
+             * @param param2 Parameter 2.
+             * @return A new instance of fragment citasFragment.
+             */
+            // TODO: Rename and change types and number of parameters
+            @JvmStatic
+            fun newInstance(param1: String, param2: String) =
+                citasFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(ARG_PARAM1, param1)
+                        putString(ARG_PARAM2, param2)
+                    }
                 }
-            }
-    }
+        }
 
-}
+    }
 
 
