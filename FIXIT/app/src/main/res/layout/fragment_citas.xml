@@ -10,8 +10,8 @@
 
     <LinearLayout
         android:id="@+id/fondo"
-        android:layout_width="387dp"
-        android:layout_height="518dp"
+        android:layout_width="391dp"
+        android:layout_height="470dp"
         android:layout_margin="16dp"
         android:background="@drawable/card_citas"
         android:gravity="center"
@@ -83,7 +83,7 @@
         <Button
             android:id="@+id/btncitaTaller"
             android:layout_width="213dp"
-            android:layout_height="58dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:background="@drawable/btn2"
