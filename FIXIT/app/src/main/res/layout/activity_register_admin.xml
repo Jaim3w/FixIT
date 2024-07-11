@@ -29,22 +29,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.076" />
 
-    <EditText
-        android:id="@+id/txtNombreAdmin"
-        android:layout_width="311dp"
-        android:layout_height="49dp"
-        android:background="@drawable/imputtext"
-        android:ems="10"
-        android:hint="Nombres"
-        android:inputType="text"
-        android:paddingStart="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.231" />
-
     <Button
         android:id="@+id/btnSiguienteAdmin1"
         android:layout_width="186dp"
@@ -65,15 +49,15 @@
         android:layout_height="51dp"
         android:background="@drawable/imputtext"
         android:ems="10"
-        android:paddingStart="18dp"
         android:hint="Correo Electronico"
         android:inputType="text"
+        android:paddingStart="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintHorizontal_bias="0.356"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintVertical_bias="0.304" />
 
     <EditText
         android:id="@+id/txtContrasenaAdmin"
@@ -82,18 +66,18 @@
         android:layout_weight="1"
         android:background="@drawable/imputtext"
         android:ems="10"
-        android:paddingStart="18dp"
         android:hint="Contraseña"
         android:inputType="text"
+        android:paddingStart="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintHorizontal_bias="0.367"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.569" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imgVercontraAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
