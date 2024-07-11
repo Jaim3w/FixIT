@@ -29,6 +29,7 @@
                 android:textColor="@android:color/white" />
 
             <TextView
+                android:id="@+id/lblCliente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -37,27 +38,7 @@
         </LinearLayout>
 
         <!-- DUI en la misma línea -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dui:"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="16sp"
-                android:textColor="#F7C910"/>
-        </LinearLayout>
 
         <!-- Fecha en la misma línea -->
         <LinearLayout
@@ -75,6 +56,30 @@
                 android:textColor="@android:color/white"/>
 
             <TextView
+                android:id="@+id/lblFechaCita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hora:"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/lblHoraCita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"

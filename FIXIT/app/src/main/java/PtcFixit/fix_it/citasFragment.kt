@@ -220,11 +220,6 @@ class citasFragment : Fragment() {
                     addCita.setInt(6, txtDescripcion.text.toString().toInt())
 
                     addCita.executeUpdate()
-
-                    val nuevasCitas = obtenerDatos()
-
-                    withContext(Dispatchers.Main){
-                        (rcvDatos.adapter as? Adaptador)?.actualizarRecyclerView(nuevosProductos)
                     }
 
                 }
