@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.214" />
+        app:layout_constraintVertical_bias="0.237" />
 
     <ImageView
         android:id="@+id/imageView14"
@@ -49,50 +49,36 @@
 
 
     <Button
-        android:id="@+id/btnGuardarNuevaContra"
+        android:id="@+id/btnContinuar"
         android:layout_width="181dp"
         android:layout_height="50dp"
         android:background="@drawable/btn_amarillo"
         android:fontFamily="@font/istok_web"
-        android:text="Guardar"
+        android:text="Continuar"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="15sp"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.794" />
+        app:layout_constraintVertical_bias="0.646" />
 
     <EditText
-        android:id="@+id/txtRepetir"
+        android:id="@+id/txtCorreo"
         android:layout_width="299dp"
         android:layout_height="63dp"
         android:background="@drawable/imputtext"
         android:ems="10"
-        android:hint="   Repita Contraseña"
+        android:hint="Correo"
         android:inputType="text"
+        android:paddingStart="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.603" />
-
-    <EditText
-        android:id="@+id/txtNuevaContrasena"
-        android:layout_width="303dp"
-        android:layout_height="59dp"
-        android:background="@drawable/imputtext"
-        android:ems="10"
-        android:hint="   Nueva contraseña"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.419" />
+        app:layout_constraintVertical_bias="0.449" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
