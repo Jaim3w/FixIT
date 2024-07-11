@@ -220,11 +220,13 @@ class citasFragment : Fragment() {
                     addCita.setInt(6, txtDescripcion.text.toString().toInt())
 
                     addCita.executeUpdate()
+
                     }
 
                 }
 
             }
+        return root
 
 
         }
