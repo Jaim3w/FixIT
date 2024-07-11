@@ -24,6 +24,6 @@ class RecuperarContra : AppCompatActivity() {
         val txtNum4=findViewById<EditText>(R.id.txtCuartoNum)
         val btnContinuar=findViewById<Button>(R.id.btnContinuar)
 
-        
+
     }
 }
