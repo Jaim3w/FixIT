@@ -11,11 +11,13 @@ tools:context=".citas_fragment2">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="420dp"
-        android:layout_height="423dp"
+        android:id="@+id/rcvCitas"
+        android:layout_width="414dp"
+        android:layout_height="515dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background=""/>
+        app:layout_constraintVertical_bias="0.458" />
 </androidx.constraintlayout.widget.ConstraintLayout>
