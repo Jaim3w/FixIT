@@ -1,6 +1,7 @@
 package PtcFixit.fix_it
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -8,10 +9,12 @@ import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
 
 class proveedores_admin : AppCompatActivity() {
 
@@ -23,7 +26,10 @@ class proveedores_admin : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+
         }
+
+
 
         val btnAgregarNuevoProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
         val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
