@@ -42,7 +42,7 @@
             android:layout_height="40dp"
             android:layout_marginStart="100dp"
             android:layout_weight="1"
-            android:background="@drawable/style_buttom_detalle"
+            android:background="@drawable/wybtn"
             android:fontFamily="@font/barlow_medium"
             android:text="Ver más detalles"
             android:textSize="10sp" />
