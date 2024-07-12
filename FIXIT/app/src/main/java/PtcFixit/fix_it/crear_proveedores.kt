@@ -1,8 +1,11 @@
 package PtcFixit.fix_it
 
+import Modelo.ClaseConexion
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -11,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class crear_proveedores : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +28,31 @@ class crear_proveedores : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val txtDuiProv = findViewById<EditText>(R.id.txtDuiProveedor)
+        val txtNombreProv = findViewById<EditText>(R.id.txtNombreProveedor)
+        val txtApellidosProv = findViewById<EditText>(R.id.txtApellidosProveedor)
+        val txtTelefonoProv = findViewById<EditText>(R.id.txtTelefonoProveedor)
+        val txtCorreoProv = findViewById<EditText>(R.id.txtCorreoElectronicoProveedor)
+        val txtDireccionProv = findViewById<EditText>(R.id.txtDirecccionProveedor)
+        val btnAgregarProv = findViewById<Button>(R.id.btnAgregarProveedor)
+
+        btnAgregarProv.setOnClickListener{
+            CoroutineScope(Dispatchers.IO).launch {
+                val objConexion = ClaseConexion().cadenaConexion()
+
+                val addNombreProv = objConexion?.prepareStatement("insert into Proveedores (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) values (?, ?, ?, ?, ?, ?)")!!
+                addNombreProv.setString(1,txtDuiProv.text.toString())
+                addNombreProv.setString(2,txtNombreProv.text.toString())
+                addNombreProv.setString(3,txtApellidosProv.text.toString())
+                addNombreProv.setString(4,txtTelefonoProv.text.toString())
+                addNombreProv.setString(5,txtCorreoProv.text.toString())
+                addNombreProv.setString(6,txtDireccionProv.text.toString())
+                addNombreProv.executeUpdate()
+            }
+        }
+
+        //--------------------------------NAV-----------------------------------------------------------------------------
 
         setupNavClickListeners()
 
@@ -76,4 +107,5 @@ class crear_proveedores : AppCompatActivity() {
         imgCarrosnav.setOnClickListener(clickListener)
         imgCitasnav.setOnClickListener(clickListener)
     }
+
 }
