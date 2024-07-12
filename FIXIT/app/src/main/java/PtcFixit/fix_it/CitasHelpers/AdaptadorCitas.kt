@@ -26,7 +26,7 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
 
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            val pantallaDetalleCitas = Intent(context, detalle_citas::class.java)
+            //val pantallaDetalleCitas = Intent(context, detalle_citas::class.java)
 
 
 

@@ -1,6 +1,7 @@
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
+import PtcFixit.fix_it.CitasHelpers.AdaptadorCitas
 import PtcFixit.fix_it.CitasHelpers.tbCita
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -37,11 +38,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class citasFragment : Fragment() {
 
-    private lateinit var txtFecha: EditText
 
-    private lateinit var txtClienteCita: Spinner
-
-    private lateinit var txtEmpleadoCita: Spinner
 
     fun showTimePickerDialog(textView: EditText) {
         val cal = Calendar.getInstance()
@@ -172,9 +169,8 @@ class citasFragment : Fragment() {
             val mes = calendario.get(Calendar.MONTH)
             val dia = calendario.get(Calendar.DAY_OF_MONTH)
 
-            // Calcular la fecha máxima (hace 18 años a partir de hoy)
             val fechaMaxima = Calendar.getInstance()
-            fechaMaxima.set(anio, mes, dia + 1)
+            fechaMaxima.set(anio, mes, dia + 10)
 
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
@@ -206,31 +202,44 @@ class citasFragment : Fragment() {
                 ).show()
             } else {
                 GlobalScope.launch(Dispatchers.IO) {
-
                     //1- Crear un objeto de la clase de conexion
-                    val objConexion = ClaseConexion().cadenaConexion()
+                    try{
+                        val objConexion = ClaseConexion().cadenaConexion()
 
-                    val addCita =
-                        objConexion?.prepareStatement("INSERT INTO Cita (UUID_cita,Dui_cliente,Dui_empleado,Fecha_cita,Hora_cita,Descripcion) VALUES (!,!,!,!,!,!)")!!
-                    addCita.setString(1, UUID.randomUUID().toString())
-                    addCita.setString(2, txtClienteCita.selectedItem.toString())
-                    addCita.setInt(3, txtEmpleadoCita.selectedItem.toString().toInt())
-                    addCita.setInt(4, txtFecha.text.toString().toInt())
-                    addCita.setInt(5, txtHora.text.toString().toInt())
-                    addCita.setInt(6, txtDescripcion.text.toString().toInt())
+                        val addCita =
+                            objConexion?.prepareStatement("INSERT INTO Cita (UUID_cita,Dui_cliente,Dui_empleado,Fecha_cita,Hora_cita,Descripcion) VALUES (!,!,!,!,!,!)")!!
+                        addCita.setString(1, UUID.randomUUID().toString())
+                        addCita.setString(2, txtClienteCita.selectedItem.toString())
+                        addCita.setInt(3, txtEmpleadoCita.selectedItem.toString().toInt())
+                        addCita.setInt(4, txtFecha.text.toString().toInt())
+                        addCita.setInt(5, txtHora.text.toString().toInt())
+                        addCita.setInt(6, txtDescripcion.text.toString().toInt())
 
-                    addCita.executeUpdate()
+                        addCita.executeUpdate()
 
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Cita agendada exitosamente.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Error al agendar la cita: ${e.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
+                }
 
                 }
 
             }
         return root
-
-
-        }
-
+    }
         companion object {
             /**
              * Use this factory method to create a new instance of

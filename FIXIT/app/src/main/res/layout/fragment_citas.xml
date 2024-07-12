@@ -10,8 +10,8 @@
 
     <LinearLayout
         android:id="@+id/fondo"
-        android:layout_width="391dp"
-        android:layout_height="470dp"
+        android:layout_width="386dp"
+        android:layout_height="512dp"
         android:layout_margin="16dp"
         android:background="@drawable/card_citas"
         android:gravity="center"
