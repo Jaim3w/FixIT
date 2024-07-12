@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -24,11 +25,15 @@ class proveedores_admin : AppCompatActivity() {
 
         setupNavClickListeners()
 
-
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(this@proveedores_admin, Menu1Activity::class.java)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this@proveedores_admin,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         })
@@ -55,7 +60,12 @@ class proveedores_admin : AppCompatActivity() {
             }
             if (targetActivity != null && currentActivity != targetActivity) {
                 val intent = Intent(this, targetActivity)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         }
