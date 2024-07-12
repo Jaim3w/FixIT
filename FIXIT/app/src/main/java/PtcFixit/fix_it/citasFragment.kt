@@ -207,13 +207,13 @@ class citasFragment : Fragment() {
                         val objConexion = ClaseConexion().cadenaConexion()
 
                         val addCita =
-                            objConexion?.prepareStatement("INSERT INTO Cita (UUID_cita,Dui_cliente,Dui_empleado,Fecha_cita,Hora_cita,Descripcion) VALUES (!,!,!,!,!,!)")!!
+                            objConexion?.prepareStatement("INSERT INTO Cita (UUID_cita,Dui_cliente,Dui_empleado,Fecha_cita,Hora_cita,Descripcion) VALUES (?,?,?,?,?,?)")!!
                         addCita.setString(1, UUID.randomUUID().toString())
                         addCita.setString(2, txtClienteCita.selectedItem.toString())
-                        addCita.setInt(3, txtEmpleadoCita.selectedItem.toString().toInt())
-                        addCita.setInt(4, txtFecha.text.toString().toInt())
-                        addCita.setInt(5, txtHora.text.toString().toInt())
-                        addCita.setInt(6, txtDescripcion.text.toString().toInt())
+                        addCita.setString(3, txtEmpleadoCita.selectedItem.toString())
+                        addCita.setString(4, txtFecha.text.toString())
+                        addCita.setString(5, txtHora.text.toString())
+                        addCita.setString(6, txtDescripcion.text.toString())
 
                         addCita.executeUpdate()
 

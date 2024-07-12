@@ -10,8 +10,8 @@
 
     <LinearLayout
         android:id="@+id/fondo"
-        android:layout_width="386dp"
-        android:layout_height="512dp"
+        android:layout_width="387dp"
+        android:layout_height="572dp"
         android:layout_margin="16dp"
         android:background="@drawable/card_citas"
         android:gravity="center"
@@ -66,7 +66,7 @@
             android:background="@drawable/imputtext"
             android:ems="10"
             android:hint="Fecha"
-            android:inputType="text"
+            android:inputType="none"
             android:paddingStart="18dp" />
 
         <EditText
@@ -77,7 +77,7 @@
             android:background="@drawable/imputtext"
             android:ems="10"
             android:hint="Hora"
-            android:inputType="text"
+            android:inputType="none"
             android:paddingStart="18dp" />
 
         <EditText
