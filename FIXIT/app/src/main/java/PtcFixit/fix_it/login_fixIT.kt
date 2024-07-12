@@ -1,10 +1,23 @@
 package PtcFixit.fix_it
 
+import Modelo.ClaseConexion
+import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.DataInput
+import java.security.MessageDigest
 
 class login_fixIT : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +28,44 @@ class login_fixIT : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        val txtCorreoAdmin=findViewById<EditText>(R.id.txtCorreologin)
+        val txtContrasenaLogin=findViewById<EditText>(R.id.txtContrasena)
+        val imgVerContraLogin=findViewById<ImageView>(R.id.imgVerContraLogin)
+        val btnIniciar=findViewById<Button>(R.id.btnSiguienteLogin)
+
+        fun hashSHA256(input: String):String{
+            val bytes =MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+            return bytes.joinToString("") { "%02x".format(it) }
+        }
+
+        btnIniciar.setOnClickListener{
+            val pantallaPrincipal=Intent(this,Menu1Activity::class.java)
+
+            GlobalScope.launch(Dispatchers.IO){
+                val objconexion=ClaseConexion().cadenaConexion()
+                val contrasenaEncriptada=hashSHA256(txtContrasenaLogin.text.toString())
+
+                val comprobacion=objconexion?.prepareStatement("select * from Usuario where correoElectronico = ? and Contrasena = ?")!!
+                comprobacion.setString(1,txtCorreoAdmin.text.toString())
+                comprobacion.setString(2,contrasenaEncriptada)
+                val resultado=comprobacion.executeQuery()
+                if(resultado.next()){
+                    startActivity(pantallaPrincipal)
+                }else{
+                    withContext(Dispatchers.Main){
+                        Toast.makeText(this@login_fixIT, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                        println("contraseña $contrasenaEncriptada")
+                    }
+                }
+            }
+            imgVerContraLogin.setOnClickListener{
+                if (txtContrasenaLogin.inputType==InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD){
+                    txtContrasenaLogin.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                }else{
+                    txtContrasenaLogin.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                }
+            }
         }
     }
 }

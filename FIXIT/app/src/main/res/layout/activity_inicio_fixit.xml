@@ -15,7 +15,7 @@
         android:layout_marginStart="-6dp"
         android:layout_marginTop="-6dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView8"
-        app:layout_constraintEnd_toStartOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/imgVercontraAdmin"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
         app:srcCompat="@drawable/imgbienvenida1" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imgVercontraAdmin"
         android:layout_width="180dp"
         android:layout_height="240dp"
         android:paddingTop="0dp"
