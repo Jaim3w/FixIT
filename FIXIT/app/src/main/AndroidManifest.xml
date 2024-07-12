@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="PtcFixit.fix_it">
+    package="PtcFixit.fix_it" >
 
     <application
         android:allowBackup="true"
         android:allowClearUserData="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,8 +17,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FIXIT"
-        android:enableOnBackInvokedCallback="true"
-        tools:targetApi="34">
+        tools:targetApi="34" >
+        <activity
+            android:name=".carros_card"
+            android:exported="false" />
+        <activity
+            android:name=".carros_agregar_admin"
+            android:exported="false" />
+        <activity
+            android:name=".register_carros"
+            android:exported="false" />
+        <activity
+            android:name=".login_fixIT"
+            android:exported="false" />
         <activity
             android:name=".crear_proveedores"
             android:exported="false" />
@@ -62,7 +74,7 @@
             android:exported="false" />
         <activity
             android:name=".proveedores_admin"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
