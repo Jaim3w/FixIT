@@ -105,14 +105,12 @@ class citasFragment : Fragment() {
             val fechaNacimiento = resultSet.getString("FechaNacimiento")
             val telefono = resultSet.getString("Telefono")
 
-            val empleadoCompleto = dataClassEmpleados(dui,uuid_usuario,nombre,apellido)
+            val empleadoCompleto = dataClassEmpleados(dui,uuid_usuario,nombre,apellido,imgEmpleado,fechaNacimiento,telefono)
+
+            listadoEmpleado.add(empleadoCompleto)
         }
+        return listadoEmpleado
 
-        resultSet?.close()
-        statement?.close()
-        conexion?.close()
-
-        return empleado
     }
 
     fun obtenerDatos(): List<tbCita>{
@@ -166,18 +164,19 @@ class citasFragment : Fragment() {
         val btnCrearCita = root.findViewById<Button>(R.id.btnCrearCita)
 
         GlobalScope.launch(Dispatchers.IO) {
-            val clientes = getClientes()
-            val empleados = getEmpleados()
+            val listadoClientes = getClientes()
+            val listadoEmpleados = getEmpleados()
+            val nombreCliente = listadoClientes.map { it.Nombre }
+            val nombreEmpleado = listadoEmpleados.map { it.Nombre }
+
 
             withContext(Dispatchers.Main) {
                 val clienteAdapter =
-                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, clientes)
-                clienteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreCliente)
                 txtClienteCita.adapter = clienteAdapter
 
                 val empleadoAdapter =
-                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, empleados)
-                empleadoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreEmpleado)
                 txtEmpleadoCita.adapter = empleadoAdapter
             }
         }
@@ -225,11 +224,14 @@ class citasFragment : Fragment() {
                     try{
                         val objConexion = ClaseConexion().cadenaConexion()
 
+                        val cliente = getClientes()
+                        val empleado = getEmpleados()
+
                         val addCita =
                             objConexion?.prepareStatement("INSERT INTO Cita (UUID_cita,Dui_cliente,Dui_empleado,Fecha_cita,Hora_cita,Descripcion) VALUES (?,?,?,?,?,?)")!!
                         addCita.setString(1, UUID.randomUUID().toString())
-                        addCita.setString(2, txtClienteCita.selectedItem.toString())
-                        addCita.setString(3, txtEmpleadoCita.selectedItem.toString())
+                        addCita.setString(2,  cliente[txtClienteCita.selectedItemPosition].Dui_cliente)
+                        addCita.setString(3, empleado[txtEmpleadoCita.selectedItemPosition].Dui_empleado)
                         addCita.setString(4, txtFecha.text.toString())
                         addCita.setString(5, txtHora.text.toString())
                         addCita.setString(6, txtDescripcion.text.toString())
