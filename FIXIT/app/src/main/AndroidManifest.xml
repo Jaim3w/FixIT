@@ -18,6 +18,9 @@
         android:theme="@style/Theme.FIXIT"
         tools:targetApi="34">
         <activity
+            android:name=".Repuestos"
+            android:exported="false" />
+        <activity
             android:name=".RepuestosInformacion"
             android:exported="false" />
         <activity
