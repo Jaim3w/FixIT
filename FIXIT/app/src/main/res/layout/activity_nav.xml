@@ -12,71 +12,65 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="547dp"
-            android:layout_height="98dp"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/fondonav" />
 
         <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="104dp"
-            android:layout_height="106dp"
+            android:id="@+id/imgHomenav"
+            android:layout_width="94dp"
+            android:layout_height="97dp"
             android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.995"
+            app:layout_constraintVertical_bias="0.982"
             app:srcCompat="@drawable/inicio" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/imgRepuestosnav"
             android:layout_width="70dp"
             android:layout_height="62dp"
-            android:layout_marginStart="157dp"
             android:layout_marginBottom="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.039"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
+            app:layout_constraintStart_toEndOf="@+id/imgCarrosnav"
             app:srcCompat="@drawable/repuestosicon" />
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/imgProveedoresnav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="17dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imgCitasnav"
+            app:srcCompat="@drawable/proveedoresicon" />
+
+        <ImageView
+            android:id="@+id/imgCarrosnav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgCitasnav"
+            app:srcCompat="@drawable/carrosicon" />
+
+        <ImageView
+            android:id="@+id/imgCitasnav"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView8"
-            app:layout_constraintHorizontal_bias="0.551"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/proveedoresicon" />
-
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="17dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.721"
-            app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/carrosicon" />
-
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="17dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView9"
+            app:layout_constraintEnd_toStartOf="@+id/imgHomenav"
             app:srcCompat="@drawable/citasicon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
