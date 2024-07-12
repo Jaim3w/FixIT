@@ -36,6 +36,10 @@ class proveedores_admin : AppCompatActivity() {
         val btnAgregarNuevoProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
         val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
 
+        btnAgregarNuevoProveedor.setOnClickListener {
+            val intent = Intent(this, crear_proveedores::class.java)
+        }
+
         rcvProveedores.layoutManager = LinearLayoutManager(this)
 
         fun obtenerProveedores(): List<RCVproveedor> {
