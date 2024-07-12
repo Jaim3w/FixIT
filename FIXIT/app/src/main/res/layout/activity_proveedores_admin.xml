@@ -62,16 +62,16 @@
             android:id="@+id/btnAgregarProveedor"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="205dp"
-            android:background="@drawable/style_buttom_detalle"
-            android:text="Agregar proveedor"/>
+            android:layout_marginTop="15dp"
+            android:text="Agregar proveedor"
+            android:textSize="12dp"
+            android:background="@drawable/ybtn"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvProveedores"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
+            android:layout_width="320dp"
+            android:layout_height="278dp"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="20dp" />
 

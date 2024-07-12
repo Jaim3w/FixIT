@@ -3,6 +3,7 @@ package PtcFixit.fix_it
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 
 class proveedores_admin : AppCompatActivity() {
 
@@ -22,6 +24,11 @@ class proveedores_admin : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val btnAgregarNuevoProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
+        val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
+
+        //---------------------------NAV-------------------------------------------------------------------------
 
         setupNavClickListeners()
 
@@ -76,6 +83,7 @@ class proveedores_admin : AppCompatActivity() {
         imgCarrosnav.setOnClickListener(clickListener)
         imgCitasnav.setOnClickListener(clickListener)
     }
+
 }
 
 
