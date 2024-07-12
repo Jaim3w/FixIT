@@ -1,6 +1,8 @@
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
+import Modelo.dataClassClientes
+import Modelo.dataClassEmpleados
 import PtcFixit.fix_it.CitasHelpers.AdaptadorCitas
 import PtcFixit.fix_it.CitasHelpers.tbCita
 import android.app.DatePickerDialog
@@ -62,31 +64,48 @@ class citasFragment : Fragment() {
         timePickerDialog.show()
     }
 
-    fun getClientes(): List<String>{
-        val cliente = mutableListOf<String>()
+    fun getClientes(): List<dataClassClientes>{
         val conexion = ClaseConexion().cadenaConexion()
         val statement = conexion?.createStatement()
-        val resultSet = statement?.executeQuery("SELECT Nombre FROM Cliente")
+        val resultSet = statement?.executeQuery("SELECT * FROM Cliente")!!
 
-        while (resultSet?.next() == true) {
-            cliente.add(resultSet.getString("Nombre"))
+        val listadoClientes = mutableListOf<dataClassClientes>()
+
+        while (resultSet.next()) {
+            val dui = resultSet.getString("Dui_cliente")
+            val nombre = resultSet.getString("Nombre")
+            val apellido = resultSet.getString("Apellido")
+            val usuario = resultSet.getString("Usuario")
+            val contra = resultSet.getString("Contrasena")
+            val correo = resultSet.getString("Correo_Electronico")
+            val telefono = resultSet.getString("Telefono")
+
+            val clienteCompleto = dataClassClientes(dui,nombre,apellido,usuario,contra,correo,telefono)
+
+            listadoClientes.add(clienteCompleto)
+
         }
-
-        resultSet?.close()
-        statement?.close()
-        conexion?.close()
-
-        return cliente
+        return listadoClientes
     }
 
-    fun getEmpleados(): List<String>{
-        val empleado = mutableListOf<String>()
+    fun getEmpleados(): List<dataClassEmpleados>{
+
         val conexion = ClaseConexion().cadenaConexion()
         val statement = conexion?.createStatement()
-        val resultSet = statement?.executeQuery("SELECT Nombre FROM Empleado")
+        val resultSet = statement?.executeQuery("SELECT * FROM Empleado")!!
 
-        while (resultSet?.next() == true) {
-            empleado.add(resultSet.getString("Nombre"))
+        val listadoEmpleado = mutableListOf<dataClassEmpleados>()
+
+        while (resultSet.next()) {
+            val dui = resultSet.getString("Dui_empleado")
+            val uuid_usuario = resultSet.getString("UUID_usuario")
+            val nombre = resultSet.getString("Nombre")
+            val apellido = resultSet.getString("Apellido")
+            val imgEmpleado = resultSet.getString("ImagenEmpleado")
+            val fechaNacimiento = resultSet.getString("FechaNacimiento")
+            val telefono = resultSet.getString("Telefono")
+
+            val empleadoCompleto = dataClassEmpleados(dui,uuid_usuario,nombre,apellido)
         }
 
         resultSet?.close()
