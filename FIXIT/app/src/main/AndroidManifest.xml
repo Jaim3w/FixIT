@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="PtcFixit.fix_it" >
+    package="PtcFixit.fix_it">
 
     <application
         android:allowBackup="true"
@@ -16,16 +16,24 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FIXIT"
-        tools:targetApi="34" >
+        android:theme="@style/fixit"
+        tools:targetApi="34">
+
+        <activity
+            android:name=".splash_screen"
+            android:exported="true"
+            android:theme="@style/fixit"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".carros_card"
             android:exported="false" />
         <activity
             android:name=".carros_agregar_admin"
-            android:exported="false" />
-        <activity
-            android:name=".register_carros"
             android:exported="false" />
         <activity
             android:name=".login_fixIT"
@@ -74,12 +82,7 @@
             android:exported="false" />
         <activity
             android:name=".proveedores_admin"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
         <activity
             android:name=".repuestos_admin"
