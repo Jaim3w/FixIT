@@ -121,7 +121,6 @@
                 android:id="@+id/txtAddMarca"
                 android:layout_width="240dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="16dp"
                 android:background="@drawable/imputtext"
                 android:ems="10"
                 android:hint="Marca"
@@ -129,9 +128,11 @@
                 android:paddingStart="14dp"
                 android:textColorHint="#B5B5B5"
                 app:layout_constraintBottom_toTopOf="@+id/txtAddModelo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.116"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.819" />
+                app:layout_constraintVertical_bias="0.818" />
 
             <EditText
                 android:id="@+id/txtAddModelo"
