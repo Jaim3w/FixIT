@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -22,21 +23,21 @@ class crear_proveedores : AppCompatActivity() {
             insets
         }
 
-
-
-
         setupNavClickListeners()
-
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(this@crear_proveedores, Menu1Activity::class.java)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this@crear_proveedores,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         })
     }
-    val txtduiproverdor = findViewById<TextView>(R.id.txtDuiProveedor)
 
     private fun setupNavClickListeners() {
         val navView = findViewById<View>(R.id.include_nav)
@@ -59,7 +60,12 @@ class crear_proveedores : AppCompatActivity() {
             }
             if (targetActivity != null && currentActivity != targetActivity) {
                 val intent = Intent(this, targetActivity)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         }

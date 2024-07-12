@@ -33,7 +33,7 @@
         app:srcCompat="@drawable/pag11" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imgVercontraAdmin"
         android:layout_width="760dp"
         android:layout_height="731dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +76,7 @@
         android:id="@+id/imageView4"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/imgVercontraAdmin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

@@ -7,8 +7,10 @@ import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type
 
 class carros_admin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,17 +18,21 @@ class carros_admin : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_carros_admin)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val systemBars = insets.getInsets(Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
         setupNavClickListeners()
 
-
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(this@carros_admin, Menu1Activity::class.java)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this@carros_admin,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         })
@@ -53,7 +59,12 @@ class carros_admin : AppCompatActivity() {
             }
             if (targetActivity != null && currentActivity != targetActivity) {
                 val intent = Intent(this, targetActivity)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         }

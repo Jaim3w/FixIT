@@ -29,21 +29,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.076" />
 
-    <EditText
-        android:id="@+id/txtNombreRegister"
-        android:layout_width="311dp"
-        android:layout_height="49dp"
-        android:background="@drawable/imputtext"
-        android:ems="10"
-        android:hint="Nombres"
-        android:inputType="text"
-        android:paddingStart="18dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.231" />
 
     <Button
         android:id="@+id/btnSiguienteRegister"
@@ -65,32 +50,31 @@
         android:layout_height="51dp"
         android:background="@drawable/imputtext"
         android:ems="10"
-        android:paddingStart="18dp"
         android:hint="Correo Electronico"
         android:inputType="text"
+        android:paddingStart="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintHorizontal_bias="0.356"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintVertical_bias="0.304" />
 
     <EditText
-        android:id="@+id/txtContrasenaRegister"
-        android:layout_width="313dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"
+        android:id="@+id/txtContrasenaAdmin"
+        android:layout_width="310dp"
+        android:layout_height="51dp"
         android:background="@drawable/imputtext"
         android:ems="10"
-        android:paddingStart="18dp"
         android:hint="Contraseña"
-        android:inputType="textPassword"
+        android:inputType="text"
+        android:paddingStart="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintHorizontal_bias="0.356"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569" />
+        app:layout_constraintVertical_bias="0.479" />
 
     <ImageView
         android:id="@+id/imgVerContraRegister"
@@ -99,10 +83,10 @@
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
+        app:layout_constraintHorizontal_bias="0.801"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.564"
+        app:layout_constraintVertical_bias="0.485"
         app:srcCompat="@drawable/imgver_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
