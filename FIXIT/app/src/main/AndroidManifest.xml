@@ -80,6 +80,10 @@
         <activity
             android:name=".CodigoTaller"
             android:exported="false" />
+        <activity
+            android:name=".splash_screen"
+            android:exported="true"
+            android:theme="@style/fixit"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -3,8 +3,8 @@ package PtcFixit.fix_it
 import Modelo.ClaseConexion
 import Modelo.dataClassClientes
 import Modelo.dataClassEmpleados
-import PtcFixit.fix_it.CitasHelpers.AdaptadorCitas
-import PtcFixit.fix_it.CitasHelpers.tbCita
+import CitasHelpers.AdaptadorCitas
+import CitasHelpers.tbCita
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle

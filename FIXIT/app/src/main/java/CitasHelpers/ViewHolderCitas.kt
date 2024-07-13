@@ -1,4 +1,4 @@
-package PtcFixit.fix_it.CitasHelpers
+package CitasHelpers
 
 import PtcFixit.fix_it.R
 import android.view.View

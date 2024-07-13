@@ -1,5 +1,6 @@
 package PtcFixit.fix_it
 
+import CitasHelpers.tbCita
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -56,4 +57,7 @@ class citas_fragment2 : Fragment() {
                 }
             }
     }
+
+
+
 }
