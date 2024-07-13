@@ -1,14 +1,25 @@
 package PtcFixit.fix_it
 
+import Modelo.ClaseConexion
+import Modelo.RCVproveedor
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import reccyclerviewherlperProveedores.Adaptador
 
 class proveedores_admin : AppCompatActivity() {
 
@@ -22,40 +33,93 @@ class proveedores_admin : AppCompatActivity() {
             insets
         }
 
+        val btnAgregarNuevoProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
+        val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
+
+        rcvProveedores.layoutManager = LinearLayoutManager(this)
+
+        fun obtenerProveedores(): List<RCVproveedor> {
+            val objConexion = ClaseConexion().cadenaConexion()
+
+            val statement = objConexion?.createStatement()
+            val resultSet = statement?.executeQuery("select * from Proveedores")!!
+
+            val ListaProveedores = mutableListOf<RCVproveedor>()
+
+            while (resultSet.next()) {
+                val nombreProv = resultSet.getString("Nombre")
+                val telefonoProv = resultSet.getString("Telefono")
+
+                val valoresCard = RCVproveedor(nombreProv, telefonoProv)
+                ListaProveedores.add(valoresCard)
+            }
+            return ListaProveedores
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val proveedoresDB = obtenerProveedores()
+            withContext(Dispatchers.Main) {
+                val adapterProv = Adaptador(proveedoresDB)
+                rcvProveedores.adapter = adapterProv
+            }
+        }
+
+        //---------------------------NAV-------------------------------------------------------------------------
+
         setupNavClickListeners()
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@proveedores_admin, Menu1Activity::class.java)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this@proveedores_admin,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
+                finish()
+            }
+        })
     }
 
     private fun setupNavClickListeners() {
         val navView = findViewById<View>(R.id.include_nav)
 
-        val imageView6 = navView.findViewById<ImageView>(R.id.imageView6)
-        val imageView8 = navView.findViewById<ImageView>(R.id.imageView8)
-        val imageView7 = navView.findViewById<ImageView>(R.id.imageView7)
-        val imageView9 = navView.findViewById<ImageView>(R.id.imageView9)
-        val imageView10 = navView.findViewById<ImageView>(R.id.imageView10)
+        val imgHomenav = navView.findViewById<ImageView>(R.id.imgHomenav)
+        val imgRepuestosnav = navView.findViewById<ImageView>(R.id.imgRepuestosnav)
+        val imgProveedoresnav = navView.findViewById<ImageView>(R.id.imgProveedoresnav)
+        val imgCarrosnav = navView.findViewById<ImageView>(R.id.imgCarrosnav)
+        val imgCitasnav = navView.findViewById<ImageView>(R.id.imgCitasnav)
 
         val clickListener = View.OnClickListener { v ->
-            val intent = when (v.id) {
-                R.id.imageView6 -> Intent(this, MenuAdmin::class.java)
-                R.id.imageView8 -> Intent(this, repuestos_admin::class.java)
-                R.id.imageView7 -> Intent(this, proveedores_admin::class.java)
-                R.id.imageView9 -> Intent(this, carros_admin::class.java)
-                R.id.imageView10 -> Intent(this, citas::class.java)
+            val currentActivity = this::class.java
+            val targetActivity = when (v.id) {
+                R.id.imgHomenav -> Menu1Activity::class.java
+                R.id.imgRepuestosnav -> repuestos_admin::class.java
+                R.id.imgProveedoresnav -> proveedores_admin::class.java
+                R.id.imgCarrosnav -> carros_admin::class.java
+                R.id.imgCitasnav -> citas::class.java
                 else -> null
             }
-            intent?.let { startActivity(it) }
+            if (targetActivity != null && currentActivity != targetActivity) {
+                val intent = Intent(this, targetActivity)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
+                finish()
+            }
         }
 
-        imageView6.setOnClickListener(clickListener)
-        imageView8.setOnClickListener(clickListener)
-        imageView7.setOnClickListener(clickListener)
-        imageView9.setOnClickListener(clickListener)
-        imageView10.setOnClickListener(clickListener)
+        imgHomenav.setOnClickListener(clickListener)
+        imgRepuestosnav.setOnClickListener(clickListener)
+        imgProveedoresnav.setOnClickListener(clickListener)
+        imgCarrosnav.setOnClickListener(clickListener)
+        imgCitasnav.setOnClickListener(clickListener)
     }
 
-
 }
-
 
 

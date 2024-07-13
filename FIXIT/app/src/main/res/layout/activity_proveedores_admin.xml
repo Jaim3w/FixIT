@@ -15,6 +15,71 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+    <LinearLayout
+        android:id="@+id/fondo"
+        android:layout_width="375dp"
+        android:layout_height="452dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/card_citas"
+        android:orientation="vertical"
+        android:paddingVertical="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.468" >
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="90dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Lista de proveedores"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/fondo" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="340dp"
+            android:layout_height="wrap_content"
+            android:background="#979494"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:srcCompat="@drawable/imgmenuadmin2" />
+
+        <Button
+            android:id="@+id/btnAgregarProveedor"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="205dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/wybtn"
+            android:text="Agregar proveedor"
+            android:textSize="10dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvProveedores"
+            android:layout_width="320dp"
+            android:layout_height="278dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp" />
+
+
+    </LinearLayout>
+
+
+
     <include
         android:id="@+id/include_nav"
         layout="@layout/activity_nav"
