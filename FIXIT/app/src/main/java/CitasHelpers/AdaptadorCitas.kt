@@ -18,24 +18,12 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
 
         return ViewHolderCitas(vista)
 
+
+
     }
 
     override fun getItemCount() = Datos.size
 
-    override fun onBindViewHolder(holder: ViewHolderCitas, position: Int) {
-        val item =Datos[position]
-        holder.lblcliente.text =item.cliente
-        holder.lblFecha.text = item.fecha
-        holder.lblHora.text = item.hora
-
-        holder.itemView.setOnClickListener {
-            val context = holder.itemView.context
-            //val pantallaDetalleCitas = Intent(context, detalle_citas::class.java)
-
-
-
-        }
-    }
 
     fun actualizarCitaRecyclerView(nuevaLista: List<tbCita>){
         Datos = nuevaLista
@@ -48,17 +36,61 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
 
         GlobalScope.launch(Dispatchers.IO){
 
-            val objConexion = ClaseConexion.cade()
+            val objConexion = ClaseConexion().cadenaConexion()
 
             //2- Creo una variable que contenga un PrepareStatement
-            val deleteProducto = objConexion?.prepareStatement("delete tbProductos1 where nombreProducto = ?")!!
-            deleteProducto.setString(1, nombreProducto)
-            deleteProducto.executeUpdate()
+            val deleteCita = objConexion?.prepareStatement("delete Cita where Fecha_cita = ?")!!
+            deleteCita.setString(1, fecha)
+            deleteCita.executeUpdate()
 
             val commit = objConexion.prepareStatement("commit")
             commit.executeUpdate()
         }
+        Datos = listadoDatos.toList()
+
+        notifyItemRemoved(posicion)
+        notifyDataSetChanged()
     }
 
+    fun actualizarListadoDespuesDeEditar(uuid: String, nuevaFecha: String, hora:String){
+
+        val identificador = Datos.indexOfFirst { it.uuid == uuid }
+
+        Datos[identificador].fecha = nuevaFecha
+        Datos[identificador].hora = hora
+
+        notifyItemChanged(identificador)
+    }
+
+    fun editarCita(fecha:String, hora:String, uuid:String){
+        GlobalScope.launch(Dispatchers.IO){
+            //1- Creo un objeto de la clase conexion
+            val objConexion = ClaseConexion().cadenaConexion()
+
+            //2- Creo una variable que contenga un PrepareStatement
+            val updateCita = objConexion?.prepareStatement("update Cita set Fecha_cita = ? , Hora_cita = ?  where uuid_cita = ?")!!
+            updateCita.setString(1, fecha)
+            updateCita.setString(2, hora)
+            updateCita.setString(3, uuid)
+            updateCita.executeUpdate()
+
+            val commit = objConexion.prepareStatement("commit")
+            commit.executeUpdate()
+        }
+
+    }
+
+    override fun onBindViewHolder(holder: ViewHolderCitas, position: Int) {
+
+        val cita = Datos[position]
+        holder.lblcliente.text = cita.cliente
+        holder.lblFecha.text = cita.fecha
+        holder.lblHora.text = cita.hora
+
+    }
+
+    holder.imgeditar.setOnClickListener{
+
+    }
 
 }
