@@ -3,6 +3,8 @@
     <style name="fixit" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <style name="Theme.fixit" parent="Base.Theme.fixit" />
     </style>
+
 
 </resources>
