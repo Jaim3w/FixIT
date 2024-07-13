@@ -39,7 +39,7 @@ import javax.mail.internet.MimeMessage
             }
             Transport.send(message)
             println("Correo enviado exitosamente")
-        }catch (e:MessagingException){
+        }catch (e:Exception){
             e.printStackTrace()
             println("correo no enviado,error: ${e.message}")
         }
