@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AgregarCarros">
+
+    <LinearLayout
+        android:id="@+id/fondo"
+        android:layout_width="388dp"
+        android:layout_height="434dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/card_citas"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Ingresa los datos"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/txtNumplaca"
+                    android:layout_width="346dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/imputtext"
+                    android:ems="10"
+                    android:hint="Numero de placa"
+                    android:inputType="text"
+                    android:paddingStart="18dp" />
+
+                <Spinner
+                    android:id="@+id/spDuiCliente"
+                    android:layout_width="345dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="34dp" />
+
+                <Spinner
+                    android:id="@+id/spModelo"
+                    android:layout_width="345dp"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="34dp" />
+
+                <EditText
+                    android:id="@+id/txtColorVehiculo"
+                    android:layout_width="346dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/imputtext"
+                    android:ems="10"
+                    android:hint="Color del Vehiculo"
+                    android:inputType="text"
+                    android:paddingStart="18dp" />
+
+                <EditText
+                    android:id="@+id/txtanioVehiculo"
+                    android:layout_width="346dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/imputtext"
+                    android:ems="10"
+                    android:hint="Año del vehiculo"
+                    android:inputType="text"
+                    android:paddingStart="18dp" />
+
+                <EditText
+                    android:id="@+id/txtFechaIngreso"
+                    android:layout_width="346dp"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/imputtext"
+                    android:ems="10"
+                    android:hint="Fehca de ingreso"
+                    android:inputType="text"
+                    android:paddingStart="18dp" />
+
+                <EditText
+                    android:id="@+id/txtDescripcionVehiculo"
+                    android:layout_width="346dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/imputtext"
+                    android:ems="10"
+                    android:hint="Descripcion"
+                    android:inputType="text"
+                    android:paddingStart="18dp" />
+
+                <!-- Nuevo TextView para subir imagen -->
+                <TextView
+                    android:id="@+id/txtpequeñadescripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Sube una imagen del Vehiculo"
+                    android:textColor="#888888"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imgCarro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:src="@tools:sample/avatars" />
+
+                <!-- LinearLayout para los dos botones -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp">
+
+                    <Button
+                        android:id="@+id/btnSubirImagen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/wybtn"
+                        android:text="Subir Imagen"
+                        android:textAllCaps="false"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/btnTomarFoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/wybtn"
+                        android:text="Tomar Foto"
+                        android:textAllCaps="false"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnGuardarVehiculo"
+                    android:layout_width="213dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/wybtn"
+                    android:text="Guardar"
+                    android:textAllCaps="false"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

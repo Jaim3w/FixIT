@@ -10,8 +10,8 @@
 
     <LinearLayout
         android:id="@+id/fondo"
-        android:layout_width="413dp"
-        android:layout_height="473dp"
+        android:layout_width="378dp"
+        android:layout_height="481dp"
         android:layout_margin="16dp"
         android:background="@drawable/card_citas"
         android:gravity="center"
@@ -61,7 +61,7 @@
                     android:layout_marginBottom="34dp" />
 
                 <EditText
-                    android:id="@+id/editTextText11"
+                    android:id="@+id/txtFecha"
                     android:layout_width="346dp"
                     android:layout_height="50dp"
                     android:layout_marginBottom="20dp"
