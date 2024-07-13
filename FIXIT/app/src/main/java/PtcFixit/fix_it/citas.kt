@@ -19,7 +19,7 @@ class citas : AppCompatActivity() {
             insets
         }
         val txtCrearCita = findViewById<TextView>(R.id.txtcrearCita)
-        val txtCitaspendientes = findViewById<TextView>(R.id.txtCitasPendientes)
+        val txtCitaspendientes = findViewById<TextView>(R.id.txtAll)
 
         replaceFragment(citasFragment())
 
