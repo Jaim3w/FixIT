@@ -318,8 +318,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/ybtn"
-                android:text="Cancelar" />
+                android:background="@drawable/wybtn"
+                android:text="Cancelar"
+                android:textSize="11dp"/>
 
             <Button
                 android:id="@+id/buttonGuardar"
@@ -328,7 +329,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/wybtn"
-                android:text="Guardar cambios" />
+                android:text="Guardar cambios"
+                android:textSize="11dp"
+                />
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -17,11 +17,13 @@ import javax.mail.internet.MimeMessage
     suspend fun EnviarRecuperacion(receptor:String,asunto:String,mensaje:String) = withContext(Dispatchers.IO) {
 
         val props=Properties().apply {
-            put("mail.smtp.host","smtp.gmail.com")
-            put("mail.smtp.socketFactory.port","465")
-            put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory")
+            //put("mail.smtp.host","smtp.gmail.com")
+          //  put("mail.smtp.socketFactory.port","465")
+          //  put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory")
             put("mail.smtp.auth","true")
-            put("mail.smtp.port","465")
+            put("mail.smtp.port","587")
+            put("mail.smtp.starttls.enable","true")
+            put("mail.smtp.host","smtp.gmail.com")
         }
 
         val session=javax.mail.Session.getInstance(props,object :javax.mail.Authenticator(){
@@ -39,7 +41,7 @@ import javax.mail.internet.MimeMessage
             }
             Transport.send(message)
             println("Correo enviado exitosamente")
-        }catch (e:MessagingException){
+        }catch (e:Exception){
             e.printStackTrace()
             println("correo no enviado,error: ${e.message}")
         }

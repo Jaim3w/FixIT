@@ -1,5 +1,6 @@
 package PtcFixit.fix_it
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -12,6 +13,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RecuperarContraParte2 : AppCompatActivity() {
+    companion object variablesGlobales{
+        lateinit var correoIngresado : String
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,16 +25,14 @@ class RecuperarContraParte2 : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         val txtCorreo=findViewById<EditText>(R.id.txtCorreo)
-        val btnGuardar=findViewById<Button>(R.id.btnContinuar)
-
-        btnGuardar.setOnClickListener{
+        val btnContinuar=findViewById<Button>(R.id.btnContinuar)
+        btnContinuar.setOnClickListener{
+            val intent=Intent(this,RecuperarContra::class.java)
             CoroutineScope(Dispatchers.Main).launch {
-                val correoIngresado=txtCorreo.text.toString()
-
+                correoIngresado=txtCorreo.text.toString()
+                startActivity(intent)
                 val codigoRecu=(1000..9000).random()
-
                 EnviarRecuperacion(
                     correoIngresado,
                     "Recuperacion de contraseña",
