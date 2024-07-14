@@ -2,6 +2,7 @@ package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
 import Modelo.RCVproveedor
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -40,8 +41,9 @@ class crear_proveedores : AppCompatActivity() {
         val txtDireccionProv = findViewById<EditText>(R.id.txtDirecccionProveedor)
         val btnIngresarProv = findViewById<Button>(R.id.btnIngresarProveedor)
 
-        btnIngresarProv.setOnClickListener{
+        btnIngresarProv.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
+<<<<<<< HEAD
                     val objConexion = ClaseConexion().cadenaConexion()
                     val addNombreProv = objConexion?.prepareStatement("insert into Proveedor (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) values (?, ?, ?, ?, ?, ?)")!!
                     addNombreProv.setString(1, txtDuiProv.text.toString())
@@ -51,12 +53,33 @@ class crear_proveedores : AppCompatActivity() {
                     addNombreProv.setString(5, txtCorreoProv.text.toString())
                     addNombreProv.setString(6, txtDireccionProv.text.toString())
                     addNombreProv.executeUpdate()
+=======
+                val objConexion = ClaseConexion().cadenaConexion()
+                val addNombreProv = objConexion?.prepareStatement(
+                    "INSERT INTO Proveedores (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) VALUES (?, ?, ?, ?, ?, ?)"
+                )!!
+                addNombreProv.setString(1, txtDuiProv.text.toString())
+                addNombreProv.setString(2, txtNombreProv.text.toString())
+                addNombreProv.setString(3, txtApellidosProv.text.toString())
+                addNombreProv.setString(4, txtTelefonoProv.text.toString())
+                addNombreProv.setString(5, txtCorreoProv.text.toString())
+                addNombreProv.setString(6, txtDireccionProv.text.toString())
+                addNombreProv.executeUpdate()
+
+                // Return to previous activity with result
+                withContext(Dispatchers.Main) {
+                    setResult(Activity.RESULT_OK)
+                    finish()
+                }
+>>>>>>> 4ac6ed41f162daa8efdc325de130439c7695f3ce
             }
 
             val intent = Intent(this, proveedores_admin::class.java)
             startActivity(intent)
 
         }
+
+
 
         //--------------------------------NAV-----------------------------------------------------------------------------
 

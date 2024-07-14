@@ -2,6 +2,7 @@ package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
 import Modelo.RCVproveedor
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -26,8 +27,12 @@ import java.sql.SQLException
 
 class proveedores_admin : AppCompatActivity() {
 
+<<<<<<< HEAD
     private lateinit var rcvProveedores: RecyclerView
     private lateinit var adapterProv: Adaptador
+=======
+    private val REQUEST_CODE_CREAR_PROVEEDOR = 1
+>>>>>>> 4ac6ed41f162daa8efdc325de130439c7695f3ce
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,22 +46,40 @@ class proveedores_admin : AppCompatActivity() {
 
         val btnAgregarNuevoProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
         val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
+        rcvProveedores.layoutManager = LinearLayoutManager(this)
 
         btnAgregarNuevoProveedor.setOnClickListener {
             val intent = Intent(this, crear_proveedores::class.java)
             startActivity(intent)
         }
 
+<<<<<<< HEAD
         rcvProveedores.layoutManager = LinearLayoutManager(this)
         adapterProv = Adaptador(emptyList())
         rcvProveedores.adapter = adapterProv
+=======
+        cargarProveedores()
+    }
+>>>>>>> 4ac6ed41f162daa8efdc325de130439c7695f3ce
 
-        fun obtenerProveedores(): List<RCVproveedor> {
-            val objConexion = ClaseConexion().cadenaConexion()
-            if (objConexion == null) {
-                Log.e("obtenerProveedores", "Fallo al obtener la conexión")
-                return emptyList()
+    private fun obtenerProveedores(): List<RCVproveedor> {
+        val objConexion = ClaseConexion().cadenaConexion() ?: return emptyList()
+        val statement = objConexion.createStatement()
+        val resultSet = statement.executeQuery("SELECT * FROM Proveedores")
+        val listaProveedores = mutableListOf<RCVproveedor>()
+
+        try {
+            while (resultSet.next()) {
+                val duiProv = resultSet.getString("Dui_proveedor")
+                val nombreProv = resultSet.getString("Nombre")
+                val apellidoProv = resultSet.getString("Apellido")
+                val telefonoProv = resultSet.getString("Telefono")
+                val correoProv = resultSet.getString("Correo_Proveedor")
+                val direccionProv = resultSet.getString("Direccion")
+                val valoresCard = RCVproveedor(duiProv, nombreProv, apellidoProv, telefonoProv, correoProv, direccionProv)
+                listaProveedores.add(valoresCard)
             }
+<<<<<<< HEAD
 
             val statement = objConexion.createStatement()
             if (statement == null) {
@@ -89,17 +112,43 @@ class proveedores_admin : AppCompatActivity() {
             }
 
             return listaProveedores
+=======
+        } catch (e: SQLException) {
+            Log.e("obtenerProveedores", "Error al obtener proveedores: ${e.message}")
+        } finally {
+            resultSet.close()
+            statement.close()
+            objConexion.close()
+>>>>>>> 4ac6ed41f162daa8efdc325de130439c7695f3ce
         }
 
+        return listaProveedores
+    }
+
+
+    private fun cargarProveedores() {
         CoroutineScope(Dispatchers.IO).launch {
             val proveedoresDB = obtenerProveedores()
             withContext(Dispatchers.Main) {
                 val adapterProv = Adaptador(proveedoresDB)
                 rcvProveedores.adapter = adapterProv
+<<<<<<< HEAD
 
                 (rcvProveedores.adapter as? Adaptador)?.actualizarRecyclerView(proveedoresDB)
+=======
+>>>>>>> 4ac6ed41f162daa8efdc325de130439c7695f3ce
             }
         }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_CREAR_PROVEEDOR && resultCode == Activity.RESULT_OK) {
+            cargarProveedores()
+        }
+
+    }
 
 
 
