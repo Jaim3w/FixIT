@@ -61,7 +61,7 @@
                     android:layout_marginBottom="34dp" />
 
                 <EditText
-                    android:id="@+id/editTextText11"
+                    android:id="@+id/fechaCita"
                     android:layout_width="346dp"
                     android:layout_height="50dp"
                     android:layout_marginBottom="20dp"
@@ -72,7 +72,7 @@
                     android:paddingStart="18dp" />
 
                 <EditText
-                    android:id="@+id/editTextText12"
+                    android:id="@+id/descripcionCita"
                     android:layout_width="346dp"
                     android:layout_height="50dp"
                     android:layout_marginBottom="20dp"
