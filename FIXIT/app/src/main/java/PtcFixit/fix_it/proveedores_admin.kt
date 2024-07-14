@@ -4,6 +4,7 @@ import Modelo.ClaseConexion
 import Modelo.RCVproveedor
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -20,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import reccyclerviewherlperProveedores.Adaptador
+import java.sql.SQLException
 
 class proveedores_admin : AppCompatActivity() {
 
@@ -36,24 +38,47 @@ class proveedores_admin : AppCompatActivity() {
         val btnAgregarNuevoProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
         val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
 
+        btnAgregarNuevoProveedor.setOnClickListener {
+            val intent = Intent(this, crear_proveedores::class.java)
+            startActivity(intent)
+        }
+
         rcvProveedores.layoutManager = LinearLayoutManager(this)
 
         fun obtenerProveedores(): List<RCVproveedor> {
             val objConexion = ClaseConexion().cadenaConexion()
-
-            val statement = objConexion?.createStatement()
-            val resultSet = statement?.executeQuery("select * from Proveedores")!!
-
-            val ListaProveedores = mutableListOf<RCVproveedor>()
-
-            while (resultSet.next()) {
-                val nombreProv = resultSet.getString("Nombre")
-                val telefonoProv = resultSet.getString("Telefono")
-
-                val valoresCard = RCVproveedor(nombreProv, telefonoProv)
-                ListaProveedores.add(valoresCard)
+            if (objConexion == null) {
+                Log.e("obtenerProveedores", "Fallo al obtener la conexión")
+                return emptyList()
             }
-            return ListaProveedores
+
+            val statement = objConexion.createStatement()
+            if (statement == null) {
+                Log.e("obtenerProveedores", "Fallo al crear el statement")
+                objConexion.close()
+                return emptyList()
+            }
+
+            val resultSet = statement.executeQuery("select * from Proveedores")
+            val listaProveedores = mutableListOf<RCVproveedor>()
+
+            try {
+                while (resultSet.next()) {
+                    val nombreProv = resultSet.getString("Nombre")
+                    val telefonoProv = resultSet.getString("Telefono")
+
+                    val valoresCard = RCVproveedor(nombreProv, telefonoProv)
+                    listaProveedores.add(valoresCard)
+                }
+            } catch (e: SQLException) {
+                Log.e("obtenerProveedores", "Error al obtener proveedores: ${e.message}")
+            } finally {
+                resultSet.close()
+                statement.close()
+                objConexion.close()
+            }
+
+            return listaProveedores
         }
 
         CoroutineScope(Dispatchers.IO).launch {

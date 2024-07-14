@@ -35,9 +35,9 @@ class crear_proveedores : AppCompatActivity() {
         val txtTelefonoProv = findViewById<EditText>(R.id.txtTelefonoProveedor)
         val txtCorreoProv = findViewById<EditText>(R.id.txtCorreoElectronicoProveedor)
         val txtDireccionProv = findViewById<EditText>(R.id.txtDirecccionProveedor)
-        val btnAgregarProv = findViewById<Button>(R.id.btnAgregarProveedor)
+        val btnIngresarProv = findViewById<Button>(R.id.btnIngresarProveedor)
 
-        btnAgregarProv.setOnClickListener{
+        btnIngresarProv.setOnClickListener{
             CoroutineScope(Dispatchers.IO).launch {
                 val objConexion = ClaseConexion().cadenaConexion()
 
@@ -49,6 +49,7 @@ class crear_proveedores : AppCompatActivity() {
                 addNombreProv.setString(5,txtCorreoProv.text.toString())
                 addNombreProv.setString(6,txtDireccionProv.text.toString())
                 addNombreProv.executeUpdate()
+
             }
         }
 
