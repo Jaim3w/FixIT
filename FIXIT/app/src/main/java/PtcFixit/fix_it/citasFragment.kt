@@ -4,6 +4,7 @@ import Modelo.ClaseConexion
 import Modelo.dataClassClientes
 import Modelo.dataClassEmpleados
 import CitasHelpers.AdaptadorCitas
+import CitasHelpers.ViewModelCita
 import CitasHelpers.tbCita
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -18,6 +19,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -39,6 +41,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class citasFragment : Fragment() {
+
+    private lateinit var citasViewModel: ViewModelCita
 
 
 
@@ -127,6 +131,8 @@ class citasFragment : Fragment() {
             val fecha = resultSet.getString("fecha")
             val hora = resultSet.getString("hora")
             val descripcion = resultSet.getString("descripcion")
+            val cita = tbCita(uuid,cliente, empleado, fecha, hora, descripcion)
+            listadoCitas.add(cita)
         }
         return listadoCitas
     }
@@ -145,6 +151,8 @@ class citasFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        citasViewModel = ViewModelProvider(requireActivity()).get(ViewModelCita::class.java)
     }
 
 

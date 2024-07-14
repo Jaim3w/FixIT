@@ -1,12 +1,16 @@
 package PtcFixit.fix_it
 
 import CitasHelpers.AdaptadorCitas
+import CitasHelpers.ViewModelCita
 import CitasHelpers.tbCita
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,9 +40,30 @@ class citas_fragment2 : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_citas_fragment2, container, false)
 
-        val rcvCita = root.findViewById<RecyclerView>(R.id.rcvCitas)
+        val rcvCitas = root.findViewById<RecyclerView>(R.id.rcvCitas)
+
+        rcvCitas.layoutManager = LinearLayoutManager(context)
+
+        val adaptadorCitas = AdaptadorCitas(emptyList())
+        rcvCitas.adapter = adaptadorCitas
+
+        val viewmodelcita = ViewModelProvider(requireActivity()).get(ViewModelCita::class.java)
+        viewmodelcita.citass.observe(viewLifecycleOwner) { citas ->
+            adaptadorCitas.actualizarCitaRecyclerView(citas)
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val citasBd = citasFragment().obtenerDatos()
+            withContext(Dispatchers.Main){
+                val adapter = AdaptadorCitas(citasBd)
+                rcvCitas.adapter = adapter
+            }
+        }
+
         return root
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,20 +72,8 @@ class citas_fragment2 : Fragment() {
             param2 = it.getString(ARG_PARAM2)
 
         }
-
-
-
-
-        CoroutineScope(Dispatchers.IO).launch{
-            val citasDb = citasFragment().obtenerDatos()
-            withContext(Dispatchers.Main){
-                val adapter = AdaptadorCitas(citasDb)
-                rcvCita.adapter = adapter
-            }
-
-
-        }
     }
+
 
 
     companion object {
@@ -82,11 +95,4 @@ class citas_fragment2 : Fragment() {
                 }
             }
     }
-
-
-
-
-
-
-
 }
