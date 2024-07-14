@@ -20,16 +20,7 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
         notifyDataSetChanged()
     }
 
-    fun actualizarProveedor(position: Int, nuevoNombre: String, nuevoTelefono: String, nuevoApellido: String, nuevoCorreo: String, nuevaDireccion: String) {
-        val proveedor = Datos[position]
-        proveedor.nombre = nuevoNombre
-        proveedor.telefono = nuevoTelefono
-        proveedor.apellido = nuevoApellido
-        proveedor.correo = nuevoCorreo
-        proveedor.direccion = nuevaDireccion
 
-        notifyItemChanged(position)
-    }
 
     fun editarProveedores(nombre: String, telefono: String, apellido: String, correo: String, direccion: String, dui: String){
         GlobalScope.launch(Dispatchers.IO){

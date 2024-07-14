@@ -262,7 +262,7 @@ INSERT ALL
     VALUES ('345832463', 'Luis', 'Enrique', '23388572', 'luis.enrique@gmail.com', 'Las Arboledas')
 SELECT * FROM dual;
 
-
+select * from Proveedor;
 
 INSERT ALL
     INTO Servicio (UUID_servicio, Nombre, Descripcion, Precio) 

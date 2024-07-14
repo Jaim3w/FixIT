@@ -26,6 +26,9 @@ import java.sql.SQLException
 
 class proveedores_admin : AppCompatActivity() {
 
+    private lateinit var rcvProveedores: RecyclerView
+    private lateinit var adapterProv: Adaptador
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,6 +48,8 @@ class proveedores_admin : AppCompatActivity() {
         }
 
         rcvProveedores.layoutManager = LinearLayoutManager(this)
+        adapterProv = Adaptador(emptyList())
+        rcvProveedores.adapter = adapterProv
 
         fun obtenerProveedores(): List<RCVproveedor> {
             val objConexion = ClaseConexion().cadenaConexion()
@@ -69,7 +74,7 @@ class proveedores_admin : AppCompatActivity() {
                     val nombreProv = resultSet.getString("Nombre")
                     val apellidoProv = resultSet.getString("Apellido")
                     val telefonoProv = resultSet.getString("Telefono")
-                    val correoProv = resultSet.getString("Correo_Proveedor")
+                    val correoProv = resultSet.getString("Correo_Electronico")
                     val direccionProv = resultSet.getString("Direccion")
                     val valoresCard = RCVproveedor(duiProv, nombreProv, apellidoProv, telefonoProv, correoProv, direccionProv)
 

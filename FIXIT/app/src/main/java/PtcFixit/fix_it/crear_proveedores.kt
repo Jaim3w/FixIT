@@ -4,6 +4,7 @@ import Modelo.ClaseConexion
 import Modelo.RCVproveedor
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -41,19 +42,20 @@ class crear_proveedores : AppCompatActivity() {
 
         btnIngresarProv.setOnClickListener{
             CoroutineScope(Dispatchers.IO).launch {
-                val objConexion = ClaseConexion().cadenaConexion()
-
-                val addNombreProv = objConexion?.prepareStatement("insert into Proveedor (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) values (?, ?, ?, ?, ?, ?)")!!
-                addNombreProv.setString(1,txtDuiProv.text.toString())
-                addNombreProv.setString(2,txtNombreProv.text.toString())
-                addNombreProv.setString(3,txtApellidosProv.text.toString())
-                addNombreProv.setString(4,txtTelefonoProv.text.toString())
-                addNombreProv.setString(5,txtCorreoProv.text.toString())
-                addNombreProv.setString(6,txtDireccionProv.text.toString())
-                addNombreProv.executeUpdate()
-
-
+                    val objConexion = ClaseConexion().cadenaConexion()
+                    val addNombreProv = objConexion?.prepareStatement("insert into Proveedor (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) values (?, ?, ?, ?, ?, ?)")!!
+                    addNombreProv.setString(1, txtDuiProv.text.toString())
+                    addNombreProv.setString(2, txtNombreProv.text.toString())
+                    addNombreProv.setString(3, txtApellidosProv.text.toString())
+                    addNombreProv.setString(4, txtTelefonoProv.text.toString())
+                    addNombreProv.setString(5, txtCorreoProv.text.toString())
+                    addNombreProv.setString(6, txtDireccionProv.text.toString())
+                    addNombreProv.executeUpdate()
             }
+
+            val intent = Intent(this, proveedores_admin::class.java)
+            startActivity(intent)
+
         }
 
         //--------------------------------NAV-----------------------------------------------------------------------------
