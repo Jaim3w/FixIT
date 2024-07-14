@@ -52,6 +52,7 @@ class crear_proveedores : AppCompatActivity() {
                 addNombreProv.setString(6,txtDireccionProv.text.toString())
                 addNombreProv.executeUpdate()
 
+
             }
         }
 

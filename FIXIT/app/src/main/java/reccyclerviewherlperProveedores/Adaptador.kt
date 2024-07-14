@@ -19,26 +19,40 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
         notifyDataSetChanged()
     }
 
-    fun actualizarProveedores(nuevoNombre:String, Nuevotelefono: String, Nombre : String){
-        val indentificador = Datos.indexOfFirst{it.nombre == Nombre}
+    fun actualizarProveedores(nuevoNombre:String, NuevoTelefono: String, nuevoApellido:String, nuevoCorreo:String, nuevaDireccion:String, dui: String){
+        val indentificador = Datos.indexOfFirst{it.dui == dui}
         Datos[indentificador].nombre = nuevoNombre
-        Datos[indentificador].telefono = Nuevotelefono
+        Datos[indentificador].telefono = NuevoTelefono
+        Datos[indentificador].apellido = nuevoApellido
+        Datos[indentificador].correo = nuevoCorreo
+        Datos[indentificador].direccion = nuevaDireccion
 
         notifyItemChanged(indentificador)
     }
 
-    fun editarProveedores(nombre: String,telefono: String){
+    fun editarProveedores(nombre: String, telefono: String, apellido: String, correo: String, direccion: String, dui: String){
         GlobalScope.launch(Dispatchers.IO){
             val objConexion = ClaseConexion().cadenaConexion()
 
-            val actProveedoress = objConexion?.prepareStatement("update Proveedor set Nombre = ?, Telefono = ? where Nombre = ?")!!
+            val actProveedoress = objConexion?.prepareStatement("update Proveedor set Nombre = ?, Apellido = ?, Telefono = ?, Correo_Electronico = ?, Direccion = ? where Dui_proveedor = ?")!!
             actProveedoress.setString(1, nombre)
-            actProveedoress.setString(2, telefono)
+            actProveedoress.setString(2, apellido)
+            actProveedoress.setString(3, telefono)
+            actProveedoress.setString(4, correo)
+            actProveedoress.setString(5, direccion)
+            actProveedoress.setString(6, dui)
             actProveedoress.executeUpdate()
 
-
-
+            val commit = objConexion.prepareStatement("commit")
+            commit.executeUpdate()
         }
+    }
+
+    fun eliminarProveedor(noombre: String, position: Int) {
+        val listaProv = Datos.toMutableList()
+        listaProv.removeAt(position)
+
+        
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

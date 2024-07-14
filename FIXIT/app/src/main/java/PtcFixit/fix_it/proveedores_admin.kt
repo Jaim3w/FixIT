@@ -91,8 +91,13 @@ class proveedores_admin : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 val adapterProv = Adaptador(proveedoresDB)
                 rcvProveedores.adapter = adapterProv
+
+                // Actualiza el RecyclerView con los mismos datos obtenidos anteriormente
+                (rcvProveedores.adapter as? Adaptador)?.actualizarRecyclerView(proveedoresDB)
             }
         }
+
+
 
         //---------------------------NAV-------------------------------------------------------------------------
 
