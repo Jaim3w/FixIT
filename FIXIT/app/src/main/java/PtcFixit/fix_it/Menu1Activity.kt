@@ -123,7 +123,7 @@ class Menu1Activity : AppCompatActivity() {
             val resultSet = statement?.executeQuery("SELECT c.UUID_cita, c.Dui_cliente, cli.Nombre AS Nombre_cliente, c.Dui_Empleado, c.Fecha_cita, c.Descripcion\n" +
                     "FROM Cita c\n" +
                     "INNER JOIN Cliente cli ON c.Dui_cliente = cli.Dui_cliente\n" +
-                    "ORDER BY c.Fecha_cita ASC;")
+                    "ORDER BY c.Fecha_cita ASC")
 
             while (resultSet?.next() == true) {
                 val uuidCita = resultSet.getString("UUID_cita")

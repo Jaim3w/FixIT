@@ -20,22 +20,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         tools:targetApi="34">
-<<<<<<< HEAD
-=======
+
+        <activity
+            android:name=".citas"
+            android:exported="false"/>
+
         <activity
             android:name=".RecuperarContra3"
             android:exported="false" />
-        <activity
-            android:name=".splash_screen"
-            android:exported="false"
-            android:theme="@style/fixit" />
+
         <activity
             android:name=".carros_card"
             android:exported="false" />
         <activity
             android:name=".carros_agregar_admin"
             android:exported="false" />
->>>>>>> b2bd5242459ea0c6083ceba0649ad39fc2d42b42
         <activity
             android:name=".login_fixIT"
             android:exported="false" />
@@ -83,20 +82,11 @@
         <activity
             android:name=".BienvenidaInfo1"
             android:exported="false" />
-        <activity
-<<<<<<< HEAD
-            android:name=".citas"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-=======
+        <activity
             android:name=".proveedores_admin"
             android:exported="false"/>
->>>>>>> b2bd5242459ea0c6083ceba0649ad39fc2d42b42
+
         <activity
             android:name=".repuestos_admin"
             android:exported="false" />

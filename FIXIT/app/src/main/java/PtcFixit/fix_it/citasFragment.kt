@@ -3,9 +3,7 @@ package PtcFixit.fix_it
 import Modelo.ClaseConexion
 import Modelo.dataClassClientes
 import Modelo.dataClassEmpleados
-import CitasHelpers.AdaptadorCitas
 import CitasHelpers.ViewModelCita
-import CitasHelpers.tbCita
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -148,7 +146,7 @@ class citasFragment : Fragment() {
         val txtEmpleadoCita = root.findViewById<Spinner>(R.id.txtEmpleadoCita)
         val txtFecha = root.findViewById<EditText>(R.id.txtFecha)
         val txtHora = root.findViewById<EditText>(R.id.txtHora)
-        val txtDescripcion = root.findViewById<EditText>(R.id.txtDescripcion)
+        val txtDescripcion = root.findViewById<EditText>(R.id.txtdescripcion)
         val btnCrearCita = root.findViewById<Button>(R.id.btnCrearCita)
 
         GlobalScope.launch(Dispatchers.IO) {
@@ -160,7 +158,7 @@ class citasFragment : Fragment() {
 
             withContext(Dispatchers.Main) {
                 val clienteAdapter =
-                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreCliente)
+                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreCliente)
                 txtClienteCita.adapter = clienteAdapter
 
                 val empleadoAdapter =
@@ -246,31 +244,30 @@ class citasFragment : Fragment() {
                     }
                 }
 
-                }
-
             }
+
+        }
         return root
     }
-        companion object {
-            /**
-             * Use this factory method to create a new instance of
-             * this fragment using the provided parameters.
-             *
-             * @param param1 Parameter 1.
-             * @param param2 Parameter 2.
-             * @return A new instance of fragment citasFragment.
-             */
-            // TODO: Rename and change types and number of parameters
-            @JvmStatic
-            fun newInstance(param1: String, param2: String) =
-                citasFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment citasFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            citasFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
-        }
-
+            }
     }
 
+}
 
