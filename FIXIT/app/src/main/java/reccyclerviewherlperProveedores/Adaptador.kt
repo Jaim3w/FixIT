@@ -19,11 +19,25 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
         notifyDataSetChanged()
     }
 
-    fun editarProducto(nombre: String,telefono: String){
+    fun actualizarProveedores(nuevoNombre:String, Nuevotelefono: String, Nombre : String){
+        val indentificador = Datos.indexOfFirst{it.nombre == Nombre}
+        Datos[indentificador].nombre = nuevoNombre
+        Datos[indentificador].telefono = Nuevotelefono
+
+        notifyItemChanged(indentificador)
+    }
+
+    fun editarProveedores(nombre: String,telefono: String){
         GlobalScope.launch(Dispatchers.IO){
             val objConexion = ClaseConexion().cadenaConexion()
 
-            val actProveedoress = objConexion?.prepareStatement("update Proveedor set Dui_proveedor = ?, Nombre = ?, Apellido = ?, Telefono = ?, Correo_Electronico = ?, Direccion = ?")
+            val actProveedoress = objConexion?.prepareStatement("update Proveedor set Nombre = ?, Telefono = ? where Nombre = ?")!!
+            actProveedoress.setString(1, nombre)
+            actProveedoress.setString(2, telefono)
+            actProveedoress.executeUpdate()
+
+
+
         }
     }
 

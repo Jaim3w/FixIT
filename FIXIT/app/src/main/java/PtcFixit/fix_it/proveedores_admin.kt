@@ -65,10 +65,14 @@ class proveedores_admin : AppCompatActivity() {
 
             try {
                 while (resultSet.next()) {
+                    val duiProv = resultSet.getString("Dui_proveedor")
                     val nombreProv = resultSet.getString("Nombre")
+                    val apellidoProv = resultSet.getString("Apellido")
                     val telefonoProv = resultSet.getString("Telefono")
+                    val correoProv = resultSet.getString("Correo_Proveedor")
+                    val direccionProv = resultSet.getString("Direccion")
+                    val valoresCard = RCVproveedor(duiProv, nombreProv, apellidoProv, telefonoProv, correoProv, direccionProv)
 
-                    val valoresCard = RCVproveedor(nombreProv, telefonoProv)
                     listaProveedores.add(valoresCard)
                 }
             } catch (e: SQLException) {
