@@ -126,6 +126,7 @@ UUID_cita Varchar2(50) PRIMARY KEY,
 Dui_cliente VARCHAR2(10) NOT NULL,
 Dui_empleado VARCHAR2(10) NOT NULL,
 Fecha_cita VARCHAR2(200) NOT NULL,
+Hora_cita VARCHAR2(200) NOT NULL,
 Descripcion VARCHAR2(250) NOT NULL,
 
 CONSTRAINT fk_c_empleado FOREIGN KEY (Dui_empleado) REFERENCES Empleado(Dui_empleado),
@@ -345,22 +346,6 @@ INSERT ALL
   VALUES (SYS_GUID(), 'GHI3456', 'Reparación de frenos')
   INTO HistorialCarro (UUID_historialCarro, Placa_carro, Descripcion)
   VALUES (SYS_GUID(), 'JKL7890', 'Cambio de llantas')
-SELECT * FROM dual;
-
-
-
-
-INSERT ALL
-  INTO Cita (UUID_cita, Dui_Cliente, Dui_empleado , Fecha_cita, Descripcion)
-  VALUES (SYS_GUID(), '345723699', '43862360' , '01/07/2024', 'Primera cita del taller')
-  INTO Cita (UUID_cita,  Dui_Cliente, Dui_empleado , Fecha_cita, Descripcion)
-  VALUES (SYS_GUID(), '091345821', '234734141', '02/07/2024', 'Segunda cita del taller')
-  INTO Cita (UUID_cita,  Dui_Cliente, Dui_empleado ,Fecha_cita, Descripcion)
-  VALUES (SYS_GUID(), '456789012', '527223462', '03/07/2024', 'Tercera cita del taller')
-  INTO Cita (UUID_cita,  Dui_Cliente, Dui_empleado ,Fecha_cita, Descripcion)
-  VALUES (SYS_GUID(), '218957987', '345834343', '04/07/2024', 'Cuarta cita del taller')
-  INTO Cita (UUID_cita,  Dui_Cliente, Dui_empleado ,Fecha_cita, Descripcion)
-  VALUES (SYS_GUID(), '092438653', '534233464', '02/07/2024', 'Quinta cita del taller')
 SELECT * FROM dual;
 
 

@@ -68,8 +68,8 @@
 
     <EditText
         android:id="@+id/txtCorreo"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_width="323dp"
+        android:layout_height="56dp"
         android:background="@drawable/imputtext"
         android:ems="10"
         android:hint="Correo"

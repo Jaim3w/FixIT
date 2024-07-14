@@ -3,8 +3,9 @@ package PtcFixit.fix_it
 import Modelo.ClaseConexion
 import Modelo.dataClassClientes
 import Modelo.dataClassEmpleados
-import PtcFixit.fix_it.CitasHelpers.AdaptadorCitas
-import PtcFixit.fix_it.CitasHelpers.tbCita
+import CitasHelpers.AdaptadorCitas
+import CitasHelpers.ViewModelCita
+import CitasHelpers.tbCita
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -18,6 +19,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -39,6 +41,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class citasFragment : Fragment() {
+
+    private lateinit var citasViewModel: ViewModelCita
 
 
 
@@ -113,24 +117,6 @@ class citasFragment : Fragment() {
 
     }
 
-    fun obtenerDatos(): List<tbCita>{
-        val objConexion = ClaseConexion().cadenaConexion()
-        val statement = objConexion?.createStatement()
-        val resultSet = statement?.executeQuery("select * from Citas")!!
-
-        val listadoCitas = mutableListOf<tbCita>()
-
-        while (resultSet.next()){
-            val uuid = resultSet.getString("uuid")
-            val cliente = resultSet.getString("cliente")
-            val empleado = resultSet.getString("empleado")
-            val fecha = resultSet.getString("fecha")
-            val hora = resultSet.getString("hora")
-            val descripcion = resultSet.getString("descripcion")
-        }
-        return listadoCitas
-    }
-
 
 
 
@@ -145,6 +131,8 @@ class citasFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        citasViewModel = ViewModelProvider(requireActivity()).get(ViewModelCita::class.java)
     }
 
 
@@ -237,6 +225,8 @@ class citasFragment : Fragment() {
                         addCita.setString(6, txtDescripcion.text.toString())
 
                         addCita.executeUpdate()
+
+
 
                         withContext(Dispatchers.Main) {
                             Toast.makeText(
