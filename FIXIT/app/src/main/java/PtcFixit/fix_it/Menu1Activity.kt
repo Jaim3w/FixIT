@@ -1,8 +1,11 @@
 package PtcFixit.fix_it
 
+import Modelo.ClaseConexion
+import Modelo.listadoCita
 import RecyclerViewHelpersMain.AdaptadorCitas
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -15,8 +18,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.sql.SQLException
 
 class Menu1Activity : AppCompatActivity() {
+    private lateinit var rcvCitas: RecyclerView
+    private lateinit var adaptadorCitas: AdaptadorCitas
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,6 +52,12 @@ class Menu1Activity : AppCompatActivity() {
                 finish()
             }
         })
+
+        // Inicializar RecyclerView
+        rcvCitas = findViewById(R.id.rcvCitas)
+        rcvCitas.layoutManager = LinearLayoutManager(this)
+        adaptadorCitas = AdaptadorCitas(emptyList(), this)
+        rcvCitas.adapter = adaptadorCitas
 
         // Llamar al método para cargar y mostrar los datos
         mostrarCitas()
@@ -85,23 +102,62 @@ class Menu1Activity : AppCompatActivity() {
         imgCitasnav.setOnClickListener(clickListener)
     }
 
-
     private fun mostrarCitas() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val nuevasCitas = obtenerCitas()
 
-         lateinit var rcvCitas: RecyclerView
-         lateinit var Adaptadorcitas: AdaptadorCitas
-
-        rcvCitas.layoutManager = LinearLayoutManager(this)
-
-        val txtCliente = findViewById<TextView>(R.id.txtCliente)
-        val btnDetallesCitas = findViewById<Button>(R.id.btnDetallesCitas)
-
-
-
+            withContext(Dispatchers.Main) {
+                adaptadorCitas.actualizarCitas(nuevasCitas)
+            }
+        }
     }
 
     private fun mostrarCarro() {
 
-
     }
 }
+
+    private fun obtenerCitas(): List<listadoCita> {
+        val objConexion = ClaseConexion().cadenaConexion()
+        val listadoCitas = mutableListOf<listadoCita>()
+
+        try {
+            val statement = objConexion?.createStatement()
+            val resultSet = statement?.executeQuery(
+
+                """
+            SELECT c.UUID_cita, c.Dui_cliente, cli.Nombre AS Nombre_cliente, c.Dui_Empleado, c.Fecha_cita, c.Descripcion
+            FROM Citas c
+            INNER JOIN Cliente cli ON c.Dui_cliente = cli.Dui_cliente
+            ORDER BY c.Fecha_cita ASC"""
+            )
+
+            while (resultSet?.next() == true) {
+                val uuidCita = resultSet.getString("UUID_cita")
+                val nombreCliente = resultSet.getString("Nombre_cliente")
+                val duiEmpleado = resultSet.getString("Dui_Empleado")
+                val fechaCita = resultSet.getString("Fecha_cita")
+                val descripcion = resultSet.getString("Descripcion")
+
+                val cita = listadoCita(
+                    uuidCita,
+                    nombreCliente,
+                    duiEmpleado,
+                    fechaCita,
+                    descripcion
+                )
+
+                listadoCitas.add(cita)
+            }
+
+            resultSet?.close()
+            statement?.close()
+        } catch (e: SQLException) {
+            Log.e("Menu1Activity", "Error al obtener citas: ${e.message}")
+        } finally {
+            objConexion?.close()
+        }
+
+        Log.d("Menu1Activity", "Citas obtenidas: ${listadoCitas.size}")
+        return listadoCitas
+    }
