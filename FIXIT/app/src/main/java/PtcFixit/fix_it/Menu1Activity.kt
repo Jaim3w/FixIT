@@ -25,8 +25,8 @@ import kotlinx.coroutines.withContext
 import java.sql.SQLException
 
 class Menu1Activity : AppCompatActivity() {
-    private lateinit var rcvCitas: RecyclerView
-    private lateinit var adaptadorCitas: AdaptadorCitas
+    lateinit var rcvCitas: RecyclerView
+     lateinit var adaptadorCitas: AdaptadorCitas
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,13 +53,11 @@ class Menu1Activity : AppCompatActivity() {
             }
         })
 
-        // Inicializar RecyclerView
         rcvCitas = findViewById(R.id.rcvCitas)
         rcvCitas.layoutManager = LinearLayoutManager(this)
         adaptadorCitas = AdaptadorCitas(emptyList(), this)
         rcvCitas.adapter = adaptadorCitas
 
-        // Llamar al método para cargar y mostrar los datos
         mostrarCitas()
         mostrarCarro()
     }
@@ -113,9 +111,8 @@ class Menu1Activity : AppCompatActivity() {
     }
 
     private fun mostrarCarro() {
-
+        // Aquí puedes implementar la lógica para mostrar información del carro si es necesario
     }
-}
 
     private fun obtenerCitas(): List<listadoCita> {
         val objConexion = ClaseConexion().cadenaConexion()
@@ -123,14 +120,10 @@ class Menu1Activity : AppCompatActivity() {
 
         try {
             val statement = objConexion?.createStatement()
-            val resultSet = statement?.executeQuery(
-
-                """
-            SELECT c.UUID_cita, c.Dui_cliente, cli.Nombre AS Nombre_cliente, c.Dui_Empleado, c.Fecha_cita, c.Descripcion
-            FROM Citas c
-            INNER JOIN Cliente cli ON c.Dui_cliente = cli.Dui_cliente
-            ORDER BY c.Fecha_cita ASC"""
-            )
+            val resultSet = statement?.executeQuery("SELECT c.UUID_cita, c.Dui_cliente, cli.Nombre AS Nombre_cliente, c.Dui_Empleado, c.Fecha_cita, c.Descripcion\n" +
+                    "FROM Cita c\n" +
+                    "INNER JOIN Cliente cli ON c.Dui_cliente = cli.Dui_cliente\n" +
+                    "ORDER BY c.Fecha_cita ASC;")
 
             while (resultSet?.next() == true) {
                 val uuidCita = resultSet.getString("UUID_cita")
@@ -157,7 +150,6 @@ class Menu1Activity : AppCompatActivity() {
         } finally {
             objConexion?.close()
         }
-
-        Log.d("Menu1Activity", "Citas obtenidas: ${listadoCitas.size}")
         return listadoCitas
     }
+}
