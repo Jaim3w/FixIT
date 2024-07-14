@@ -1,15 +1,20 @@
 package PtcFixit.fix_it
 
+import RecyclerViewHelpersMain.AdaptadorCitas
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class Menu1Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +41,10 @@ class Menu1Activity : AppCompatActivity() {
                 finish()
             }
         })
+
+        // Llamar al método para cargar y mostrar los datos
+        mostrarCitas()
+        mostrarCarro()
     }
 
     private fun setupNavClickListeners() {
@@ -74,5 +83,25 @@ class Menu1Activity : AppCompatActivity() {
         imgProveedoresnav.setOnClickListener(clickListener)
         imgCarrosnav.setOnClickListener(clickListener)
         imgCitasnav.setOnClickListener(clickListener)
+    }
+
+
+    private fun mostrarCitas() {
+
+         lateinit var rcvCitas: RecyclerView
+         lateinit var Adaptadorcitas: AdaptadorCitas
+
+        rcvCitas.layoutManager = LinearLayoutManager(this)
+
+        val txtCliente = findViewById<TextView>(R.id.txtCliente)
+        val btnDetallesCitas = findViewById<Button>(R.id.btnDetallesCitas)
+
+
+
+    }
+
+    private fun mostrarCarro() {
+
+
     }
 }

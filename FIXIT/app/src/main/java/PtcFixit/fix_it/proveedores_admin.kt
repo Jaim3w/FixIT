@@ -1,7 +1,8 @@
 package PtcFixit.fix_it
 
+import Modelo.ClaseConexion
+import Modelo.RCVproveedor
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,12 +10,16 @@ import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.appbar.AppBarLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import reccyclerviewherlperProveedores.Adaptador
 
 class proveedores_admin : AppCompatActivity() {
 
@@ -26,13 +31,38 @@ class proveedores_admin : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-
         }
-
-
 
         val btnAgregarNuevoProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
         val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
+
+        rcvProveedores.layoutManager = LinearLayoutManager(this)
+
+        fun obtenerProveedores(): List<RCVproveedor> {
+            val objConexion = ClaseConexion().cadenaConexion()
+
+            val statement = objConexion?.createStatement()
+            val resultSet = statement?.executeQuery("select * from Proveedores")!!
+
+            val ListaProveedores = mutableListOf<RCVproveedor>()
+
+            while (resultSet.next()) {
+                val nombreProv = resultSet.getString("Nombre")
+                val telefonoProv = resultSet.getString("Telefono")
+
+                val valoresCard = RCVproveedor(nombreProv, telefonoProv)
+                ListaProveedores.add(valoresCard)
+            }
+            return ListaProveedores
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val proveedoresDB = obtenerProveedores()
+            withContext(Dispatchers.Main) {
+                val adapterProv = Adaptador(proveedoresDB)
+                rcvProveedores.adapter = adapterProv
+            }
+        }
 
         //---------------------------NAV-------------------------------------------------------------------------
 
