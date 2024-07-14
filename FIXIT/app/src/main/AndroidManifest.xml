@@ -55,7 +55,7 @@
             android:name=".CochesDespachadosCardActivity"
             android:exported="false" />
         <activity
-            android:name=".RecuperarContraParte2"
+            android:name=".proveedores_admin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -85,7 +85,7 @@
             android:name=".BienvenidaInfo1"
             android:exported="false" />
         <activity
-            android:name=".proveedores_admin"
+            android:name=".RecuperarContraParte2"
             android:exported="false"></activity>
         <activity
             android:name=".repuestos_admin"
