@@ -6,6 +6,7 @@ import PtcFixit.fix_it.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,15 +20,15 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
         notifyDataSetChanged()
     }
 
-    fun actualizarProveedores(nuevoNombre:String, NuevoTelefono: String, nuevoApellido:String, nuevoCorreo:String, nuevaDireccion:String, dui: String){
-        val indentificador = Datos.indexOfFirst{it.dui == dui}
-        Datos[indentificador].nombre = nuevoNombre
-        Datos[indentificador].telefono = NuevoTelefono
-        Datos[indentificador].apellido = nuevoApellido
-        Datos[indentificador].correo = nuevoCorreo
-        Datos[indentificador].direccion = nuevaDireccion
+    fun actualizarProveedor(position: Int, nuevoNombre: String, nuevoTelefono: String, nuevoApellido: String, nuevoCorreo: String, nuevaDireccion: String) {
+        val proveedor = Datos[position]
+        proveedor.nombre = nuevoNombre
+        proveedor.telefono = nuevoTelefono
+        proveedor.apellido = nuevoApellido
+        proveedor.correo = nuevoCorreo
+        proveedor.direccion = nuevaDireccion
 
-        notifyItemChanged(indentificador)
+        notifyItemChanged(position)
     }
 
     fun editarProveedores(nombre: String, telefono: String, apellido: String, correo: String, direccion: String, dui: String){
@@ -48,11 +49,23 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
         }
     }
 
-    fun eliminarProveedor(noombre: String, position: Int) {
+    fun eliminarProveedor(nombre: String, position: Int) {
         val listaProv = Datos.toMutableList()
         listaProv.removeAt(position)
 
-        
+        GlobalScope.launch(Dispatchers.IO) {
+            val objConexion = ClaseConexion().cadenaConexion()
+            val eliminarProv = objConexion?.prepareStatement("delete from Proveedor where  Nombre = ?")!!
+            eliminarProv.setString(1, nombre)
+            eliminarProv.executeUpdate()
+
+            val commit = objConexion.prepareStatement("commit")
+            commit.executeUpdate()
+        }
+
+        Datos = listaProv.toList()
+        notifyItemRemoved(position)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -64,8 +77,54 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = Datos[position]
+
         holder.txtProveedor.text = item.nombre
         holder.txtTelefono.text = item.telefono
-    }
 
+        holder.imgEditar.setOnClickListener {
+            val context = holder.imgEditar.context
+
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Editar Proveedor")
+            builder.setMessage("Editar proveedor: ${item.nombre}")
+
+            builder.setPositiveButton("Actualizar") { dialog, _ ->
+                val nuevoNombre = "Nuevo Nombre"
+                val nuevoTelefono = "Nuevo Teléfono"
+                val nuevoApellido = "Nuevo Apellido"
+                val nuevoCorreo = "Nuevo Correo"
+                val nuevaDireccion = "Nueva Dirección"
+
+                // Llama a la función editarProveedores para actualizar en la base de datos
+                editarProveedores(nuevoNombre, nuevoTelefono, nuevoApellido, nuevoCorreo, nuevaDireccion, item.dui)
+                dialog.dismiss()
+            }
+
+            builder.setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            val dialog = builder.create()
+            dialog.show()
+        }
+
+        holder.imgBorrar.setOnClickListener {
+            val context = holder.txtProveedor.context
+
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Eliminar Proveedor")
+            builder.setMessage("¿Deseas continuar con la eliminación del proveedor?")
+
+            builder.setPositiveButton("Continuar") { _, _ ->
+                eliminarProveedor(item.nombre, position)
+            }
+
+            builder.setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+            val dialog = builder.create()
+            dialog.show()
+        }
+    }
 }
