@@ -47,7 +47,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="85dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
@@ -61,7 +61,7 @@
 
                     <TextView
                         android:id="@+id/tvNombre"
-                        android:layout_width="wrap_content"
+                        android:layout_width="107dp"
                         android:layout_height="wrap_content"
                         android:text="TextView"
                         android:textColor="@android:color/black" />
@@ -70,14 +70,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="81dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
@@ -110,16 +110,15 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="91dp"
-                    android:layout_height="50dp"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-
                     android:orientation="vertical">
 
                     <TextView
@@ -130,55 +129,28 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvTelefono"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvTelefonoProveedor"
+                        android:layout_width="107dp"
                         android:layout_height="wrap_content"
-                        android:text="7867-8976"
+                        android:text="TextView"
                         android:textColor="@android:color/black" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imgEditarTelefono"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/img_editar" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="81dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fecha"
-                        android:textColor="@android:color/black"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvFecha"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textColor="@android:color/black" />
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/imgEditarFecha"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical"
-                    app:srcCompat="@drawable/img_editar" />
             </LinearLayout>
         </LinearLayout>
 
@@ -211,12 +183,6 @@
                     android:textColor="@android:color/black" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgEditarCorreo"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/img_editar" />
         </LinearLayout>
 
         <LinearLayout
@@ -266,7 +232,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Descripcion"
+                    android:text="Direccion:"
                     android:textColor="@android:color/black"
                     android:textStyle="bold" />
 
@@ -278,12 +244,6 @@
                     android:textColor="@android:color/black" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgEditarDescripcion"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/img_editar" />
         </LinearLayout>
 
 
@@ -296,25 +256,14 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/buttonCancelar"
+                android:id="@+id/buttonVolverFragmentVerProveedores"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/wybtn"
-                android:text="Cancelar"
-                android:textSize="11dp"/>
-
-            <Button
-                android:id="@+id/buttonGuardar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/wybtn"
-                android:text="Guardar cambios"
-                android:textSize="11dp"
-                />
+                android:text="Volver"
+                android:textSize="11dp" />
 
         </LinearLayout>
     </LinearLayout>

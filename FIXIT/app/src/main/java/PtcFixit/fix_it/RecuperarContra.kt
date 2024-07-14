@@ -61,14 +61,14 @@ class RecuperarContra : AppCompatActivity() {
             false
 
         })
-        val todosNum="$txtNum1 + $txtNum2 + $txtNum3 + $txtNum4"
+        val todosNum="$txtNum1  $txtNum2  $txtNum3  $txtNum4"
         btnContinuar.setOnClickListener{
             if(todosNum == RecuperarContraParte2.correoIngresado){
                 val intent=Intent(this,RecuperarContra3::class.java)
                 startActivity(intent)
             }
             else{
-                Toast.makeText(this@RecuperarContra, "codigo erroeneo intentelo de nuevo", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RecuperarContra, "codigo erroneo intentelo de nuevo", Toast.LENGTH_SHORT).show()
             }
         }
     }
