@@ -3,6 +3,7 @@ package PtcFixit.fix_it
 import CitasHelpers.AdaptadorCitas
 import CitasHelpers.ViewModelCita
 import CitasHelpers.tbCita
+import Modelo.ClaseConexion
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -33,6 +34,26 @@ class citas_fragment2 : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    fun obtenerDatos(): List<tbCita>{
+        val objConexion = ClaseConexion().cadenaConexion()
+        val statement = objConexion?.createStatement()
+        val resultSet = statement?.executeQuery("select * from Cita")!!
+
+        val listadoCitas = mutableListOf<tbCita>()
+
+        while (resultSet.next()){
+            val uuid = resultSet.getString("UUID_cita")
+            val cliente = resultSet.getString("Dui_cliente")
+            val empleado = resultSet.getString("Dui_empleado")
+            val fecha = resultSet.getString("Fecha_cita")
+            val hora = resultSet.getString("Hora_cita")
+            val descripcion = resultSet.getString("Descripcion")
+            val cita = tbCita(uuid,cliente, empleado, fecha, hora, descripcion)
+            listadoCitas.add(cita)
+        }
+        return listadoCitas
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,16 +65,10 @@ class citas_fragment2 : Fragment() {
 
         rcvCitas.layoutManager = LinearLayoutManager(context)
 
-        val adaptadorCitas = AdaptadorCitas(emptyList())
-        rcvCitas.adapter = adaptadorCitas
 
-        val viewmodelcita = ViewModelProvider(requireActivity()).get(ViewModelCita::class.java)
-        viewmodelcita.citass.observe(viewLifecycleOwner) { citas ->
-            adaptadorCitas.actualizarCitaRecyclerView(citas)
-        }
 
         CoroutineScope(Dispatchers.IO).launch {
-            val citasBd = citasFragment().obtenerDatos()
+            val citasBd = obtenerDatos()
             withContext(Dispatchers.Main){
                 val adapter = AdaptadorCitas(citasBd)
                 rcvCitas.adapter = adapter

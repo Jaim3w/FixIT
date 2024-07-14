@@ -117,26 +117,6 @@ class citasFragment : Fragment() {
 
     }
 
-    fun obtenerDatos(): List<tbCita>{
-        val objConexion = ClaseConexion().cadenaConexion()
-        val statement = objConexion?.createStatement()
-        val resultSet = statement?.executeQuery("select * from Citas")!!
-
-        val listadoCitas = mutableListOf<tbCita>()
-
-        while (resultSet.next()){
-            val uuid = resultSet.getString("uuid")
-            val cliente = resultSet.getString("cliente")
-            val empleado = resultSet.getString("empleado")
-            val fecha = resultSet.getString("fecha")
-            val hora = resultSet.getString("hora")
-            val descripcion = resultSet.getString("descripcion")
-            val cita = tbCita(uuid,cliente, empleado, fecha, hora, descripcion)
-            listadoCitas.add(cita)
-        }
-        return listadoCitas
-    }
-
 
 
 
@@ -245,6 +225,8 @@ class citasFragment : Fragment() {
                         addCita.setString(6, txtDescripcion.text.toString())
 
                         addCita.executeUpdate()
+
+
 
                         withContext(Dispatchers.Main) {
                             Toast.makeText(
