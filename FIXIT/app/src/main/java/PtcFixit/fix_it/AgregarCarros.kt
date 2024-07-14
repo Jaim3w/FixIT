@@ -229,8 +229,8 @@ class AgregarCarros : Fragment() {
                         addCarro.setString(6,imageUri)
                         addCarro.setString( 7,txtFechaDeIngreso.text.toString())
                         addCarro.setString(8,txtDescripcion.text.toString())
-
                         addCarro.executeUpdate()
+
 
                         withContext(Dispatchers.Main) {
                             Toast.makeText(

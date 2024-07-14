@@ -12,4 +12,6 @@ class ViewHolderCarros(view :View) : RecyclerView.ViewHolder(view) {
     val txtPlacaCardCarros = view.findViewById<TextView>(R.id.txtPlacaCardCarros)
     val txtModeloCardCarros = view.findViewById<TextView>(R.id.txtModeloCardCarros)
     val txtServicioCardCarros = view.findViewById<TextView>(R.id.txtServicioCardCarros)
+    val imgEliminarCarros = view.findViewById<ImageView>(R.id.imgEliminarCarros)
+    val imgActualizarCarro = view.findViewById<ImageView>(R.id.imgActualizarCarros)
 }

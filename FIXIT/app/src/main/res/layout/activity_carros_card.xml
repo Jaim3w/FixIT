@@ -131,13 +131,13 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/icActualizar"
+                android:id="@+id/imgActualizarCarros"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:srcCompat="@drawable/ajustes1" />
 
             <ImageView
-                android:id="@+id/icEliminar"
+                android:id="@+id/imgEliminarCarros"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:srcCompat="@drawable/borrar1" />
