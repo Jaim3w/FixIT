@@ -2,9 +2,13 @@ package CitasHelpers
 
 import Modelo.ClaseConexion
 import PtcFixit.fix_it.R
+import android.app.AlertDialog
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -14,11 +18,9 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderCitas {
          val vista =
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.fragment_citas_fragment2, parent, false)
+                .inflate(R.layout.card_citas, parent, false)
 
         return ViewHolderCitas(vista)
-
-
 
     }
 
@@ -87,9 +89,63 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
         holder.lblFecha.text = cita.fecha
         holder.lblHora.text = cita.hora
 
-    }
+        holder.imgEditar.setOnClickListener {
+            val alertDialogBuilder = AlertDialog.Builder(holder.itemView.context)
+            alertDialogBuilder.setTitle("Editar cita")
+            alertDialogBuilder.setMessage("Ingrese el nuevo titulo de la cita:")
 
-    holder.imgeditar.setOnClickListener{
+            val layout = LinearLayout(holder.itemView.context)
+            layout.orientation = LinearLayout.VERTICAL
+
+            val inputTitulo = EditText(holder.itemView.context)
+            inputTitulo.setText(cita.fecha)
+            inputTitulo.setText(cita.hora)
+            layout.addView(inputTitulo)
+
+            alertDialogBuilder.setView(layout)
+
+            alertDialogBuilder.setPositiveButton("Guardar") { dialog, which ->
+                val nuevaFecha = inputTitulo.text.toString().trim()
+                val nuevaHora = inputTitulo.text.toString().trim()
+                if (nuevaFecha.isNotEmpty() && nuevaHora.isNotEmpty()) {
+                    editarCita(cita.uuid, nuevaFecha, nuevaHora)
+                    actualizarListadoDespuesDeEditar(cita.uuid, nuevaFecha, nuevaHora)
+                } else {
+                    Toast.makeText(holder.itemView.context, "Complete todos los campos", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            alertDialogBuilder.setNegativeButton("Cancelar") { dialog, which ->
+                dialog.dismiss()
+            }
+
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+
+        }
+
+        holder.imgEliminar.setOnClickListener {
+            val context = holder.lblcliente.context
+
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("Eliminar")
+            builder.setMessage("¿Estas seguro que deseas eliminar?")
+
+            builder.setPositiveButton("Si") { dialog, which ->
+                val cita = Datos[position]
+                eliminarCita(cita.cliente, position)
+            }
+
+            builder.setNegativeButton("No") { dialog, wich ->
+                //Si doy en clic en "No" se cierra la alerta
+                dialog.dismiss()
+            }
+
+            val dialog = builder.create()
+            dialog.show()
+
+
+        }
 
     }
 
