@@ -29,12 +29,8 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FIXIT"
         tools:targetApi="34">
 
-        <activity
-            android:name=".RecuperarContra3"
-            android:exported="false" />
         <activity
             android:name=".splash_screen"
             android:exported="false"
@@ -89,14 +85,8 @@
             android:name=".BienvenidaInfo1"
             android:exported="false" />
         <activity
-
             android:name=".citas"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:exported="false">
         </activity>
 
         <activity
@@ -107,7 +97,6 @@
             android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
         </activity>
