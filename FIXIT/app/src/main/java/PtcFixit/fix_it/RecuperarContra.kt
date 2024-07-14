@@ -23,24 +23,24 @@ class RecuperarContra : AppCompatActivity() {
             insets
         }
 
-        val txtNum1=findViewById<EditText>(R.id.txtPrimerNum)
-        val txtNum2=findViewById<EditText>(R.id.txtSegundoNum)
-        val txtNum3=findViewById<EditText>(R.id.txtTercerNum)
-        val txtNum4=findViewById<EditText>(R.id.txtCuartoNum)
-        val btnContinuar=findViewById<Button>(R.id.btnContinuar)
+        val txtNum1 = findViewById<EditText>(R.id.txtPrimerNum)
+        val txtNum2 = findViewById<EditText>(R.id.txtSegundoNum)
+        val txtNum3 = findViewById<EditText>(R.id.txtTercerNum)
+        val txtNum4 = findViewById<EditText>(R.id.txtCuartoNum)
+        val btnContinuar = findViewById<Button>(R.id.btnContinuar)
 
-       txtNum1.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-           if(event.action== KeyEvent.ACTION_UP){
-               txtNum2.requestFocus();
-               println("esto es lo que escruibe $v")
-               println("esto es lo que escruibe $keyCode")
-               println("esto es lo que escruibe ${txtNum1.text.toString()}")
-               return@OnKeyListener true
-           }
-           false
-       })
+        txtNum1.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_UP) {
+                txtNum2.requestFocus();
+                println("esto es lo que escruibe $v")
+                println("esto es lo que escruibe $keyCode")
+                println("esto es lo que escruibe ${txtNum1.text.toString()}")
+                return@OnKeyListener true
+            }
+            false
+        })
         txtNum2.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            if(event.action== KeyEvent.ACTION_UP){
+            if (event.action == KeyEvent.ACTION_UP) {
                 txtNum3.requestFocus();
                 println("esto es lo que escruibe $v")
                 println("esto es lo que escruibe $keyCode")
@@ -50,7 +50,7 @@ class RecuperarContra : AppCompatActivity() {
             false
         })
         txtNum3.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            if(event.action== KeyEvent.ACTION_UP){
+            if (event.action == KeyEvent.ACTION_UP) {
                 txtNum4.requestFocus();
                 println("esto es lo que escruibe $v")
                 println("esto es lo que escruibe $keyCode")
@@ -59,15 +59,10 @@ class RecuperarContra : AppCompatActivity() {
             }
             false
         })
-        val todosNum="$txtNum1  $txtNum2  $txtNum3  $txtNum4"
-        btnContinuar.setOnClickListener{
-            if(todosNum == RecuperarContraParte2.codigoRecu.toString()){
-                val intent=Intent(this,RecuperarContra3::class.java)
-                startActivity(intent)
-            }
-            else{
-                Toast.makeText(this@RecuperarContra, "codigo erroneo intentelo de nuevo", Toast.LENGTH_SHORT).show()
-            }
+        val todosNum = "$txtNum1  $txtNum2  $txtNum3  $txtNum4"
+        btnContinuar.setOnClickListener {
+            val intent = Intent(this, RecuperarContra3::class.java)
+            startActivity(intent)
         }
     }
 }
