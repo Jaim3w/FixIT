@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 class RecuperarContraParte2 : AppCompatActivity() {
     companion object variablesGlobales{
         lateinit var correoIngresado : String
+        val codigoRecu=(1000..9000).random()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,6 @@ class RecuperarContraParte2 : AppCompatActivity() {
             CoroutineScope(Dispatchers.Main).launch {
                 correoIngresado=txtCorreo.text.toString()
                 startActivity(intent)
-                val codigoRecu=(1000..9000).random()
                 EnviarRecuperacion(
                     correoIngresado,
                     "Recuperacion de contraseña",

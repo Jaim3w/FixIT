@@ -22,6 +22,7 @@ class RecuperarContra : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         val txtNum1=findViewById<EditText>(R.id.txtPrimerNum)
         val txtNum2=findViewById<EditText>(R.id.txtSegundoNum)
         val txtNum3=findViewById<EditText>(R.id.txtTercerNum)
@@ -37,7 +38,6 @@ class RecuperarContra : AppCompatActivity() {
                return@OnKeyListener true
            }
            false
-
        })
         txtNum2.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if(event.action== KeyEvent.ACTION_UP){
@@ -48,7 +48,6 @@ class RecuperarContra : AppCompatActivity() {
                 return@OnKeyListener true
             }
             false
-
         })
         txtNum3.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if(event.action== KeyEvent.ACTION_UP){
@@ -59,11 +58,10 @@ class RecuperarContra : AppCompatActivity() {
                 return@OnKeyListener true
             }
             false
-
         })
         val todosNum="$txtNum1  $txtNum2  $txtNum3  $txtNum4"
         btnContinuar.setOnClickListener{
-            if(todosNum == RecuperarContraParte2.correoIngresado){
+            if(todosNum == RecuperarContraParte2.codigoRecu.toString()){
                 val intent=Intent(this,RecuperarContra3::class.java)
                 startActivity(intent)
             }
