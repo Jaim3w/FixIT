@@ -12,7 +12,6 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import kotlinx.coroutines.CoroutineScope
@@ -96,8 +95,8 @@ class RegisterAdmin : AppCompatActivity() {
             val nombreRol=listaRoles.map { it.NOMBRE }
 
             withContext(Dispatchers.Main){
-                val miAdaptador=ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item,nombreRol)
-                SpinnerRol.adapter=miAdaptador
+              val adapter= ArrayAdapter(this@RegisterAdmin,android.R.layout.simple_spinner_dropdown_item,nombreRol)
+                SpinnerRol.adapter=adapter
             }
         }
     }
