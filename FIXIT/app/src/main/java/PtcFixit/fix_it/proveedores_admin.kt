@@ -92,7 +92,6 @@ class proveedores_admin : AppCompatActivity() {
                 val adapterProv = Adaptador(proveedoresDB)
                 rcvProveedores.adapter = adapterProv
 
-                // Actualiza el RecyclerView con los mismos datos obtenidos anteriormente
                 (rcvProveedores.adapter as? Adaptador)?.actualizarRecyclerView(proveedoresDB)
             }
         }
