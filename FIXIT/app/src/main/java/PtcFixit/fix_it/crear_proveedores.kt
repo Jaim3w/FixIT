@@ -41,7 +41,7 @@ class crear_proveedores : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
                 val objConexion = ClaseConexion().cadenaConexion()
 
-                val addNombreProv = objConexion?.prepareStatement("insert into Proveedores (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) values (?, ?, ?, ?, ?, ?)")!!
+                val addNombreProv = objConexion?.prepareStatement("insert into Proveedor (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) values (?, ?, ?, ?, ?, ?)")!!
                 addNombreProv.setString(1,txtDuiProv.text.toString())
                 addNombreProv.setString(2,txtNombreProv.text.toString())
                 addNombreProv.setString(3,txtApellidosProv.text.toString())

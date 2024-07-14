@@ -59,7 +59,7 @@ class proveedores_admin : AppCompatActivity() {
                 return emptyList()
             }
 
-            val resultSet = statement.executeQuery("select * from Proveedores")
+            val resultSet = statement.executeQuery("select * from Proveedor")
             val listaProveedores = mutableListOf<RCVproveedor>()
 
             try {
