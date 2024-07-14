@@ -55,6 +55,7 @@
             android:name=".CochesDespachadosCardActivity"
             android:exported="false" />
         <activity
+<<<<<<< HEAD
             android:name=".proveedores_admin"
             android:exported="true">
             <intent-filter>
@@ -63,6 +64,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+=======
+            android:name=".RecuperarContraParte2"
+            android:exported="false"/>
+>>>>>>> 1e69e8023893f238586020e8006862ff6ac0bf81
         <activity
             android:name=".BienvenidaFixit"
             android:exported="false" />
@@ -92,7 +97,13 @@
             android:exported="false" />
         <activity
             android:name=".RegisterAdmin"
-            android:exported="false" />
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".CodigoTaller"
             android:exported="false" />

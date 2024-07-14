@@ -1,6 +1,7 @@
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
+import Modelo.RCVproveedor
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -17,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class crear_proveedores : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +51,7 @@ class crear_proveedores : AppCompatActivity() {
                 addNombreProv.setString(5,txtCorreoProv.text.toString())
                 addNombreProv.setString(6,txtDireccionProv.text.toString())
                 addNombreProv.executeUpdate()
+
 
             }
         }

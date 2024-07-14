@@ -1,6 +1,10 @@
 package Modelo
 
 data class RCVproveedor(
-    val nombre : String,
-    val telefono : String,
+    val dui : String,
+    var nombre : String,
+    var apellido : String,
+    var telefono : String,
+    var correo : String,
+    var direccion : String
 )
