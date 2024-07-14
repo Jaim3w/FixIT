@@ -106,7 +106,6 @@ class citasFragment : Fragment() {
             val imgEmpleado = resultSet.getString("ImagenEmpleado")
             val fechaNacimiento = resultSet.getString("FechaNacimiento")
             val telefono = resultSet.getString("Telefono")
-
             val empleadoCompleto = dataClassEmpleados(dui,uuid_usuario,nombre,apellido,imgEmpleado,fechaNacimiento,telefono)
 
             listadoEmpleado.add(empleadoCompleto)
