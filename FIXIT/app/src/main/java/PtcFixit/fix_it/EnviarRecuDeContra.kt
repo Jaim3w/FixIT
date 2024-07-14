@@ -1,10 +1,10 @@
 package PtcFixit.fix_it
 
 import android.media.MediaCas
+import android.net.TransportInfo
 import android.se.omapi.Session
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.net.PasswordAuthentication
 import java.util.Properties
 import javax.mail.Message
 import javax.mail.MessagingException
@@ -12,6 +12,7 @@ import javax.mail.PasswordAuthentication
 import javax.mail.Transport
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
+
 
 
 
