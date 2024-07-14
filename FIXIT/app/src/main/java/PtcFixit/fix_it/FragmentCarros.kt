@@ -1,10 +1,20 @@
 package PtcFixit.fix_it
 
+import CarrosHelpers.AdaptadorCarros
+import CarrosHelpers.tbCarros
+import Modelo.ClaseConexion
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +45,46 @@ class FragmentCarros : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_carros, container, false)
+
+        val root = inflater.inflate(R.layout.fragment_carros, container, false)
+        val rcvlistaCarros = root.findViewById<RecyclerView>(R.id.rcvListadoCarros)
+
+        rcvlistaCarros.layoutManager = LinearLayoutManager(requireContext())
+
+        fun ObtenerCarros ():List<tbCarros>{
+            val objConexion = ClaseConexion().cadenaConexion()
+            val statement = objConexion?.createStatement()
+            val resulSet = statement?.executeQuery("SELECT * FROM Carro ")!!
+
+            val listaCarro = mutableListOf<tbCarros>()
+            while (resulSet.next()){
+                val placaCarro =resulSet.getString("Placa_carro")
+                val duiCliente =resulSet.getString("Dui_cliente")
+                val uuidModelo =resulSet.getString("UUID_modelo")
+                val colorCarro = resulSet.getString("Color")
+                val anioCarro = resulSet.getString("Año")
+                val imagenCarro = resulSet.getString("ImagenCarro")
+                val fechaRegistroCarro = resulSet.getString("FechaRegistro")
+                val descripcionCarro = resulSet.getString("Descripcion")
+
+                val valoresJuntos = tbCarros(placaCarro,duiCliente,uuidModelo,colorCarro,anioCarro,imagenCarro,fechaRegistroCarro,descripcionCarro)
+
+                listaCarro.add(valoresJuntos)
+
+
+            }
+            return listaCarro
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val CarroData = ObtenerCarros()
+                withContext(Dispatchers.Main){
+                    val adaptador = AdaptadorCarros(CarroData)
+                    rcvlistaCarros.adapter= adaptador
+                }
+            }
+
+        }
+
     }
 
     companion object {

@@ -44,21 +44,20 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="Carro"
+                    android:text="Cliente"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtMarcaCardCarros"
+                    android:id="@+id/txtnombreClienteCarros"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="Marca carro"
+                    android:text="TextView"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -84,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="P00 000"
+                    android:text="TextView"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -111,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingStart="14dp"
-                android:text="Modelo año"
+                android:text="TextView"
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
@@ -121,7 +120,7 @@
                 android:layout_height="47dp"
                 android:layout_weight="1"
                 android:paddingTop="7dp"
-                android:text="Servicio que se esta realizando"
+                android:text="TextView"
                 android:textAlignment="center" />
 
         </LinearLayout>

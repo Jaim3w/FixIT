@@ -56,7 +56,7 @@
                     android:paddingStart="18dp" />
 
                 <Spinner
-                    android:id="@+id/spDuiCliente"
+                    android:id="@+id/txtDuiClienteCarro"
                     android:layout_width="345dp"
                     android:layout_height="52dp"
                     android:layout_marginStart="30dp"
@@ -64,7 +64,7 @@
                     android:layout_marginBottom="34dp" />
 
                 <Spinner
-                    android:id="@+id/spModelo"
+                    android:id="@+id/txtModelo"
                     android:layout_width="345dp"
                     android:layout_height="52dp"
                     android:layout_marginStart="30dp"
