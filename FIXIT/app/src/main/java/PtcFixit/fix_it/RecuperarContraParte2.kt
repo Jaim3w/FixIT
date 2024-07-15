@@ -26,8 +26,8 @@ class RecuperarContraParte2 : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val txtCorreo=findViewById<EditText>(R.id.txtCorreo)
-        val btnContinuar=findViewById<Button>(R.id.btnContinuar)
+        val txtCorreo=findViewById<EditText>(R.id.txtNuevaContra)
+        val btnContinuar=findViewById<Button>(R.id.btnGurdadContra)
         btnContinuar.setOnClickListener{
             val intent=Intent(this,RecuperarContra::class.java)
             CoroutineScope(Dispatchers.Main).launch {

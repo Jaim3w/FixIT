@@ -6,7 +6,6 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -27,7 +26,7 @@ class RecuperarContra : AppCompatActivity() {
         val txtNum2 = findViewById<EditText>(R.id.txtSegundoNum)
         val txtNum3 = findViewById<EditText>(R.id.txtTercerNum)
         val txtNum4 = findViewById<EditText>(R.id.txtCuartoNum)
-        val btnContinuar = findViewById<Button>(R.id.btnContinuar)
+        val btnContinuar = findViewById<Button>(R.id.btnGurdadContra)
 
         txtNum1.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_UP) {
