@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -54,6 +55,7 @@ dependencies {
     implementation(files("libs\\additionnal.jar"))
     implementation(files("libs\\mail.jar"))
     implementation("com.oracle.database.jdbc:ojdbc6:11.2.0.4")
+    implementation(libs.firebase.storage.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

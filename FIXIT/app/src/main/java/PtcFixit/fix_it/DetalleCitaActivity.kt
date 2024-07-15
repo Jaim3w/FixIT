@@ -1,28 +1,20 @@
 package PtcFixit.fix_it
 
-import Modelo.ClaseConexion
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class RecuperarContra3 : AppCompatActivity() {
+class DetalleCitaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_recuperar_contra3)
+        setContentView(R.layout.activity_detalle_cita)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        val txtNuevaContra=findViewById<EditText>(R.id.txtNuevaContra)
-        val btnGuardarContra=findViewById<Button>(R.id.btnGurdadContra)
-
-
     }
 }

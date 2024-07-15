@@ -58,7 +58,7 @@
         app:srcCompat="@drawable/imgbienvenida4" />
 
     <ImageView
-        android:id="@+id/imgSiguiente"
+        android:id="@+id/imgSiguienteInicioDos"
         android:layout_width="20dp"
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="parent"

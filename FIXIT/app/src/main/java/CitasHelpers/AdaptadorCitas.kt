@@ -1,9 +1,13 @@
 package CitasHelpers
 
 import Modelo.ClaseConexion
+import PtcFixit.fix_it.DetalleCitaActivity
 import PtcFixit.fix_it.R
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
@@ -13,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<ViewHolderCitas>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderCitas {
@@ -58,21 +65,24 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
 
         val identificador = Datos.indexOfFirst { it.uuid == uuid }
 
-        Datos[identificador].fecha = nuevaFecha
-        Datos[identificador].hora = hora
-
-        notifyItemChanged(identificador)
+        if (identificador != -1){
+            Datos[identificador].fecha = nuevaFecha
+            Datos[identificador].hora = hora
+            notifyItemChanged(identificador)
+        }else{
+            Log.e("ActualizarListado", "UUID no encontrado: $uuid")
+        }
     }
 
-    fun editarCita(fecha:String, hora:String, uuid:String){
+    fun editarCita( uuid:String, nuevaFecha:String, nuevaHora:String){
         GlobalScope.launch(Dispatchers.IO){
             //1- Creo un objeto de la clase conexion
             val objConexion = ClaseConexion().cadenaConexion()
 
             //2- Creo una variable que contenga un PrepareStatement
             val updateCita = objConexion?.prepareStatement("update Cita set Fecha_cita = ? , Hora_cita = ?  where uuid_cita = ?")!!
-            updateCita.setString(1, fecha)
-            updateCita.setString(2, hora)
+            updateCita.setString(1, nuevaFecha)
+            updateCita.setString(2, nuevaHora)
             updateCita.setString(3, uuid)
             updateCita.executeUpdate()
 
@@ -92,21 +102,78 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
         holder.imgEditar.setOnClickListener {
             val alertDialogBuilder = AlertDialog.Builder(holder.itemView.context)
             alertDialogBuilder.setTitle("Editar cita")
-            alertDialogBuilder.setMessage("Ingrese el nuevo titulo de la cita:")
+            alertDialogBuilder.setMessage("Cambie la nueva fecha o hora de la cita:")
 
             val layout = LinearLayout(holder.itemView.context)
             layout.orientation = LinearLayout.VERTICAL
 
-            val inputTitulo = EditText(holder.itemView.context)
-            inputTitulo.setText(cita.fecha)
-            inputTitulo.setText(cita.hora)
-            layout.addView(inputTitulo)
+            val inputFecha = EditText(holder.itemView.context)
+            inputFecha.setText(cita.fecha)
+            layout.addView(inputFecha)
+
+            val inputHora = EditText(holder.itemView.context)
+            inputHora.setText(cita.hora)
+            layout.addView(inputHora)
 
             alertDialogBuilder.setView(layout)
 
+            inputFecha.setOnClickListener {
+                val calendario = Calendar.getInstance()
+                val anio = calendario.get(Calendar.YEAR)
+                val mes = calendario.get(Calendar.MONTH)
+                val dia = calendario.get(Calendar.DAY_OF_MONTH)
+
+                val fechaMinima = Calendar.getInstance()
+                fechaMinima.set(anio, mes, dia + 1)
+
+                val fechaMaxima = Calendar.getInstance()
+                fechaMaxima.set(anio, mes, dia + 10)
+
+                val datePickerDialog = DatePickerDialog(
+                    holder.itemView.context,
+                    { _, anioSeleccionado, mesSeleccionado, diaSeleccionado ->
+                        val fechaSeleccionada = "$diaSeleccionado/${mesSeleccionado + 1}/$anioSeleccionado"
+                        inputFecha.setText(fechaSeleccionada)
+                    },
+                    anio, mes, dia
+                )
+
+                datePickerDialog.datePicker.minDate = fechaMinima.timeInMillis
+                datePickerDialog.datePicker.maxDate = fechaMaxima.timeInMillis
+
+                datePickerDialog.show()
+            }
+
+            inputHora.setOnClickListener {
+                val cal = Calendar.getInstance()
+                val hour = cal.get(Calendar.HOUR_OF_DAY)
+                val minute = cal.get(Calendar.MINUTE)
+
+                val timePickerDialog = TimePickerDialog(
+                    holder.itemView.context,
+                    { _, hourOfDay, minuteOfDay ->
+                        if (hourOfDay in 8..15) {
+                            cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                            cal.set(Calendar.MINUTE, minuteOfDay)
+                            val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
+                            val formattedTime = format.format(cal.time)
+                            inputHora.setText(formattedTime)
+                        } else {
+                            Toast.makeText(holder.itemView.context, "Por favor, seleccione una hora entre 8 AM y 3 PM", Toast.LENGTH_SHORT).show()
+                        }
+                    },
+                    hour,
+                    minute,
+                    false
+                )
+
+                timePickerDialog.show()
+
+            }
+
             alertDialogBuilder.setPositiveButton("Guardar") { dialog, which ->
-                val nuevaFecha = inputTitulo.text.toString().trim()
-                val nuevaHora = inputTitulo.text.toString().trim()
+                val nuevaFecha = inputFecha.text.toString().trim()
+                val nuevaHora = inputHora.text.toString().trim()
                 if (nuevaFecha.isNotEmpty() && nuevaHora.isNotEmpty()) {
                     editarCita(cita.uuid, nuevaFecha, nuevaHora)
                     actualizarListadoDespuesDeEditar(cita.uuid, nuevaFecha, nuevaHora)
@@ -125,7 +192,7 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
         }
 
         holder.imgEliminar.setOnClickListener {
-            val context = holder.lblcliente.context
+            val context = holder.lblFecha.context
 
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Eliminar")
@@ -133,7 +200,7 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
 
             builder.setPositiveButton("Si") { dialog, which ->
                 val cita = Datos[position]
-                eliminarCita(cita.cliente, position)
+                eliminarCita(cita.fecha, position)
             }
 
             builder.setNegativeButton("No") { dialog, wich ->
@@ -146,6 +213,32 @@ class AdaptadorCitas(private var Datos: List<tbCita>) : RecyclerView.Adapter<Vie
 
 
         }
+
+//        holder.itemView.setOnClickListener {
+//            val context = holder.itemView.context
+//            val pantalla = Intent(context, DetalleCitaActivity::class.java)
+//
+//            pantalla.putExtra(
+//                "Dui_cliente", cita.cliente
+//            )
+//            pantalla.putExtra(
+//                "Dui_empleado", cita.empleado
+//            )
+//            pantalla.putExtra(
+//                "Fecha_cita", cita.fecha
+//            )
+//            pantalla.putExtra(
+//                "Hora_cita", cita.hora
+//            )
+//            pantalla.putExtra(
+//                "Descripcion", cita.descripcion
+//            )
+//            context.startActivity(pantalla)
+//
+//
+//        }
+
+
 
     }
 
