@@ -7,9 +7,11 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
         tools:ignore="SelectedPhotoAccess" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -31,6 +33,11 @@
         android:supportsRtl="true"
         android:theme="@style/fixit"
         tools:targetApi="34">
+
+        <activity
+            android:name=".proveedores_admin"
+            android:exported="false" />
+
         <activity
             android:name=".DetalleCitaActivity"
             android:exported="false" />
@@ -61,7 +68,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -97,8 +103,7 @@
             android:exported="false" />
         <activity
             android:name=".citas"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".repuestos_admin"
             android:exported="false" />

@@ -31,7 +31,7 @@ class proveedores_admin : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge() // Asegúrate de tener implementado este método si no es propio del SDK de Android
+        enableEdgeToEdge()
         setContentView(R.layout.activity_proveedores_admin)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -49,17 +49,15 @@ class proveedores_admin : AppCompatActivity() {
             startActivityForResult(intent, REQUEST_CODE_CREAR_PROVEEDOR)
         }
 
-        // Cargar proveedores al iniciar la actividad
-
+        setupNavClickListeners()
     }
 
     override fun onResume() {
         super.onResume()
-
         cargarProveedores()
     }
 
-            private fun cargarProveedores() {
+    private fun cargarProveedores() {
         CoroutineScope(Dispatchers.IO).launch {
             val proveedoresList = obtenerProveedores()
             withContext(Dispatchers.Main) {
@@ -92,7 +90,11 @@ class proveedores_admin : AppCompatActivity() {
         } catch (e: SQLException) {
             Log.e("obtenerProveedores", "Error al obtener proveedores: ${e.message}")
         } finally {
-            objConexion.close()
+            try {
+                objConexion.close()
+            } catch (e: SQLException) {
+                Log.e("obtenerProveedores", "Error al cerrar la conexión: ${e.message}")
+            }
         }
 
         return listaProveedores
