@@ -25,6 +25,7 @@ import kotlinx.coroutines.withContext
 import oracle.net.aso.e
 
 class crear_proveedores : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -108,67 +109,63 @@ class crear_proveedores : AppCompatActivity() {
             }
         }
 
+        //--------------------------------NAV-----------------------------------------------------------------------------
 
-                //--------------------------------NAV-----------------------------------------------------------------------------
+        setupNavClickListeners()
 
-                setupNavClickListeners()
-
-                onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-                    override fun handleOnBackPressed() {
-                        val intent = Intent(this@crear_proveedores, Menu1Activity::class.java)
-                        val options = ActivityOptionsCompat.makeCustomAnimation(
-                            this@crear_proveedores,
-                            R.anim.fade_in,
-                            R.anim.fade_out
-                        )
-                        startActivity(intent, options.toBundle())
-                        finish()
-                    }
-                })
-
-
-                fun setupNavClickListeners() {
-                    val navView = findViewById<View>(R.id.include_nav)
-
-                    val imgHomenav = navView.findViewById<ImageView>(R.id.imgHomenav)
-                    val imgRepuestosnav = navView.findViewById<ImageView>(R.id.imgRepuestosnav)
-                    val imgProveedoresnav = navView.findViewById<ImageView>(R.id.imgProveedoresnav)
-                    val imgCarrosnav = navView.findViewById<ImageView>(R.id.imgCarrosnav)
-                    val imgCitasnav = navView.findViewById<ImageView>(R.id.imgCitasnav)
-
-                    val clickListener = View.OnClickListener { v ->
-                        val currentActivity = this::class.java
-                        val targetActivity = when (v.id) {
-                            R.id.imgHomenav -> Menu1Activity::class.java
-                            R.id.imgRepuestosnav -> repuestos_admin::class.java
-                            R.id.imgProveedoresnav -> proveedores_admin::class.java
-                            R.id.imgCarrosnav -> carros_admin::class.java
-                            R.id.imgCitasnav -> citas::class.java
-                            else -> null
-                        }
-                        if (targetActivity != null && currentActivity != targetActivity) {
-                            val intent = Intent(this, targetActivity)
-                            val options = ActivityOptionsCompat.makeCustomAnimation(
-                                this,
-                                R.anim.fade_in,
-                                R.anim.fade_out
-                            )
-                            startActivity(intent, options.toBundle())
-                            finish()
-                        }
-                    }
-
-                    imgHomenav.setOnClickListener(clickListener)
-                    imgRepuestosnav.setOnClickListener(clickListener)
-                    imgProveedoresnav.setOnClickListener(clickListener)
-                    imgCarrosnav.setOnClickListener(clickListener)
-                    imgCitasnav.setOnClickListener(clickListener)
-                }}
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val intent = Intent(this@crear_proveedores, Menu1Activity::class.java)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this@crear_proveedores,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
+                finish()
+            }
+        })
+    }
 
     private fun setupNavClickListeners() {
-        TODO("Not yet implemented")
+        val navView = findViewById<View>(R.id.include_nav)
+
+        val imgHomenav = navView.findViewById<ImageView>(R.id.imgHomenav)
+        val imgRepuestosnav = navView.findViewById<ImageView>(R.id.imgRepuestosnav)
+        val imgProveedoresnav = navView.findViewById<ImageView>(R.id.imgProveedoresnav)
+        val imgCarrosnav = navView.findViewById<ImageView>(R.id.imgCarrosnav)
+        val imgCitasnav = navView.findViewById<ImageView>(R.id.imgCitasnav)
+
+        val clickListener = View.OnClickListener { v ->
+            val currentActivity = this::class.java
+            val targetActivity = when (v.id) {
+                R.id.imgHomenav -> Menu1Activity::class.java
+                R.id.imgRepuestosnav -> repuestos_admin::class.java
+                R.id.imgProveedoresnav -> proveedores_admin::class.java
+                R.id.imgCarrosnav -> carros_admin::class.java
+                R.id.imgCitasnav -> citas::class.java
+                else -> null
+            }
+            if (targetActivity != null && currentActivity != targetActivity) {
+                val intent = Intent(this, targetActivity)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
+                finish()
+            }
+        }
+
+        imgHomenav.setOnClickListener(clickListener)
+        imgRepuestosnav.setOnClickListener(clickListener)
+        imgProveedoresnav.setOnClickListener(clickListener)
+        imgCarrosnav.setOnClickListener(clickListener)
+        imgCitasnav.setOnClickListener(clickListener)
     }
 }
+
 
 
 
