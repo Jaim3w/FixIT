@@ -3,18 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="PtcFixit.fix_it">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
-        tools:ignore="SelectedPhotoAccess" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -24,14 +13,16 @@
         android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/fixit"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/fixit"
         tools:targetApi="34">
-
+        <activity
+            android:name=".DetalleCitaActivity"
+            android:exported="false" />
         <activity
             android:name=".RecuperarContra3"
             android:exported="false" />
@@ -45,7 +36,6 @@
         <activity
             android:name=".carros_agregar_admin"
             android:exported="false" />
-
         <activity
             android:name=".login_fixIT"
             android:exported="false" />
@@ -57,11 +47,12 @@
             android:exported="false" />
         <activity
             android:name=".Menu1Activity"
-            android:exported="true"><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".carros_admin"
@@ -71,7 +62,7 @@
             android:exported="false" />
         <activity
             android:name=".RecuperarContraParte2"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".BienvenidaFixit"
             android:exported="false" />
@@ -94,22 +85,20 @@
             android:name=".BienvenidaInfo1"
             android:exported="false" />
         <activity
-
             android:name=".citas"
-            android:exported="false">
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
-        <activity
-            android:name=".proveedores_admin"
-            android:exported="false"/>
-
         <activity
             android:name=".repuestos_admin"
             android:exported="false" />
         <activity
             android:name=".RegisterAdmin"
             android:exported="true" />
-
         <activity
             android:name=".CodigoTaller"
             android:exported="false" />

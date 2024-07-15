@@ -1,7 +1,9 @@
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
+import Modelo.listadoCarros
 import Modelo.listadoCita
+import RecyclerViewHelpersMain.AdaptadorCarros
 import RecyclerViewHelpersMain.AdaptadorCitas
 import android.content.Intent
 import android.os.Bundle
@@ -26,7 +28,9 @@ import java.sql.SQLException
 
 class Menu1Activity : AppCompatActivity() {
     lateinit var rcvCitas: RecyclerView
-     lateinit var adaptadorCitas: AdaptadorCitas
+    lateinit var adaptadorCitas: AdaptadorCitas
+    lateinit var rcvCarrosDespachados: RecyclerView
+    lateinit var adaptadorCarros: AdaptadorCarros
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,13 +57,18 @@ class Menu1Activity : AppCompatActivity() {
             }
         })
 
+        rcvCarrosDespachados = findViewById(R.id.rcvCarrosDespachados)
+        rcvCarrosDespachados.layoutManager = LinearLayoutManager(this)
+        adaptadorCarros = AdaptadorCarros(emptyList(), this)
+        rcvCarrosDespachados.adapter = adaptadorCarros
+
         rcvCitas = findViewById(R.id.rcvCitas)
         rcvCitas.layoutManager = LinearLayoutManager(this)
         adaptadorCitas = AdaptadorCitas(emptyList(), this)
         rcvCitas.adapter = adaptadorCitas
 
         mostrarCitas()
-        mostrarCarro()
+        mostrarCarros()
     }
 
     private fun setupNavClickListeners() {
@@ -110,8 +119,14 @@ class Menu1Activity : AppCompatActivity() {
         }
     }
 
-    private fun mostrarCarro() {
-        // Aquí puedes implementar la lógica para mostrar información del carro si es necesario
+    private fun mostrarCarros() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val nuevosCarros = obtenerCarros()
+
+            withContext(Dispatchers.Main) {
+                adaptadorCarros.actualizarCarros(nuevosCarros)
+            }
+        }
     }
 
     private fun obtenerCitas(): List<listadoCita> {
@@ -120,10 +135,12 @@ class Menu1Activity : AppCompatActivity() {
 
         try {
             val statement = objConexion?.createStatement()
-            val resultSet = statement?.executeQuery("SELECT c.UUID_cita, c.Dui_cliente, cli.Nombre AS Nombre_cliente, c.Dui_Empleado, c.Fecha_cita, c.Descripcion\n" +
-                    "FROM Cita c\n" +
-                    "INNER JOIN Cliente cli ON c.Dui_cliente = cli.Dui_cliente\n" +
-                    "ORDER BY c.Fecha_cita ASC;")
+            val resultSet = statement?.executeQuery(
+                "SELECT c.UUID_cita, c.Dui_cliente, cli.Nombre AS Nombre_cliente, c.Dui_Empleado, c.Fecha_cita, c.Descripcion\n" +
+                        "FROM Cita c\n" +
+                        "INNER JOIN Cliente cli ON c.Dui_cliente = cli.Dui_cliente\n" +
+                        "ORDER BY c.Fecha_cita ASC"
+            )
 
             while (resultSet?.next() == true) {
                 val uuidCita = resultSet.getString("UUID_cita")
@@ -151,5 +168,47 @@ class Menu1Activity : AppCompatActivity() {
             objConexion?.close()
         }
         return listadoCitas
+    }
+
+    private fun obtenerCarros(): List<listadoCarros> {
+        val objConexion = ClaseConexion().cadenaConexion()
+        val listadoCarros = mutableListOf<listadoCarros>()
+
+        try {
+            val statement = objConexion?.createStatement()
+            val resultSet = statement?.executeQuery("SELECT * FROM Carro")
+
+            while (resultSet?.next() == true) {
+                val placaCarro = resultSet.getString("Placa_carro")
+                val duiCliente = resultSet.getString("Dui_cliente")
+                val uuidModelo = resultSet.getString("UUID_modelo")
+                val color = resultSet.getString("Color")
+                val año = resultSet.getString("Año")
+                val imagenCarro = resultSet.getString("ImagenCarro")
+                val fechaRegistro = resultSet.getString("FechaRegistro")
+                val descripcion = resultSet.getString("Descripcion")
+
+                val carro = listadoCarros(
+                    placaCarro,
+                    duiCliente,
+                    uuidModelo,
+                    color,
+                    año,
+                    imagenCarro,
+                    fechaRegistro,
+                    descripcion
+                )
+
+                listadoCarros.add(carro)
+            }
+
+            resultSet?.close()
+            statement?.close()
+        } catch (e: SQLException) {
+            Log.e("Menu1Activity", "Error al obtener carros: ${e.message}")
+        } finally {
+            objConexion?.close()
+        }
+        return listadoCarros
     }
 }
