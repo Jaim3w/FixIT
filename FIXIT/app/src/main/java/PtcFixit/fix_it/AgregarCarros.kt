@@ -1,3 +1,4 @@
+
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
@@ -154,8 +155,8 @@ class AgregarCarros : Fragment() {
         val txtModelo = root.findViewById<Spinner>(R.id.txtModelo)
         val txtColorVehiculo = root.findViewById<EditText>(R.id.txtColorVehiculo)
         val txtAniovehiculo = root.findViewById<EditText>(R.id.txtanioVehiculo)
-       val  txtFechaDeIngreso = root.findViewById<EditText>(R.id.txtFechaIngreso)
-       val  txtDescripcion = root.findViewById<EditText>(R.id.txtDescripcionVehiculo)
+        val  txtFechaDeIngreso = root.findViewById<EditText>(R.id.txtFechaIngreso)
+        val  txtDescripcion = root.findViewById<EditText>(R.id.txtDescripcionVehiculo)
 
 
         GlobalScope.launch(Dispatchers.IO) {
@@ -187,26 +188,27 @@ class AgregarCarros : Fragment() {
         txtAniovehiculo.setOnClickListener {
             showYearPickerDialog(txtAniovehiculo)
         }
+
         txtFechaDeIngreso.inputType = InputType.TYPE_NULL
         txtFechaDeIngreso.setOnClickListener {
-            val calendario = Calendar.getInstance()
-            val anio = calendario.get(Calendar.YEAR)
-            val mes = calendario.get(Calendar.MONTH)
-            val dia = calendario.get(Calendar.DAY_OF_MONTH)
+                    val calendario = Calendar.getInstance()
+                    val anio = calendario.get(Calendar.YEAR)
+                    val mes = calendario.get(Calendar.MONTH)
+                    val dia = calendario.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                { _, selectedYear, selectedMonth, selectedDayOfMonth ->
-                    val fechaSeleccionada = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
-                    txtFechaDeIngreso.setText(fechaSeleccionada)
-                },
-                anio, mes, dia
-            )
+                    val datePickerDialog = DatePickerDialog(
+                        requireContext(),
+                        { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                            val fechaSeleccionada = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
+                            txtFechaDeIngreso.setText(fechaSeleccionada)
+                        },
+                        anio, mes, dia
+                    )
 
-            datePickerDialog.datePicker.maxDate = calendario.timeInMillis
+                    datePickerDialog.datePicker.maxDate = calendario.timeInMillis
 
-            datePickerDialog.show()
-        }
+                    datePickerDialog.show()
+                }
 
         btnGuardarVehiculo.setOnClickListener {
             val placas = txtnumPlaca.text.toString().trim()
@@ -225,6 +227,7 @@ class AgregarCarros : Fragment() {
                         val objConexion = ClaseConexion().cadenaConexion()
                         val cliente = getClientes()
                         val modelo = getModelo()
+                        println("esto es lo que estoy intentando ingresar para el modelo ${modelo[txtModelo.selectedItemPosition].UUID_modelo}")
 
                         val addCarro = objConexion?.prepareStatement("INSERT INTO Carro (Placa_carro, Dui_cliente, UUID_modelo, Color, Año, FechaRegistro, Descripcion) VALUES (?,?,?,?,?,?,?)")!!
                         addCarro.setString(1, placas)
