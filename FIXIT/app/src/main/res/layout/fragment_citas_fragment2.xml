@@ -11,6 +11,7 @@ tools:context=".citas_fragment2">
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvCitas"
         android:layout_width="414dp"
         android:layout_height="515dp"
         app:layout_constraintBottom_toBottomOf="parent"
