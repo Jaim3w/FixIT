@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnIniciarSesionTaller"
         android:layout_width="202dp"
         android:layout_height="52dp"
         android:background="@drawable/btn1"
@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.478" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnRegistrarseTaller"
         android:layout_width="194dp"
         android:layout_height="51dp"
         android:background="@drawable/btn1"

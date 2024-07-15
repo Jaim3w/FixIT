@@ -29,7 +29,7 @@
         android:paddingTop="0dp"
         android:paddingLeft="60dp"
         android:layout_marginTop="-6dp"
-        app:layout_constraintBottom_toTopOf="@+id/imgSiguiente"
+        app:layout_constraintBottom_toTopOf="@+id/imgSiguienteInicio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -56,7 +56,7 @@
         app:srcCompat="@drawable/imgbienvenida4" />
 
     <ImageView
-        android:id="@+id/imgSiguiente"
+        android:id="@+id/imgSiguienteInicio"
         android:layout_width="20dp"
         android:layout_height="30dp"
         app:layout_constraintBottom_toBottomOf="parent"

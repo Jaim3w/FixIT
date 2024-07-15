@@ -2,7 +2,7 @@ package PtcFixit.fix_it
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.view.View
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,22 +12,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class Inicio3 : AppCompatActivity() {
+class inicio : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_inicio3_fixit)
+        setContentView(R.layout.activity_inicio_fixit)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val tallerIngresar = findViewById<Button>(R.id.btnTallerIngresar)
+        val flechita = findViewById<ImageView>(R.id.imgSiguienteInicio)
 
-        tallerIngresar.setOnClickListener {
+        flechita.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO) {
-                val intent = Intent(this@Inicio3, MainActivity::class.java)
+                val intent = Intent(this@inicio, Inicio2::class.java)
                 startActivity(intent)
                 finish()
             }
