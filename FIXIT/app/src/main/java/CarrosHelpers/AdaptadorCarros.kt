@@ -16,8 +16,7 @@ import kotlinx.coroutines.launch
 class AdaptadorCarros(private var Datos: List<tbCarros>) : RecyclerView.Adapter<ViewHolderCarros>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderCarros {
-        val vista = LayoutInflater.from(parent.context)
-            .inflate(R.layout.activity_carros_card, parent, false)
+        val vista = LayoutInflater.from(parent.context).inflate(R.layout.activity_carros_card, parent, false)
         return ViewHolderCarros(vista)
     }
 
@@ -29,6 +28,7 @@ class AdaptadorCarros(private var Datos: List<tbCarros>) : RecyclerView.Adapter<
     }
 
     fun actualizarItem(placaCarro: String, nuevaImagen: String, fechaNuevaCarro: String, colorNuevo: String, nuevaDescripcionCarro: String) {
+
         val index = Datos.indexOfFirst { it.Placa_carro == placaCarro }
         if (index != -1) {
             Datos[index].ImagenCarro = nuevaImagen
@@ -70,10 +70,12 @@ class AdaptadorCarros(private var Datos: List<tbCarros>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolderCarros, position: Int) {
+
         val item = Datos[position]
         holder.imgCarros.tag = item.ImagenCarro
         holder.txtfechaRegistroCard.text = item.FechaRegistro
         holder.txtColorCarroCard.text = item.Color
+        holder.txtanioCarro.text = item.Anio
         holder.txtServicioCardCarros.text = item.DescripcionCarro
 
         holder.imgEliminarCarros.setOnClickListener {
