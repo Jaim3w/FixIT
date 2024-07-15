@@ -2,6 +2,7 @@ package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
 import Modelo.dataClassRoles
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.widget.ArrayAdapter
@@ -39,28 +40,68 @@ class RegisterAdmin : AppCompatActivity() {
         val Vercontrasena=findViewById<ImageView>(R.id.imgVerContraRegister)
         val SpinnerRol=findViewById<Spinner>(R.id.spRoles)
 
+        fun obtenerRol() : String?{
+            val objconexion=ClaseConexion().cadenaConexion()
+            val statement=objconexion?.createStatement()
+            val resultSet=statement?.executeQuery("select UUID_rol from Usuario where Nombre = 'Administrador'")!!
+
+            var uuidRol:String? = null
+
+            if(resultSet.next()){
+                uuidRol=resultSet.getString("UUID_rol")
+                println("este es el uuid traido del if $uuidRol")
+            }
+            println("Este es el uuid traido de la funcion $uuidRol")
+            return uuidRol
+
+
+        }
+        fun obtenerRol2() : String?{
+            val objconexion=ClaseConexion().cadenaConexion()
+            val statement=objconexion?.createStatement()
+            val resultSet1=statement?.executeQuery("select UUID_rol from Usuario where Nombre = 'Empleado'")!!
+
+            var uuidRol:String? = null
+
+            if(resultSet1.next()){
+                uuidRol=resultSet1.getString("UUID_rol")
+                println("este es el uuid traido del if $uuidRol")
+            }
+            println("Este es el uuid traido de la funcion $uuidRol")
+            return uuidRol
+
+        }
+
+        val uuidRolTraido=obtenerRol()
+
+        val EmpleadoTRaido=obtenerRol2()
+
+
         fun hashSHA256(contrasenaEscrita: String):String{
             val bytes=MessageDigest.getInstance("SHA-256").digest(contrasenaEscrita.toByteArray())
             return bytes.joinToString("") { "%02x".format(it)}
         }
 
         Registrar.setOnClickListener{
+            val pantallamenu=Intent(this,Menu1Activity::class.java)
             GlobalScope.launch(Dispatchers.IO){
 
                 val objConexion=ClaseConexion().cadenaConexion()
 
                 val contrasenaEncriptada= hashSHA256(ContrasenaAdmin.text.toString())
-                val crearUser=objConexion?.prepareStatement("Insert into Usuario(UUID_usuario,UUID_rol,CorreoElectronico,Contrasena) values(?,?,?,?) ")!!
-                crearUser.setString(1, UUID.randomUUID().toString())
-                crearUser.setString(2,UUID.randomUUID().toString())
-                crearUser.setString(3,UUID.randomUUID().toString())
-                crearUser.setString(4,CorreoAdmin.text.toString())
-                crearUser.setString(5,contrasenaEncriptada)
-                crearUser.executeUpdate()
+                val crearUsuario=objConexion?.prepareStatement("Insert into usuario(UUID_usuario,UUID_rol,CorreoElectronico,Contrasena) values(?,?,?,?) ")!!
+                crearUsuario.setString(1, UUID.randomUUID().toString())
+                crearUsuario.setString(2,uuidRolTraido)
+                crearUsuario.setString(3,CorreoAdmin.text.toString())
+                crearUsuario.setString(4,contrasenaEncriptada)
+
+                crearUsuario.executeUpdate()
                 withContext(Dispatchers.Main){
                     Toast.makeText(this@RegisterAdmin, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show()
                     CorreoAdmin.setText("")
                     ContrasenaAdmin.setText("")
+
+                    startActivity(pantallamenu)
                 }
             }
         }
@@ -76,28 +117,27 @@ class RegisterAdmin : AppCompatActivity() {
 
         fun obtenerRoles(): List<dataClassRoles>{
             val objconexion=ClaseConexion().cadenaConexion()
-            
             val stateman=objconexion?.createStatement()
             val resulset=stateman?.executeQuery("select * from Rol")!!
-
             val listadoRoles = mutableListOf<dataClassRoles>()
             while (resulset.next()){
-                val uuid=resulset.getString("RolUUID")
-                val nombre=resulset.getString("nombreRol")
+                val uuid=resulset.getString("UUID_rol")
+                val nombre=resulset.getString("Nombre")
                 val unRolCompleto=dataClassRoles(uuid,nombre)
                 listadoRoles.add(unRolCompleto)
             }
             return listadoRoles
         }
-
         CoroutineScope(Dispatchers.IO).launch {
             val listaRoles=obtenerRoles()
-            val nombreRol=listaRoles.map { it.NOMBRE }
+            val nombreRol=listaRoles.map { it.Nombre }
 
             withContext(Dispatchers.Main){
               val adapter= ArrayAdapter(this@RegisterAdmin,android.R.layout.simple_spinner_dropdown_item,nombreRol)
                 SpinnerRol.adapter=adapter
             }
         }
+
+
     }
 }
