@@ -54,11 +54,16 @@ class citasFragment : Fragment() {
         val timePickerDialog = TimePickerDialog(
             requireContext(),
             { _: TimePicker, hourOfDay: Int, minute: Int ->
-                cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                cal.set(Calendar.MINUTE, minute)
-                val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
-                val formattedTime = format.format(cal.time)
-                textView.setText(formattedTime)
+                if (hourOfDay in 7..15){
+                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    cal.set(Calendar.MINUTE, minute)
+                    val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
+                    val formattedTime = format.format(cal.time)
+                    textView.setText(formattedTime)
+                }
+                else{
+                    Toast.makeText(requireContext(), "Por favor, seleccione una hora entre 8 AM y 3 PM", Toast.LENGTH_SHORT).show()
+                }
             },
             hour,
             minute,
@@ -144,12 +149,12 @@ class citasFragment : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_citas, container, false)
 
-        val txtClienteCita = root.findViewById<Spinner>(R.id.txtClienteCita)
-        val txtEmpleadoCita = root.findViewById<Spinner>(R.id.txtEmpleadoCita)
-        val txtFecha = root.findViewById<EditText>(R.id.txtFecha)
-        val txtHora = root.findViewById<EditText>(R.id.txtHora)
-        val txtDescripcion = root.findViewById<EditText>(R.id.txtDescripcion)
-        val btnCrearCita = root.findViewById<Button>(R.id.btnCrearCita)
+        val txtClienteCita = root.findViewById<Spinner>(R.id.spDui)
+        val txtEmpleadoCita = root.findViewById<Spinner>(R.id.spDuiEmpleado)
+        val txtFecha = root.findViewById<EditText>(R.id.fechaCita)
+        val txtHora = root.findViewById<EditText>(R.id.HoraCita)
+        val txtDescripcion = root.findViewById<EditText>(R.id.descripcionCita)
+        val btnCrearCita = root.findViewById<Button>(R.id.btncitaTaller)
 
         GlobalScope.launch(Dispatchers.IO) {
             val listadoClientes = getClientes()
@@ -175,6 +180,10 @@ class citasFragment : Fragment() {
             val mes = calendario.get(Calendar.MONTH)
             val dia = calendario.get(Calendar.DAY_OF_MONTH)
 
+
+            val fechaMinima = Calendar.getInstance()
+            fechaMinima.set(anio,mes, dia + 1)
+
             val fechaMaxima = Calendar.getInstance()
             fechaMaxima.set(anio, mes, dia + 10)
 
@@ -187,6 +196,8 @@ class citasFragment : Fragment() {
                 },
                 anio, mes, dia
             )
+
+            datePickerDialog.datePicker.minDate = fechaMinima.timeInMillis
 
             datePickerDialog.datePicker.maxDate = fechaMaxima.timeInMillis
 
