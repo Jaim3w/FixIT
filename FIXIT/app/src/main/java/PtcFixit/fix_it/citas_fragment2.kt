@@ -37,13 +37,13 @@ class citas_fragment2 : Fragment() {
     fun obtenerDatos(): List<tbCita>{
         val objConexion = ClaseConexion().cadenaConexion()
         val statement = objConexion?.createStatement()
-        val resultSet = statement?.executeQuery("select * from Cita")!!
+        val resultSet = statement?.executeQuery( "select Cita.UUID_cita,Cliente.Nombre ,Cita.Dui_empleado,Cita.Fecha_cita,Cita.Hora_cita,Cita.Descripcion from Cita Inner Join Cliente on Cita.Dui_cliente = Cliente.Dui_cliente")!!
 
         val listadoCitas = mutableListOf<tbCita>()
 
         while (resultSet.next()){
             val uuid = resultSet.getString("UUID_cita")
-            val cliente = resultSet.getString("Dui_cliente")
+            val cliente = resultSet.getString("Nombre")
             val empleado = resultSet.getString("Dui_empleado")
             val fecha = resultSet.getString("Fecha_cita")
             val hora = resultSet.getString("Hora_cita")
@@ -53,6 +53,7 @@ class citas_fragment2 : Fragment() {
         }
         return listadoCitas
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -110,4 +111,6 @@ class citas_fragment2 : Fragment() {
                 }
             }
     }
+
+
 }

@@ -3,7 +3,9 @@ package PtcFixit.fix_it
 import Modelo.ClaseConexion
 import Modelo.dataClassClientes
 import Modelo.dataClassEmpleados
+import CitasHelpers.AdaptadorCitas
 import CitasHelpers.ViewModelCita
+import CitasHelpers.tbCita
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -52,11 +54,16 @@ class citasFragment : Fragment() {
         val timePickerDialog = TimePickerDialog(
             requireContext(),
             { _: TimePicker, hourOfDay: Int, minute: Int ->
-                cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                cal.set(Calendar.MINUTE, minute)
-                val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
-                val formattedTime = format.format(cal.time)
-                textView.setText(formattedTime)
+                if (hourOfDay in 7..15){
+                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    cal.set(Calendar.MINUTE, minute)
+                    val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
+                    val formattedTime = format.format(cal.time)
+                    textView.setText(formattedTime)
+                }
+                else{
+                    Toast.makeText(requireContext(), "Por favor, seleccione una hora entre 8 AM y 3 PM", Toast.LENGTH_SHORT).show()
+                }
             },
             hour,
             minute,
@@ -106,6 +113,7 @@ class citasFragment : Fragment() {
             val imgEmpleado = resultSet.getString("ImagenEmpleado")
             val fechaNacimiento = resultSet.getString("FechaNacimiento")
             val telefono = resultSet.getString("Telefono")
+
             val empleadoCompleto = dataClassEmpleados(dui,uuid_usuario,nombre,apellido,imgEmpleado,fechaNacimiento,telefono)
 
             listadoEmpleado.add(empleadoCompleto)
@@ -144,7 +152,7 @@ class citasFragment : Fragment() {
         val txtClienteCita = root.findViewById<Spinner>(R.id.txtClienteCita)
         val txtEmpleadoCita = root.findViewById<Spinner>(R.id.txtEmpleadoCita)
         val txtFecha = root.findViewById<EditText>(R.id.txtFecha)
-        val txtHora = root.findViewById<EditText>(R.id.txtHora)
+        val txtHora = root.findViewById<EditText>(R.id.HoraCita)
         val txtDescripcion = root.findViewById<EditText>(R.id.txtdescripcion)
         val btnCrearCita = root.findViewById<Button>(R.id.btnCrearCita)
 
@@ -157,7 +165,7 @@ class citasFragment : Fragment() {
 
             withContext(Dispatchers.Main) {
                 val clienteAdapter =
-                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreCliente)
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreCliente)
                 txtClienteCita.adapter = clienteAdapter
 
                 val empleadoAdapter =
@@ -172,6 +180,10 @@ class citasFragment : Fragment() {
             val mes = calendario.get(Calendar.MONTH)
             val dia = calendario.get(Calendar.DAY_OF_MONTH)
 
+
+            val fechaMinima = Calendar.getInstance()
+            fechaMinima.set(anio,mes, dia + 1)
+
             val fechaMaxima = Calendar.getInstance()
             fechaMaxima.set(anio, mes, dia + 10)
 
@@ -184,6 +196,8 @@ class citasFragment : Fragment() {
                 },
                 anio, mes, dia
             )
+
+            datePickerDialog.datePicker.minDate = fechaMinima.timeInMillis
 
             datePickerDialog.datePicker.maxDate = fechaMaxima.timeInMillis
 
@@ -243,30 +257,31 @@ class citasFragment : Fragment() {
                     }
                 }
 
-            }
+                }
 
-        }
+            }
         return root
     }
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment citasFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            citasFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        companion object {
+            /**
+             * Use this factory method to create a new instance of
+             * this fragment using the provided parameters.
+             *
+             * @param param1 Parameter 1.
+             * @param param2 Parameter 2.
+             * @return A new instance of fragment citasFragment.
+             */
+            // TODO: Rename and change types and number of parameters
+            @JvmStatic
+            fun newInstance(param1: String, param2: String) =
+                citasFragment().apply {
+                    arguments = Bundle().apply {
+                        putString(ARG_PARAM1, param1)
+                        putString(ARG_PARAM2, param2)
+                    }
                 }
-            }
+        }
+
     }
 
-}
 
