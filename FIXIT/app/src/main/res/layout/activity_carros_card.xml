@@ -48,11 +48,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="Cliente"
+                    android:text="Fecha del registro"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtnombreClienteCarros"
+                    android:id="@+id/txtRegistroCarrosCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -74,11 +74,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="Placa"
+                    android:text="Color"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtPlacaCardCarros"
+                    android:id="@+id/txtColorCarroCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -101,11 +101,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingStart="14dp"
-                android:text="Modelo"
+                android:text="Año del carro"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/txtModeloCardCarros"
+                android:id="@+id/txtanioCarro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

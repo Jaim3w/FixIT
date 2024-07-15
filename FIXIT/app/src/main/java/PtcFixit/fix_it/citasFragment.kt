@@ -3,9 +3,7 @@ package PtcFixit.fix_it
 import Modelo.ClaseConexion
 import Modelo.dataClassClientes
 import Modelo.dataClassEmpleados
-import CitasHelpers.AdaptadorCitas
 import CitasHelpers.ViewModelCita
-import CitasHelpers.tbCita
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -148,7 +146,7 @@ class citasFragment : Fragment() {
         val txtEmpleadoCita = root.findViewById<Spinner>(R.id.txtEmpleadoCita)
         val txtFecha = root.findViewById<EditText>(R.id.txtFecha)
         val txtHora = root.findViewById<EditText>(R.id.txtHora)
-        val txtDescripcion = root.findViewById<EditText>(R.id.txtDescripcion)
+        val txtDescripcion = root.findViewById<EditText>(R.id.txtdescripcion)
         val btnCrearCita = root.findViewById<Button>(R.id.btnCrearCita)
 
         GlobalScope.launch(Dispatchers.IO) {

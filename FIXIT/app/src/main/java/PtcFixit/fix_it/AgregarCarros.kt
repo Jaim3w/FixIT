@@ -11,6 +11,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,25 +43,9 @@ class AgregarCarros : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    fun getModelo(): List<dataClassModelo>{
-        val conexion = ClaseConexion().cadenaConexion()
-        val statement = conexion?.createStatement()
-        val resultSet = statement?.executeQuery("SELECT * FROM Modelo")!!
 
-        val listadoModelo = mutableListOf<dataClassModelo>()
 
-        while (resultSet.next()) {
-            val Uuid_modelo = resultSet.getString("UUID_modelo ")
-            val Uuid_Marca = resultSet.getString("UUID_marca ")
-            val nombreModelo = resultSet.getString("Nombre ")
 
-            val modeloCompleto = dataClassModelo(Uuid_modelo,Uuid_Marca,nombreModelo)
-
-            listadoModelo.add(modeloCompleto)
-
-        }
-        return listadoModelo
-    }
 
     fun showYearPickerDialog(textView: EditText) {
         val cal = Calendar.getInstance()
@@ -69,22 +54,29 @@ class AgregarCarros : Fragment() {
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { _, selectedYear, _, _ ->
-                cal.set(Calendar.YEAR, selectedYear)
-                val format = SimpleDateFormat("yyyy", Locale.getDefault())
-                val formattedYear = format.format(cal.time)
-                textView.setText(formattedYear)
+                textView.setText(selectedYear.toString())
             },
             year,
-            0,
-            1
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
         )
 
         // Ocultar el selector de mes y día
-        datePickerDialog.datePicker.findViewById<View>(resources.getIdentifier("android:id/day", null, null)).visibility = View.GONE
-        datePickerDialog.datePicker.findViewById<View>(resources.getIdentifier("android:id/month", null, null)).visibility = View.GONE
+        val dayPickerId = resources.getIdentifier("android:id/day", null, null)
+        val monthPickerId = resources.getIdentifier("android:id/month", null, null)
+
+        if (dayPickerId != 0 && monthPickerId != 0) {
+            val dayPicker = datePickerDialog.datePicker.findViewById<View>(dayPickerId)
+            val monthPicker = datePickerDialog.datePicker.findViewById<View>(monthPickerId)
+
+            dayPicker?.visibility = View.GONE
+            monthPicker?.visibility = View.GONE
+        }
 
         datePickerDialog.show()
     }
+
+
 
     fun getClientes(): List<dataClassClientes>{
         val conexion = ClaseConexion().cadenaConexion()
@@ -109,6 +101,23 @@ class AgregarCarros : Fragment() {
         }
         return listadoClientes
     }
+    fun getModelo(): List<dataClassModelo> {
+        val conexion = ClaseConexion().cadenaConexion()
+        val statement = conexion?.createStatement()
+        val resultSet = statement?.executeQuery("SELECT * FROM modelo")!!
+
+        val listadoModelo = mutableListOf<dataClassModelo>()
+
+        while (resultSet.next()) {
+            val uuid_modelo = resultSet.getString("UUID_modelo")
+            val uuid_Marca = resultSet.getString("UUID_marca")
+            val nombreModelo = resultSet.getString("Nombre")
+
+            val modeloCompleto = dataClassModelo(uuid_Marca, uuid_modelo, nombreModelo)
+            listadoModelo.add(modeloCompleto)
+        }
+        return listadoModelo
+    }
 
     val codigo_opcion_galeria = 102
     val codigo_opcion_tomar_foto = 103
@@ -116,7 +125,7 @@ class AgregarCarros : Fragment() {
     val STORAGE_REQUEST_CODE = 1
 
     lateinit var imageView: ImageView
-    lateinit var miPath: String
+    private var miPath: String? = null
     lateinit var txtnumPlaca: EditText
 
 
@@ -161,9 +170,9 @@ class AgregarCarros : Fragment() {
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreCliente)
                 txtduiCliente.adapter = clienteAdapter
 
-                val empleadoAdapter =
+                val modeloAdapter =
                     ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreModelo)
-                txtModelo.adapter = empleadoAdapter
+                txtModelo.adapter = modeloAdapter
             }
         }
 
@@ -174,9 +183,11 @@ class AgregarCarros : Fragment() {
         btnFoto.setOnClickListener {
             checkCameraPermission()
         }
+        txtAniovehiculo.inputType = InputType.TYPE_NULL
         txtAniovehiculo.setOnClickListener {
             showYearPickerDialog(txtAniovehiculo)
         }
+        txtFechaDeIngreso.inputType = InputType.TYPE_NULL
         txtFechaDeIngreso.setOnClickListener {
             val calendario = Calendar.getInstance()
             val anio = calendario.get(Calendar.YEAR)
@@ -185,8 +196,8 @@ class AgregarCarros : Fragment() {
 
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
-                { view, _, _, _ ->
-                    val fechaSeleccionada = "$dia/$mes/$anio"
+                { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                    val fechaSeleccionada = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
                     txtFechaDeIngreso.setText(fechaSeleccionada)
                 },
                 anio, mes, dia
@@ -198,39 +209,32 @@ class AgregarCarros : Fragment() {
         }
 
         btnGuardarVehiculo.setOnClickListener {
-            val imageUri = miPath
             val placas = txtnumPlaca.text.toString().trim()
 
-
             if (txtFechaDeIngreso.text.toString().isEmpty() || txtAniovehiculo.text.toString().isEmpty()
-                || txtDescripcion.text.toString().isEmpty()||txtColorVehiculo.text.toString().isEmpty()||txtnumPlaca.text.toString().isEmpty()
+                || txtDescripcion.text.toString().isEmpty() || txtColorVehiculo.text.toString().isEmpty() || txtnumPlaca.text.toString().isEmpty()
             ) {
                 Toast.makeText(
                     requireContext(),
-                    "Porfavor, complete todos los campos.",
+                    "Por favor, complete todos los campos.",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
                 GlobalScope.launch(Dispatchers.IO) {
-                    //1- Crear un objeto de la clase de conexion
-                    try{
+                    try {
                         val objConexion = ClaseConexion().cadenaConexion()
-
                         val cliente = getClientes()
                         val modelo = getModelo()
 
-                        val addCarro =
-                            objConexion?.prepareStatement("INTO Carro (Placa_carro, Dui_cliente, UUID_modelo, Color, Año, ImagenCarro, FechaRegistro, Descripcion) VALUES (?,?,?,?,?,?,?,?)")!!
+                        val addCarro = objConexion?.prepareStatement("INSERT INTO Carro (Placa_carro, Dui_cliente, UUID_modelo, Color, Año, FechaRegistro, Descripcion) VALUES (?,?,?,?,?,?,?)")!!
                         addCarro.setString(1, placas)
                         addCarro.setString(2, cliente[txtduiCliente.selectedItemPosition].Dui_cliente)
-                        addCarro.setString(3, modelo[txtModelo.selectedItemPosition].NombreModelo)
+                        addCarro.setString(3, modelo[txtModelo.selectedItemPosition].UUID_modelo)
                         addCarro.setString(4, txtColorVehiculo.text.toString())
                         addCarro.setString(5, txtAniovehiculo.text.toString())
-                        addCarro.setString(6,imageUri)
-                        addCarro.setString( 7,txtFechaDeIngreso.text.toString())
-                        addCarro.setString(8,txtDescripcion.text.toString())
+                        addCarro.setString(6, txtFechaDeIngreso.text.toString())
+                        addCarro.setString(7, txtDescripcion.text.toString())
                         addCarro.executeUpdate()
-
 
                         withContext(Dispatchers.Main) {
                             Toast.makeText(
@@ -244,7 +248,7 @@ class AgregarCarros : Fragment() {
                             txtColorVehiculo.text.clear()
                             txtFechaDeIngreso.text.clear()
                             imageView.setImageResource(0)
-                            imageView.tag=null
+                            imageView.tag = null
                         }
                     } catch (e: SQLException) {
                         withContext(Dispatchers.Main) {
@@ -256,10 +260,9 @@ class AgregarCarros : Fragment() {
                         }
                     }
                 }
-
             }
-
         }
+
         return root
     }
 
@@ -333,7 +336,7 @@ class AgregarCarros : Fragment() {
                     imageUri?.let {
                         val imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, it)
                         subirimagenFirebase(imageBitmap) { url ->
-                            miPath = url
+                            miPath = url // Set miPath here
                             imageView.setImageURI(it)
                         }
                     }
@@ -342,7 +345,7 @@ class AgregarCarros : Fragment() {
                     val imageBitmap = data?.extras?.get("data") as? Bitmap
                     imageBitmap?.let {
                         subirimagenFirebase(it) { url ->
-                            miPath = url
+                            miPath = url // Set miPath here
                             imageView.setImageBitmap(it)
                         }
                     }
