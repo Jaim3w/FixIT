@@ -149,12 +149,12 @@ class citasFragment : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_citas, container, false)
 
-        val txtClienteCita = root.findViewById<Spinner>(R.id.spDui)
-        val txtEmpleadoCita = root.findViewById<Spinner>(R.id.spDuiEmpleado)
-        val txtFecha = root.findViewById<EditText>(R.id.fechaCita)
+        val txtClienteCita = root.findViewById<Spinner>(R.id.txtClienteCita)
+        val txtEmpleadoCita = root.findViewById<Spinner>(R.id.txtEmpleadoCita)
+        val txtFecha = root.findViewById<EditText>(R.id.txtFecha)
         val txtHora = root.findViewById<EditText>(R.id.HoraCita)
-        val txtDescripcion = root.findViewById<EditText>(R.id.descripcionCita)
-        val btnCrearCita = root.findViewById<Button>(R.id.btncitaTaller)
+        val txtDescripcion = root.findViewById<EditText>(R.id.txtdescripcion)
+        val btnCrearCita = root.findViewById<Button>(R.id.btnCrearCita)
 
         GlobalScope.launch(Dispatchers.IO) {
             val listadoClientes = getClientes()

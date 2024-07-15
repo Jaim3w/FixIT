@@ -84,16 +84,6 @@
                     android:editable="false"
                     android:paddingStart="18dp" />
 
-                <EditText
-                    android:id="@+id/txtHora"
-                    android:layout_width="346dp"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/imputtext"
-                    android:ems="10"
-                    android:hint="Hora de la cita"
-                    android:inputType="text"
-                    android:paddingStart="18dp" />
 
                 <EditText
                     android:id="@+id/txtdescripcion"
