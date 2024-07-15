@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.sql.SQLException
 
 class AdaptadorCarros(private var Datos: List<tbCarros>) : RecyclerView.Adapter<ViewHolderCarros>() {
 
@@ -54,18 +55,31 @@ class AdaptadorCarros(private var Datos: List<tbCarros>) : RecyclerView.Adapter<
         notifyItemRemoved(position)
     }
 
-    fun actualizarCarro(placa: String, nuevaImagen: String, fechaNuevaCarro: String, colorNuevo: String, nuevaDescripcionCarro: String) {
+
+    fun actualizarCarro(placa: String, nuevaImagen: String, fechaNuevaCarro: String, anioNuevo: String, colorNuevo: String, nuevaDescripcionCarro: String) {
         GlobalScope.launch(Dispatchers.IO) {
-            val objConexion = ClaseConexion().cadenaConexion()
-            val updateCarro = objConexion?.prepareStatement("UPDATE Carro SET ImagenCarro = ?, FechaRegistro = ?, Color = ?, DescripcionCarro = ? WHERE Placa_carro = ?")!!
-            updateCarro.setString(1, nuevaImagen)
-            updateCarro.setString(2, fechaNuevaCarro)
-            updateCarro.setString(3, colorNuevo)
-            updateCarro.setString(4, nuevaDescripcionCarro)
-            updateCarro.setString(5, placa)
-            updateCarro.executeUpdate()
-            val commit = objConexion.prepareStatement("COMMIT")
-            commit.executeUpdate()
+            try {
+                // Crear una instancia de ClaseConexion y obtener la conexión
+                val objConexion = ClaseConexion().cadenaConexion()
+
+                // Crear una variable que contenga un PrepareStatement
+                val updateCarro = objConexion?.prepareStatement("UPDATE Carro SET ImagenCarro = ?, FechaRegistro = ?, Anio = ?, Color = ?, DescripcionCarro = ? WHERE Placa_carro = ?")!!
+                updateCarro.setString(1, nuevaImagen)
+                updateCarro.setString(2, fechaNuevaCarro)
+                updateCarro.setString(3, anioNuevo)
+                updateCarro.setString(4, colorNuevo)
+                updateCarro.setString(5, nuevaDescripcionCarro)
+                updateCarro.setString(6, placa)
+                updateCarro.executeUpdate()
+
+                // Realizar el commit de la transacción
+                val commit = objConexion.prepareStatement("COMMIT")
+                commit.executeUpdate()
+            } catch (e: SQLException) {
+                // Manejo de excepciones de SQL
+                e.printStackTrace()
+                // Aquí puedes manejar o registrar la excepción según sea necesario
+            }
         }
     }
 
@@ -95,25 +109,47 @@ class AdaptadorCarros(private var Datos: List<tbCarros>) : RecyclerView.Adapter<
 
         holder.imgActualizarCarro.setOnClickListener {
             val alertDialogBuilder = AlertDialog.Builder(holder.itemView.context)
-            alertDialogBuilder.setTitle("Actualizar la descripción del carro")
-            alertDialogBuilder.setMessage("Ingrese la nueva descripción del carro:")
+            alertDialogBuilder.setTitle("Actualizar datos del carro")
+            alertDialogBuilder.setMessage("Ingrese los nuevos datos del carro:")
 
             val layout = LinearLayout(holder.itemView.context)
             layout.orientation = LinearLayout.VERTICAL
 
-            val nuevoDescripcion = EditText(holder.itemView.context)
-            nuevoDescripcion.setText(item.DescripcionCarro)
-            layout.addView(nuevoDescripcion)
+            val nuevoAnio = EditText(holder.itemView.context)
+            nuevoAnio.setText(item.Anio)
+            layout.addView(nuevoAnio)
+
+            val nuevoColor = EditText(holder.itemView.context)
+            nuevoColor.setText(item.Color)
+            layout.addView(nuevoColor)
+
+            val nuevaDescripcion = EditText(holder.itemView.context)
+            nuevaDescripcion.setText(item.DescripcionCarro)
+            layout.addView(nuevaDescripcion)
 
             alertDialogBuilder.setView(layout)
 
             alertDialogBuilder.setPositiveButton("Guardar") { dialog, which ->
-                val nuevaDescripcion = nuevoDescripcion.text.toString().trim()
-                if (nuevaDescripcion.isNotEmpty()) {
-                    actualizarCarro(item.Placa_carro, item.ImagenCarro, item.FechaRegistro, item.Color, nuevaDescripcion)
-                    actualizarItem(item.Placa_carro, item.ImagenCarro, item.FechaRegistro, item.Color, nuevaDescripcion)
+                val anioNuevo = nuevoAnio.text.toString().trim()
+                val colorNuevo = nuevoColor.text.toString().trim()
+                val nuevaDescripcion = nuevaDescripcion.text.toString().trim()
+
+                if (anioNuevo.isNotEmpty() && colorNuevo.isNotEmpty() && nuevaDescripcion.isNotEmpty()) {
+                    actualizarCarro(
+                        item.Placa_carro,
+                        item.ImagenCarro,
+                        item.FechaRegistro,
+                        anioNuevo,
+                        colorNuevo,
+                        nuevaDescripcion
+                    )
+                    // Aquí puedes realizar cualquier otra acción después de actualizar el carro, como actualizar la interfaz de usuario.
                 } else {
-                    Toast.makeText(holder.itemView.context, "Complete todos los campos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        holder.itemView.context,
+                        "Complete todos los campos",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
