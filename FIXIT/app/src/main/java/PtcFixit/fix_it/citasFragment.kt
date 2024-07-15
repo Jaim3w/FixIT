@@ -1,7 +1,11 @@
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
-import PtcFixit.fix_it.CitasHelpers.tbCita
+import Modelo.dataClassClientes
+import Modelo.dataClassEmpleados
+import CitasHelpers.AdaptadorCitas
+import CitasHelpers.ViewModelCita
+import CitasHelpers.tbCita
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -15,6 +19,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -37,11 +42,9 @@ private const val ARG_PARAM2 = "param2"
  */
 class citasFragment : Fragment() {
 
-    private lateinit var txtFecha: EditText
+    private lateinit var citasViewModel: ViewModelCita
 
-    private lateinit var txtClienteCita: Spinner
 
-    private lateinit var txtEmpleadoCita: Spinner
 
     fun showTimePickerDialog(textView: EditText) {
         val cal = Calendar.getInstance()
@@ -51,11 +54,16 @@ class citasFragment : Fragment() {
         val timePickerDialog = TimePickerDialog(
             requireContext(),
             { _: TimePicker, hourOfDay: Int, minute: Int ->
-                cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                cal.set(Calendar.MINUTE, minute)
-                val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
-                val formattedTime = format.format(cal.time)
-                textView.setText(formattedTime)
+                if (hourOfDay in 7..15){
+                    cal.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    cal.set(Calendar.MINUTE, minute)
+                    val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
+                    val formattedTime = format.format(cal.time)
+                    textView.setText(formattedTime)
+                }
+                else{
+                    Toast.makeText(requireContext(), "Por favor, seleccione una hora entre 8 AM y 3 PM", Toast.LENGTH_SHORT).show()
+                }
             },
             hour,
             minute,
@@ -65,56 +73,53 @@ class citasFragment : Fragment() {
         timePickerDialog.show()
     }
 
-    fun getClientes(): List<String>{
-        val cliente = mutableListOf<String>()
+    fun getClientes(): List<dataClassClientes>{
         val conexion = ClaseConexion().cadenaConexion()
         val statement = conexion?.createStatement()
-        val resultSet = statement?.executeQuery("SELECT Nombre FROM Cliente")
+        val resultSet = statement?.executeQuery("SELECT * FROM Cliente")!!
 
-        while (resultSet?.next() == true) {
-            cliente.add(resultSet.getString("Nombre"))
+        val listadoClientes = mutableListOf<dataClassClientes>()
+
+        while (resultSet.next()) {
+            val dui = resultSet.getString("Dui_cliente")
+            val nombre = resultSet.getString("Nombre")
+            val apellido = resultSet.getString("Apellido")
+            val usuario = resultSet.getString("Usuario")
+            val contra = resultSet.getString("Contrasena")
+            val correo = resultSet.getString("Correo_Electronico")
+            val telefono = resultSet.getString("Telefono")
+
+            val clienteCompleto = dataClassClientes(dui,nombre,apellido,usuario,contra,correo,telefono)
+
+            listadoClientes.add(clienteCompleto)
+
         }
-
-        resultSet?.close()
-        statement?.close()
-        conexion?.close()
-
-        return cliente
+        return listadoClientes
     }
 
-    fun getEmpleados(): List<String>{
-        val empleado = mutableListOf<String>()
+    fun getEmpleados(): List<dataClassEmpleados>{
+
         val conexion = ClaseConexion().cadenaConexion()
         val statement = conexion?.createStatement()
-        val resultSet = statement?.executeQuery("SELECT Nombre FROM Empleado")
+        val resultSet = statement?.executeQuery("SELECT * FROM Empleado")!!
 
-        while (resultSet?.next() == true) {
-            empleado.add(resultSet.getString("Nombre"))
+        val listadoEmpleado = mutableListOf<dataClassEmpleados>()
+
+        while (resultSet.next()) {
+            val dui = resultSet.getString("Dui_empleado")
+            val uuid_usuario = resultSet.getString("UUID_usuario")
+            val nombre = resultSet.getString("Nombre")
+            val apellido = resultSet.getString("Apellido")
+            val imgEmpleado = resultSet.getString("ImagenEmpleado")
+            val fechaNacimiento = resultSet.getString("FechaNacimiento")
+            val telefono = resultSet.getString("Telefono")
+
+            val empleadoCompleto = dataClassEmpleados(dui,uuid_usuario,nombre,apellido,imgEmpleado,fechaNacimiento,telefono)
+
+            listadoEmpleado.add(empleadoCompleto)
         }
+        return listadoEmpleado
 
-        resultSet?.close()
-        statement?.close()
-        conexion?.close()
-
-        return empleado
-    }
-
-    fun obtenerDatos(): List<tbCita>{
-        val objConexion = ClaseConexion().cadenaConexion()
-        val statement = objConexion?.createStatement()
-        val resultSet = statement?.executeQuery("select * from Citas")!!
-
-        val listadoCitas = mutableListOf<tbCita>()
-
-        while (resultSet.next()){
-            val uuid = resultSet.getString("uuid")
-            val cliente = resultSet.getString("cliente")
-            val empleado = resultSet.getString("empleado")
-            val fecha = resultSet.getString("fecha")
-            val hora = resultSet.getString("hora")
-            val descripcion = resultSet.getString("descripcion")
-        }
-        return listadoCitas
     }
 
 
@@ -131,6 +136,8 @@ class citasFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        citasViewModel = ViewModelProvider(requireActivity()).get(ViewModelCita::class.java)
     }
 
 
@@ -145,23 +152,24 @@ class citasFragment : Fragment() {
         val txtClienteCita = root.findViewById<Spinner>(R.id.txtClienteCita)
         val txtEmpleadoCita = root.findViewById<Spinner>(R.id.txtEmpleadoCita)
         val txtFecha = root.findViewById<EditText>(R.id.txtFecha)
-        val txtHora = root.findViewById<EditText>(R.id.txtHora)
-        val txtDescripcion = root.findViewById<EditText>(R.id.txtDescripcion)
+        val txtHora = root.findViewById<EditText>(R.id.HoraCita)
+        val txtDescripcion = root.findViewById<EditText>(R.id.txtdescripcion)
         val btnCrearCita = root.findViewById<Button>(R.id.btnCrearCita)
 
         GlobalScope.launch(Dispatchers.IO) {
-            val clientes = getClientes()
-            val empleados = getEmpleados()
+            val listadoClientes = getClientes()
+            val listadoEmpleados = getEmpleados()
+            val nombreCliente = listadoClientes.map { it.Nombre }
+            val nombreEmpleado = listadoEmpleados.map { it.Nombre }
+
 
             withContext(Dispatchers.Main) {
                 val clienteAdapter =
-                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, clientes)
-                clienteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreCliente)
                 txtClienteCita.adapter = clienteAdapter
 
                 val empleadoAdapter =
-                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, empleados)
-                empleadoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, nombreEmpleado)
                 txtEmpleadoCita.adapter = empleadoAdapter
             }
         }
@@ -172,9 +180,12 @@ class citasFragment : Fragment() {
             val mes = calendario.get(Calendar.MONTH)
             val dia = calendario.get(Calendar.DAY_OF_MONTH)
 
-            // Calcular la fecha máxima (hace 18 años a partir de hoy)
+
+            val fechaMinima = Calendar.getInstance()
+            fechaMinima.set(anio,mes, dia + 1)
+
             val fechaMaxima = Calendar.getInstance()
-            fechaMaxima.set(anio, mes, dia + 1)
+            fechaMaxima.set(anio, mes, dia + 10)
 
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
@@ -185,6 +196,8 @@ class citasFragment : Fragment() {
                 },
                 anio, mes, dia
             )
+
+            datePickerDialog.datePicker.minDate = fechaMinima.timeInMillis
 
             datePickerDialog.datePicker.maxDate = fechaMaxima.timeInMillis
 
@@ -206,31 +219,49 @@ class citasFragment : Fragment() {
                 ).show()
             } else {
                 GlobalScope.launch(Dispatchers.IO) {
-
                     //1- Crear un objeto de la clase de conexion
-                    val objConexion = ClaseConexion().cadenaConexion()
+                    try{
+                        val objConexion = ClaseConexion().cadenaConexion()
 
-                    val addCita =
-                        objConexion?.prepareStatement("INSERT INTO Cita (UUID_cita,Dui_cliente,Dui_empleado,Fecha_cita,Hora_cita,Descripcion) VALUES (!,!,!,!,!,!)")!!
-                    addCita.setString(1, UUID.randomUUID().toString())
-                    addCita.setString(2, txtClienteCita.selectedItem.toString())
-                    addCita.setInt(3, txtEmpleadoCita.selectedItem.toString().toInt())
-                    addCita.setInt(4, txtFecha.text.toString().toInt())
-                    addCita.setInt(5, txtHora.text.toString().toInt())
-                    addCita.setInt(6, txtDescripcion.text.toString().toInt())
+                        val cliente = getClientes()
+                        val empleado = getEmpleados()
 
-                    addCita.executeUpdate()
+                        val addCita =
+                            objConexion?.prepareStatement("INSERT INTO Cita (UUID_cita,Dui_cliente,Dui_empleado,Fecha_cita,Hora_cita,Descripcion) VALUES (?,?,?,?,?,?)")!!
+                        addCita.setString(1, UUID.randomUUID().toString())
+                        addCita.setString(2,  cliente[txtClienteCita.selectedItemPosition].Dui_cliente)
+                        addCita.setString(3, empleado[txtEmpleadoCita.selectedItemPosition].Dui_empleado)
+                        addCita.setString(4, txtFecha.text.toString())
+                        addCita.setString(5, txtHora.text.toString())
+                        addCita.setString(6, txtDescripcion.text.toString())
 
+                        addCita.executeUpdate()
+
+
+
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Cita agendada exitosamente.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Error al agendar la cita: ${e.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
+                }
 
                 }
 
             }
         return root
-
-
-        }
-
+    }
         companion object {
             /**
              * Use this factory method to create a new instance of

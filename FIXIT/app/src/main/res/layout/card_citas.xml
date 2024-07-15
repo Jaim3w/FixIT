@@ -94,7 +94,7 @@
             android:layout_marginTop="8dp">
 
             <ImageView
-                android:id="@+id/settings_icon"
+                android:id="@+id/imgeditar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/configuracion_citas"
@@ -102,13 +102,14 @@
                 android:layout_alignParentEnd="true"/>
 
             <ImageView
+                android:id="@+id/imgBorrar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/eliminar"
                 android:layout_marginTop="16dp"
                 android:contentDescription="Delete"
-                android:layout_below="@id/settings_icon"
-                android:layout_alignEnd="@id/settings_icon"/>
+                android:layout_below="@id/imgeditar"
+                android:layout_alignEnd="@id/imgeditar"/>
 
         </RelativeLayout>
     </LinearLayout>
