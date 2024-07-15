@@ -18,14 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/fixit"
         tools:targetApi="34">
-
+        <activity
+            android:name=".Repuestos_Card"
+            android:exported="false" />
         <activity
             android:name=".splash_screen"
             android:exported="true"
-            android:theme="@style/fixit"
-            >
+            android:theme="@style/fixit">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -82,8 +84,7 @@
             android:exported="false" />
         <activity
             android:name=".proveedores_admin"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".repuestos_admin"
             android:exported="false" />
