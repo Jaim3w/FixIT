@@ -97,7 +97,7 @@ class citasFragment : Fragment() {
         return listadoClientes
     }
 
-    fun getEmpleados(): List<dataClassEmpleados>{
+    private fun getEmpleados(): List<dataClassEmpleados>{
 
         val conexion = ClaseConexion().cadenaConexion()
         val statement = conexion?.createStatement()
