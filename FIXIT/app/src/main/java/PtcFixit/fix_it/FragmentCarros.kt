@@ -19,44 +19,48 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class FragmentCarros : Fragment() {
+
     private var param1: String? = null
     private var param2: String? = null
 
     fun obtenerDatosCarro(): List<tbCarros> {
         val objConexion = ClaseConexion().cadenaConexion()
-            val statement = objConexion?.createStatement()
-            val resultSet = statement?.executeQuery( "SELECT \n" +
-                    "    Carro.Placa_carro AS Placa_del_Carro, \n" +
-                    "    Cliente.Nombre AS Nombre_del_Cliente, \n" +
-                    "    Cliente.Apellido AS Apellido_del_Cliente, \n" +
-                    "    Modelo.Nombre AS Modelo_del_Carro, \n" +
-                    "    Carro.Color AS Color, \n" +
-                    "    Carro.Año AS Año, \n" +
-                    "    Carro.ImagenCarro AS ImagenCarro,\n" +
-                    "    Carro.Descripcion AS Descripcion\n" +
-                    "FROM Carro \n" +
-                    "INNER JOIN Cliente ON Carro.Dui_cliente = Cliente.Dui_cliente \n" +
+        val statement = objConexion?.createStatement()
+        val resultSet = statement?.executeQuery(
+            "SELECT " +
+                    "    Carro.Placa_carro AS Placa_del_Carro, " +
+                    "    Cliente.Nombre AS Nombre_del_Cliente, " +
+                    "    Cliente.Apellido AS Apellido_del_Cliente, " +
+                    "    Modelo.Nombre AS Modelo_del_Carro, " +
+                    "    Carro.Color AS Color, " +
+                    "    Carro.Año AS Año, " +
+                    "    Carro.ImagenCarro AS ImagenCarro, " +
+                    "    Carro.Descripcion AS Descripcion " +
+                    "FROM Carro " +
+                    "INNER JOIN Cliente ON Carro.Dui_cliente = Cliente.Dui_cliente " +
                     "INNER JOIN Modelo ON Carro.UUID_modelo = Modelo.UUID_modelo"
-            )!!
+        )
+
         val listadoCarro = mutableListOf<tbCarros>()
 
-            while (resultSet.next()) {
-                val placaCarro = resultSet.getString("Placa_del_Carro")
-                val duiCliente = resultSet.getString("Dui_cliente")
-                val uuid_modelo = resultSet.getString("UUID_modelo")
-                val colorCarro = resultSet.getString("Color")
-                val anioCarro = resultSet.getString("Año")
-                val imagencarro = resultSet.getString("ImagenCarro")
-                val fechaRegistro = resultSet.getString("FechaRegistro")
-                val descripcionCarro = resultSet.getString("Descripcion")
-                val carro = tbCarros(placaCarro, duiCliente, uuid_modelo, colorCarro, anioCarro, imagencarro, fechaRegistro, descripcionCarro)
+        resultSet?.use { rs ->
+            while (rs.next()) {
+                val placaCarro = rs.getString("Placa_del_Carro")
+                val nombreCliente = rs.getString("Nombre_del_Cliente")
+                val apellidoCliente = rs.getString("Apellido_del_Cliente")
+                val modeloCarro = rs.getString("Modelo_del_Carro")
+                val colorCarro = rs.getString("Color")
+                val anioCarro = rs.getString("Año")
+                val imagenCarro = rs.getString("ImagenCarro")
+                val descripcionCarro = rs.getString("Descripcion")
+
+                val carro = tbCarros(placaCarro, nombreCliente, apellidoCliente, modeloCarro, colorCarro, anioCarro, imagenCarro, descripcionCarro)
                 listadoCarro.add(carro)
             }
-return listadoCarro
         }
 
-
-
+        return listadoCarro
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,7 +89,6 @@ return listadoCarro
          * @param param2 Parameter 2.
          * @return A new instance of fragment FragmentCarros.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             FragmentCarros().apply {
