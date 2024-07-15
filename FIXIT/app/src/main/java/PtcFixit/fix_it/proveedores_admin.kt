@@ -2,6 +2,7 @@ package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
 import Modelo.RCVproveedor
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import reccyclerviewherlperProveedores.Adaptador
@@ -25,10 +27,13 @@ import java.sql.SQLException
 
 class proveedores_admin : AppCompatActivity() {
 
+    private val REQUEST_CODE_CREAR_PROVEEDOR = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge() // Asegúrate de tener implementado este método si no es propio del SDK de Android
         setContentView(R.layout.activity_proveedores_admin)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -37,74 +42,67 @@ class proveedores_admin : AppCompatActivity() {
 
         val btnAgregarNuevoProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
         val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
+        rcvProveedores.layoutManager = LinearLayoutManager(this)
 
         btnAgregarNuevoProveedor.setOnClickListener {
             val intent = Intent(this, crear_proveedores::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_CREAR_PROVEEDOR)
         }
 
-        rcvProveedores.layoutManager = LinearLayoutManager(this)
+        // Cargar proveedores al iniciar la actividad
 
-        fun obtenerProveedores(): List<RCVproveedor> {
-            val objConexion = ClaseConexion().cadenaConexion()
-            if (objConexion == null) {
-                Log.e("obtenerProveedores", "Fallo al obtener la conexión")
-                return emptyList()
-            }
+    }
 
-            val statement = objConexion.createStatement()
-            if (statement == null) {
-                Log.e("obtenerProveedores", "Fallo al crear el statement")
-                objConexion.close()
-                return emptyList()
-            }
+    override fun onResume() {
+        super.onResume()
 
-            val resultSet = statement.executeQuery("select * from Proveedores")
-            val listaProveedores = mutableListOf<RCVproveedor>()
+        cargarProveedores()
+    }
 
-            try {
-                while (resultSet.next()) {
-                    val nombreProv = resultSet.getString("Nombre")
-                    val telefonoProv = resultSet.getString("Telefono")
-
-                    val valoresCard = RCVproveedor(nombreProv, telefonoProv)
-                    listaProveedores.add(valoresCard)
-                }
-            } catch (e: SQLException) {
-                Log.e("obtenerProveedores", "Error al obtener proveedores: ${e.message}")
-            } finally {
-                resultSet.close()
-                statement.close()
-                objConexion.close()
-            }
-
-            return listaProveedores
-        }
-
+            private fun cargarProveedores() {
         CoroutineScope(Dispatchers.IO).launch {
-            val proveedoresDB = obtenerProveedores()
+            val proveedoresList = obtenerProveedores()
             withContext(Dispatchers.Main) {
-                val adapterProv = Adaptador(proveedoresDB)
-                rcvProveedores.adapter = adapterProv
+                val adaptador = Adaptador(proveedoresList)
+                val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
+                rcvProveedores.adapter = adaptador
             }
         }
+    }
 
-        //---------------------------NAV-------------------------------------------------------------------------
+    private fun obtenerProveedores(): List<RCVproveedor> {
+        val objConexion = ClaseConexion().cadenaConexion() ?: return emptyList()
+        val listaProveedores = mutableListOf<RCVproveedor>()
 
-        setupNavClickListeners()
-
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val intent = Intent(this@proveedores_admin, Menu1Activity::class.java)
-                val options = ActivityOptionsCompat.makeCustomAnimation(
-                    this@proveedores_admin,
-                    R.anim.fade_in,
-                    R.anim.fade_out
-                )
-                startActivity(intent, options.toBundle())
-                finish()
+        try {
+            val statement = objConexion.createStatement()
+            val resultSet = statement.executeQuery("SELECT * FROM Proveedor")
+            while (resultSet.next()) {
+                val duiProv = resultSet.getString("Dui_proveedor")
+                val nombreProv = resultSet.getString("Nombre")
+                val apellidoProv = resultSet.getString("Apellido")
+                val telefonoProv = resultSet.getString("Telefono")
+                val correoProv = resultSet.getString("Correo_Electronico")
+                val direccionProv = resultSet.getString("Direccion")
+                val proveedor = RCVproveedor(duiProv, nombreProv, apellidoProv, telefonoProv, correoProv, direccionProv)
+                listaProveedores.add(proveedor)
             }
-        })
+            resultSet.close()
+            statement.close()
+        } catch (e: SQLException) {
+            Log.e("obtenerProveedores", "Error al obtener proveedores: ${e.message}")
+        } finally {
+            objConexion.close()
+        }
+
+        return listaProveedores
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_CREAR_PROVEEDOR && resultCode == Activity.RESULT_OK) {
+            cargarProveedores()
+        }
     }
 
     private fun setupNavClickListeners() {
@@ -145,6 +143,18 @@ class proveedores_admin : AppCompatActivity() {
         imgCitasnav.setOnClickListener(clickListener)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, Menu1Activity::class.java)
+        val options = ActivityOptionsCompat.makeCustomAnimation(
+            this,
+            R.anim.fade_in,
+            R.anim.fade_out
+        )
+        startActivity(intent, options.toBundle())
+        finish()
+    }
 }
+
 
 
