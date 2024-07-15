@@ -1,5 +1,6 @@
 package PtcFixit.fix_it
 
+import CitasHelpers.tbCita
 import Modelo.ClaseConexion
 import Modelo.RCVproveedor
 import android.app.Activity
@@ -27,7 +28,7 @@ import java.sql.SQLException
 
 class proveedores_admin : AppCompatActivity() {
 
-    private val REQUEST_CODE_CREAR_PROVEEDOR = 1
+    private lateinit var adapter: Adaptador
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,70 +41,52 @@ class proveedores_admin : AppCompatActivity() {
             insets
         }
 
-        val btnAgregarNuevoProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
-        val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
-        rcvProveedores.layoutManager = LinearLayoutManager(this)
+        val btnAgregarProveedor = findViewById<Button>(R.id.btnAgregarProveedor)
 
-        btnAgregarNuevoProveedor.setOnClickListener {
+        btnAgregarProveedor.setOnClickListener {
             val intent = Intent(this, crear_proveedores::class.java)
-            startActivityForResult(intent, REQUEST_CODE_CREAR_PROVEEDOR)
+            startActivity(intent)
+
+            // Llamar a obtenerDatos() después de agregar un proveedor
+            obtenerDatos()
         }
 
-        // Cargar proveedores al iniciar la actividad
+        // Aquí debes inicializar y configurar tu RecyclerView y Adaptador
+        // recyclerView = findViewById(R.id.rcvProveedores)
+        // recyclerView.layoutManager = LinearLayoutManager(this)
+        // adapter = Adaptador(emptyList()) // Inicializa el adaptador con una lista vacía inicialmente
+        // recyclerView.adapter = adapter
 
+        // Debes llamar a cargarProveedores() para cargar los datos iniciales en el RecyclerView
+        // cargarProveedores()
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun obtenerDatos(): List<RCVproveedor> {
+        val objConexion = ClaseConexion().cadenaConexion()
+        val statement = objConexion?.createStatement()
+        val resultSet = statement?.executeQuery("select * from Proveedor")!!
 
-        cargarProveedores()
-    }
+        val listadoProv = mutableListOf<RCVproveedor>()
 
-            private fun cargarProveedores() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val proveedoresList = obtenerProveedores()
-            withContext(Dispatchers.Main) {
-                val adaptador = Adaptador(proveedoresList)
-                val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
-                rcvProveedores.adapter = adaptador
-            }
-        }
-    }
-
-    private fun obtenerProveedores(): List<RCVproveedor> {
-        val objConexion = ClaseConexion().cadenaConexion() ?: return emptyList()
-        val listaProveedores = mutableListOf<RCVproveedor>()
-
-        try {
-            val statement = objConexion.createStatement()
-            val resultSet = statement.executeQuery("SELECT * FROM Proveedor")
-            while (resultSet.next()) {
-                val duiProv = resultSet.getString("Dui_proveedor")
-                val nombreProv = resultSet.getString("Nombre")
-                val apellidoProv = resultSet.getString("Apellido")
-                val telefonoProv = resultSet.getString("Telefono")
-                val correoProv = resultSet.getString("Correo_Electronico")
-                val direccionProv = resultSet.getString("Direccion")
-                val proveedor = RCVproveedor(duiProv, nombreProv, apellidoProv, telefonoProv, correoProv, direccionProv)
-                listaProveedores.add(proveedor)
-            }
-            resultSet.close()
-            statement.close()
-        } catch (e: SQLException) {
-            Log.e("obtenerProveedores", "Error al obtener proveedores: ${e.message}")
-        } finally {
-            objConexion.close()
+        while (resultSet.next()) {
+            val dui = resultSet.getString("Dui_proveedor")
+            val nombre = resultSet.getString("Nombre")
+            val apellido = resultSet.getString("Apellido")
+            val telefono = resultSet.getString("Telefono")
+            val correo = resultSet.getString("Correo_Electronico")
+            val direccion = resultSet.getString("Direccion")
+            val proveedor = RCVproveedor(dui, nombre, apellido, telefono, correo, direccion)
+            listadoProv.add(proveedor)
         }
 
-        return listaProveedores
+        // Actualiza el RecyclerView con los nuevos datos obtenidos
+        adapter.actualizarRecyclerView(listadoProv)
+
+        return listadoProv
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_CREAR_PROVEEDOR && resultCode == Activity.RESULT_OK) {
-            cargarProveedores()
-        }
-    }
+
+    //-----------------------------
 
     private fun setupNavClickListeners() {
         val navView = findViewById<View>(R.id.include_nav)
@@ -155,6 +138,7 @@ class proveedores_admin : AppCompatActivity() {
         finish()
     }
 }
+
 
 
 

@@ -20,8 +20,6 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
         notifyDataSetChanged()
     }
 
-
-
     fun editarProveedores(nombre: String, telefono: String, apellido: String, correo: String, direccion: String, dui: String){
         GlobalScope.launch(Dispatchers.IO){
             val objConexion = ClaseConexion().cadenaConexion()
