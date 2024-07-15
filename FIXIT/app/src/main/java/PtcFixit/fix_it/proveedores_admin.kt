@@ -13,6 +13,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,7 +49,6 @@ class proveedores_admin : AppCompatActivity() {
             startActivity(intent)
         }
 
-        cargarProveedores()
     }
 
     private fun obtenerProveedores(): List<RCVproveedor> {
@@ -80,16 +80,7 @@ class proveedores_admin : AppCompatActivity() {
     }
 
 
-    private fun cargarProveedores() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val proveedoresDB = obtenerProveedores()
-            withContext(Dispatchers.Main) {
-                val adapterProv = Adaptador(proveedoresDB)
-                rcvProveedores.adapter = adapterProv
-            }
-        }
 
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -119,7 +110,7 @@ class proveedores_admin : AppCompatActivity() {
         })
     }
 
-    private fun setupNavClickListeners() {
+    fun setupNavClickListeners() {
         val navView = findViewById<View>(R.id.include_nav)
 
         val imgHomenav = navView.findViewById<ImageView>(R.id.imgHomenav)
