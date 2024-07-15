@@ -45,10 +45,8 @@ class crear_proveedores : AppCompatActivity() {
 
         btnIngresarProv.setOnClickListener {
             if (txtDuiProv.text.toString().isEmpty() || txtNombreProv.text.toString().isEmpty()
-                || txtApellidosProv.text.toString().isEmpty() || txtTelefonoProv.text.toString()
-                    .isEmpty()
-                || txtCorreoProv.text.toString().isEmpty() || txtDireccionProv.text.toString()
-                    .isEmpty()
+                || txtApellidosProv.text.toString().isEmpty() || txtTelefonoProv.text.toString().isEmpty()
+                || txtCorreoProv.text.toString().isEmpty() || txtDireccionProv.text.toString().isEmpty()
             ) {
                 Toast.makeText(
                     applicationContext,
@@ -57,41 +55,58 @@ class crear_proveedores : AppCompatActivity() {
                 ).show()
             } else {
                 CoroutineScope(Dispatchers.IO).launch {
-
                     try {
+                        val objConexion = ClaseConexion().cadenaConexion() // Ajusta según tu implementación
 
+                        // Verificar si la conexión es válida
+                        if (objConexion != null) {
+                            val addNombreProv = objConexion.prepareStatement(
+                                "INSERT INTO Proveedor (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) VALUES (?, ?, ?, ?, ?, ?)"
+                            )
+                            addNombreProv.setString(1, txtDuiProv.text.toString())
+                            addNombreProv.setString(2, txtNombreProv.text.toString())
+                            addNombreProv.setString(3, txtApellidosProv.text.toString())
+                            addNombreProv.setString(4, txtTelefonoProv.text.toString())
+                            addNombreProv.setString(5, txtCorreoProv.text.toString())
+                            addNombreProv.setString(6, txtDireccionProv.text.toString())
 
-                        val objConexion = ClaseConexion().cadenaConexion()
-                        val addNombreProv = objConexion?.prepareStatement(
-                            "INSERT INTO Proveedor (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) VALUES (?, ?, ?, ?, ?, ?)"
-                        )!!
-                        addNombreProv.setString(1, txtDuiProv.text.toString())
-                        addNombreProv.setString(2, txtNombreProv.text.toString())
-                        addNombreProv.setString(3, txtApellidosProv.text.toString())
-                        addNombreProv.setString(4, txtTelefonoProv.text.toString())
-                        addNombreProv.setString(5, txtCorreoProv.text.toString())
-                        addNombreProv.setString(6, txtDireccionProv.text.toString())
-                        addNombreProv.executeUpdate()
+                            addNombreProv.executeUpdate()
 
-                        // Return to previous activity with result
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(
-                                applicationContext,
-                                "Proveedor agregado exitosamente.",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            // Confirmar la transacción (commit)
+                            objConexion.commit()
+
+                            // Cerrar la conexión después de usarla
+                            objConexion.close()
+
+                            // Mostrar mensaje en el hilo principal
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Proveedor agregado exitosamente.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Error de conexión a la base de datos.",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
                         }
                     } catch (e: Exception) {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(
                                 applicationContext,
-                                "Error al agendar la cita: ${e.message}",
+                                "Error al agregar el proveedor: ${e.message}",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
                     }
-
                 }
+            }
+        }
 
 
                 //--------------------------------NAV-----------------------------------------------------------------------------
@@ -148,7 +163,12 @@ class crear_proveedores : AppCompatActivity() {
                     imgProveedoresnav.setOnClickListener(clickListener)
                     imgCarrosnav.setOnClickListener(clickListener)
                     imgCitasnav.setOnClickListener(clickListener)
-                }}}}}
+                }}
+
+    private fun setupNavClickListeners() {
+        TODO("Not yet implemented")
+    }
+}
 
 
 
