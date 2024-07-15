@@ -50,10 +50,16 @@ class proveedores_admin : AppCompatActivity() {
         }
 
         // Cargar proveedores al iniciar la actividad
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         cargarProveedores()
     }
 
-    private fun cargarProveedores() {
+            private fun cargarProveedores() {
         CoroutineScope(Dispatchers.IO).launch {
             val proveedoresList = obtenerProveedores()
             withContext(Dispatchers.Main) {

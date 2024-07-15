@@ -59,8 +59,6 @@ class crear_proveedores : AppCompatActivity() {
                 CoroutineScope(Dispatchers.IO).launch {
 
                     try {
-
-
                         val objConexion = ClaseConexion().cadenaConexion()
                         val addNombreProv = objConexion?.prepareStatement(
                             "INSERT INTO Proveedor (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) VALUES (?, ?, ?, ?, ?, ?)"
@@ -148,7 +146,12 @@ class crear_proveedores : AppCompatActivity() {
                     imgProveedoresnav.setOnClickListener(clickListener)
                     imgCarrosnav.setOnClickListener(clickListener)
                     imgCitasnav.setOnClickListener(clickListener)
-                }}}}}
+                }}}}
+
+    private fun setupNavClickListeners() {
+        TODO("Not yet implemented")
+    }
+}
 
 
 
