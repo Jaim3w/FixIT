@@ -1,5 +1,3 @@
-package PtcFixit.fix_it
-
 import PtcFixit.fix_it.R
 
 
@@ -31,17 +29,7 @@ class FragmentCarros : Fragment() {
         val objConexion = ClaseConexion().cadenaConexion()
         val statement = objConexion?.createStatement()
         val resultSet = statement?.executeQuery(
-            "SELECT " +
-                    "Carro.Placa_carro AS Placa_carro, " +
-                    "Carro.Dui_cliente AS Dui_cliente, " +
-                    "Carro.UUID_modelo AS UUID_modelo, " +
-                    "Carro.Color AS Color, " +
-                    "Carro.Año AS Anio, " +
-                    "Carro.ImagenCarro AS ImagenCarro, " +
-                    "Carro.FechaRegistro AS FechaRegistro, " +
-                    "Carro.Descripcion AS DescripcionCarro " +
-                    "FROM Carro"
-        )
+                    "SELECT  Carro.Placa_carro AS Placa_carro,Cliente.Nombre AS Dui_cliente,Carro.UUID_modelo AS UUID_modelo, Carro.Color AS Color,Carro.Año AS Anio,Carro.ImagenCarro AS ImagenCarro, Carro.FechaRegistro AS FechaRegistro,Carro.Descripcion AS DescripcionCarro FROM Carro Inner Join Cliente on Carro.Dui_cliente = Cliente.Dui_cliente")!!
 
         val listadoCarro = mutableListOf<tbCarros>()
 

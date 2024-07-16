@@ -5,6 +5,7 @@ import CarrosHelpers.tbCarros
 import Modelo.ClaseConexion
 import PtcFixit.fix_it.R
 import android.app.DatePickerDialog
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
@@ -130,6 +131,7 @@ class AdaptadorCarros(private var Datos: List<tbCarros>) : RecyclerView.Adapter<
 
             alertDialogBuilder.setView(layout)
 
+            nuevaFecha.inputType = InputType.TYPE_NULL
             nuevaFecha.setOnClickListener {
                 val calendario = Calendar.getInstance()
                 val anio = calendario.get(Calendar.YEAR)
