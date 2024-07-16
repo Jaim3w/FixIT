@@ -29,7 +29,7 @@ UUID_item VARCHAR2(50) PRIMARY KEY,
 Nombre VARCHAR2(50) NOT NULL
 );
 
-
+select * from rol;
 Create table EstadoAsignarOrden(
 UUID_estado Varchar2(50) PRIMARY KEY,
 Nombre VARCHAR2(20) NOT NULL
@@ -197,15 +197,15 @@ SELECT * FROM dual;
 
 INSERT ALL
  INTO Usuario (UUID_usuario, UUID_rol, CorreoElectronico, Contrasena) 
- VALUES (SYS_GUID(),'8C988FE15F3B4C8BA57590B412F5AB6A', 'mario.garcia@gmail.com', 'mario123')
+ VALUES (SYS_GUID(),'E6003122F53D4DFD96D8FCDAA2EE8D9B', 'mario.garcia@gmail.com', 'mario123')
  INTO Usuario (UUID_usuario, UUID_rol, CorreoElectronico, Contrasena)
- VALUES (SYS_GUID(), 'AC91F66EE9744D1C95854429D110E268', 'rebeca.zelaya@gmail.com', 'rebe1234')
+ VALUES (SYS_GUID(), 'E6003122F53D4DFD96D8FCDAA2EE8D9B', 'rebeca.zelaya@gmail.com', 'rebe1234')
  INTO Usuario (UUID_usuario, UUID_rol, CorreoElectronico, Contrasena) 
- VALUES (SYS_GUID(), 'AC91F66EE9744D1C95854429D110E268', 'fatima.juarez@gmail.com', 'fati1234')
+ VALUES (SYS_GUID(), 'B3CF4BE0EB8E45EEA040C4A28AEBDE4F', 'fatima.juarez@gmail.com', 'fati1234')
  INTO Usuario (UUID_usuario, UUID_rol, CorreoElectronico, Contrasena) 
- VALUES (SYS_GUID(), 'AC91F66EE9744D1C95854429D110E268', 'juan.lopez@gmail.com', 'juan1234')
+ VALUES (SYS_GUID(), 'B3CF4BE0EB8E45EEA040C4A28AEBDE4F', 'juan.lopez@gmail.com', 'juan1234')
  INTO Usuario (UUID_usuario, UUID_rol, CorreoElectronico, Contrasena) 
- VALUES (SYS_GUID(), 'AC91F66EE9744D1C95854429D110E268', 'maria.dominguez@gmail.com', 'maria123')
+ VALUES (SYS_GUID(), 'B3CF4BE0EB8E45EEA040C4A28AEBDE4F', 'maria.dominguez@gmail.com', 'maria123')
 SELECT * FROM dual;
 
 select * from Usuario;
@@ -213,6 +213,9 @@ select * from Usuario;
 INSERT INTO CategoriaItem (UUID_item, Nombre) VALUES (SYS_GUID(), 'Producto');
 INSERT INTO CategoriaItem (UUID_item, Nombre) VALUES (SYS_GUID(), 'Repuesto');
 
+select UUID_rol from Rol where Nombre ='Administrador';
+
+select * from usuario;
 
 INSERT ALL
  INTO EstadoAsignarOrden (UUID_estado, Nombre)
