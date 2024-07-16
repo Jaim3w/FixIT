@@ -2,11 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true"
@@ -48,11 +46,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="Fecha del registro"
+                    android:text="Cliente"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtRegistroCarrosCard"
+                    android:id="@+id/txtClienteCarroCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -71,14 +69,14 @@
                 <TextView
                     android:id="@+id/textView15"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="42dp"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="Color"
+                    android:text="Placa"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtColorCarroCard"
+                    android:id="@+id/txtPlacaCarroCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -92,7 +90,7 @@
 
         <LinearLayout
             android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -101,11 +99,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingStart="14dp"
-                android:text="Año del carro"
+                android:text="Fecha de registro"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/txtanioCarro"
+                android:id="@+id/txtfechaRegistroCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -114,14 +112,45 @@
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
+            <!-- Nuevo campo para Descripción del carro -->
             <TextView
-                android:id="@+id/txtServicioCardCarros"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
+                android:id="@+id/textViewDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingTop="7dp"
+                android:paddingStart="14dp"
+                android:text="Descripción "
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtDescripcionCarroCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="14dp"
                 android:text="TextView"
-                android:textAlignment="center" />
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <!-- Nuevo campo para Color del carro -->
+            <TextView
+                android:id="@+id/textViewColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="14dp"
+                android:text="Color del carro"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtColorCarroCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="14dp"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
         </LinearLayout>
 

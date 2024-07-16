@@ -1,5 +1,9 @@
 package PtcFixit.fix_it
 
+import PtcFixit.fix_it.R
+
+
+
 import CarrosHelpers.AdaptadorCarros
 import CarrosHelpers.tbCarros
 import Modelo.ClaseConexion
@@ -28,33 +32,40 @@ class FragmentCarros : Fragment() {
         val statement = objConexion?.createStatement()
         val resultSet = statement?.executeQuery(
             "SELECT " +
-                    "    Carro.Placa_carro AS Placa_del_Carro, " +
-                    "    Cliente.Nombre AS Nombre_del_Cliente, " +
-                    "    Cliente.Apellido AS Apellido_del_Cliente, " +
-                    "    Modelo.Nombre AS Modelo_del_Carro, " +
-                    "    Carro.Color AS Color, " +
-                    "    Carro.Año AS Año, " +
-                    "    Carro.ImagenCarro AS ImagenCarro, " +
-                    "    Carro.Descripcion AS Descripcion " +
-                    "FROM Carro " +
-                    "INNER JOIN Cliente ON Carro.Dui_cliente = Cliente.Dui_cliente " +
-                    "INNER JOIN Modelo ON Carro.UUID_modelo = Modelo.UUID_modelo"
+                    "Carro.Placa_carro AS Placa_carro, " +
+                    "Carro.Dui_cliente AS Dui_cliente, " +
+                    "Carro.UUID_modelo AS UUID_modelo, " +
+                    "Carro.Color AS Color, " +
+                    "Carro.Año AS Anio, " +
+                    "Carro.ImagenCarro AS ImagenCarro, " +
+                    "Carro.FechaRegistro AS FechaRegistro, " +
+                    "Carro.Descripcion AS DescripcionCarro " +
+                    "FROM Carro"
         )
 
         val listadoCarro = mutableListOf<tbCarros>()
 
         resultSet?.use { rs ->
             while (rs.next()) {
-                val placaCarro = rs.getString("Placa_del_Carro")
-                val nombreCliente = rs.getString("Nombre_del_Cliente")
-                val apellidoCliente = rs.getString("Apellido_del_Cliente")
-                val modeloCarro = rs.getString("Modelo_del_Carro")
+                val placaCarro = rs.getString("Placa_carro")
+                val duiCliente = rs.getString("Dui_cliente")
+                val uuidModelo = rs.getString("UUID_modelo")
                 val colorCarro = rs.getString("Color")
-                val anioCarro = rs.getString("Año")
+                val anioCarro = rs.getString("Anio")
                 val imagenCarro = rs.getString("ImagenCarro")
-                val descripcionCarro = rs.getString("Descripcion")
+                val fechaRegistro = rs.getString("FechaRegistro")
+                val descripcionCarro = rs.getString("DescripcionCarro")
 
-                val carro = tbCarros(placaCarro, nombreCliente, apellidoCliente, modeloCarro, colorCarro, anioCarro, imagenCarro, descripcionCarro)
+                val carro = tbCarros(
+                    placaCarro,
+                    duiCliente,
+                    uuidModelo,
+                    colorCarro,
+                    anioCarro,
+                    imagenCarro,
+                    fechaRegistro,
+                    descripcionCarro
+                )
                 listadoCarro.add(carro)
             }
         }

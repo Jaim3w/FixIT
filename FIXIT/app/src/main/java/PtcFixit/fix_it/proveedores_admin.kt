@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
@@ -19,15 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import reccyclerviewherlperProveedores.Adaptador
 import java.sql.SQLException
-
 class proveedores_admin : AppCompatActivity() {
 
     private val REQUEST_CODE_CREAR_PROVEEDOR = 1
+    private lateinit var adaptador: Adaptador
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +42,9 @@ class proveedores_admin : AppCompatActivity() {
         val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
         rcvProveedores.layoutManager = LinearLayoutManager(this)
 
+        adaptador = Adaptador(emptyList())
+        rcvProveedores.adapter = adaptador
+
         btnAgregarNuevoProveedor.setOnClickListener {
             val intent = Intent(this, crear_proveedores::class.java)
             startActivityForResult(intent, REQUEST_CODE_CREAR_PROVEEDOR)
@@ -54,16 +55,16 @@ class proveedores_admin : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        Log.d("proveedores_admin", "onResume called")
         cargarProveedores()
     }
 
     private fun cargarProveedores() {
         CoroutineScope(Dispatchers.IO).launch {
             val proveedoresList = obtenerProveedores()
+            Log.d("proveedores_admin", "Proveedores list size: ${proveedoresList.size}")
             withContext(Dispatchers.Main) {
-                val adaptador = Adaptador(proveedoresList)
-                val rcvProveedores = findViewById<RecyclerView>(R.id.rcvProveedores)
-                rcvProveedores.adapter = adaptador
+                adaptador.actualizarRecyclerView(proveedoresList)
             }
         }
     }
@@ -157,6 +158,7 @@ class proveedores_admin : AppCompatActivity() {
         finish()
     }
 }
+
 
 
 
