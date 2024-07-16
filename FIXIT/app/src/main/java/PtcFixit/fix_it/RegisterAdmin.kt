@@ -1,15 +1,12 @@
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
-import Modelo.dataClassRoles
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +18,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.security.MessageDigest
 import java.util.UUID
-
 
 class RegisterAdmin : AppCompatActivity() {
 
@@ -37,10 +33,10 @@ class RegisterAdmin : AppCompatActivity() {
             insets
         }
 
-        val CorreoAdmin = findViewById<EditText>(R.id.txtCorreoRegister)
-        val ContrasenaAdmin = findViewById<EditText>(R.id.txtContrasenaAdmin)
-        val Registrar = findViewById<Button>(R.id.btnSiguienteRegister)
-        val Vercontrasena = findViewById<ImageView>(R.id.imgVerContraRegister)
+        val correoAdmin = findViewById<EditText>(R.id.txtCorreoRegister)
+        val contrasenaAdmin = findViewById<EditText>(R.id.txtContrasenaAdmin)
+        val registrar = findViewById<Button>(R.id.btnSiguienteRegister)
+        val verContrasena = findViewById<ImageView>(R.id.imgVerContraRegister)
 
         fun hashSHA256(contrasenaEscrita: String): String {
             val bytes = MessageDigest.getInstance("SHA-256").digest(contrasenaEscrita.toByteArray())
@@ -48,42 +44,62 @@ class RegisterAdmin : AppCompatActivity() {
         }
 
         CoroutineScope(Dispatchers.IO).launch {
-
-            uuidRolAdministrador = obtenerRol("Administrador")
+            try {
+                uuidRolAdministrador = obtenerRol("Administrador")
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@RegisterAdmin, "Error al obtener el rol: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+                return@launch
+            }
 
             withContext(Dispatchers.Main) {
-                Registrar.setOnClickListener {
+                registrar.setOnClickListener {
+                    val email = correoAdmin.text.toString().trim()
+                    val password = contrasenaAdmin.text.toString().trim()
+
+                    if (email.isEmpty() || password.isEmpty()) {
+                        Toast.makeText(this@RegisterAdmin, "Correo y contraseña no pueden estar vacíos", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+
                     val pantallamenu = Intent(this@RegisterAdmin, Menu1Activity::class.java)
 
                     CoroutineScope(Dispatchers.IO).launch {
-                        val objConexion = ClaseConexion().cadenaConexion()
-                        val contrasenaEncriptada = hashSHA256(ContrasenaAdmin.text.toString())
+                        try {
+                            val objConexion = ClaseConexion().cadenaConexion()
+                            val contrasenaEncriptada = hashSHA256(password)
 
-                        val crearUsuario = objConexion?.prepareStatement("Insert into Usuario(UUID_usuario, UUID_rol, CorreoElectronico, Contrasena) values(?, ?, ?, ?) ")!!
-                        crearUsuario.setString(1, UUID.randomUUID().toString())
-                        crearUsuario.setString(2, uuidRolAdministrador)
-                        crearUsuario.setString(3, CorreoAdmin.text.toString())
-                        crearUsuario.setString(4, contrasenaEncriptada)
+                            val crearUsuario = objConexion?.prepareStatement("INSERT INTO Usuario(UUID_usuario, UUID_rol, CorreoElectronico, Contrasena) VALUES(?, ?, ?, ?)")!!
+                            crearUsuario.setString(1, UUID.randomUUID().toString())
+                            crearUsuario.setString(2, uuidRolAdministrador)
+                            crearUsuario.setString(3, email)
+                            crearUsuario.setString(4, contrasenaEncriptada)
 
-                        crearUsuario.executeUpdate()
+                            crearUsuario.executeUpdate()
 
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(this@RegisterAdmin, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show()
-                            CorreoAdmin.setText("")
-                            ContrasenaAdmin.setText("")
-                            startActivity(pantallamenu)
-                            finish()
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(this@RegisterAdmin, "Usuario creado exitosamente", Toast.LENGTH_SHORT).show()
+                                correoAdmin.setText("")
+                                contrasenaAdmin.setText("")
+                                startActivity(pantallamenu)
+                                finish()
+                            }
+                        } catch (e: Exception) {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(this@RegisterAdmin, "Error al crear el usuario: ${e.message}", Toast.LENGTH_LONG).show()
+                            }
                         }
                     }
                 }
             }
         }
 
-        Vercontrasena.setOnClickListener {
-            if (ContrasenaAdmin.inputType == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-                ContrasenaAdmin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        verContrasena.setOnClickListener {
+            if (contrasenaAdmin.inputType == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+                contrasenaAdmin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             } else {
-                ContrasenaAdmin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                contrasenaAdmin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
         }
     }
@@ -92,7 +108,7 @@ class RegisterAdmin : AppCompatActivity() {
         return withContext(Dispatchers.IO) {
             val objconexion = ClaseConexion().cadenaConexion()
             val statement = objconexion?.createStatement()
-            val resultSet = statement?.executeQuery("select UUID_rol from Rol where Nombre = '$nombreRol'")!!
+            val resultSet = statement?.executeQuery("SELECT UUID_rol FROM Rol WHERE Nombre = '$nombreRol'")!!
 
             var uuidRol: String? = null
             if (resultSet.next()) {
