@@ -3,7 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="PtcFixit.fix_it">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
+        tools:ignore="SelectedPhotoAccess" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -20,6 +33,11 @@
         android:supportsRtl="true"
         android:theme="@style/fixit"
         tools:targetApi="34">
+
+        <activity
+            android:name=".proveedores_admin"
+            android:exported="false" />
+
         <activity
             android:name=".DetalleCitaActivity"
             android:exported="false" />
@@ -28,8 +46,12 @@
             android:exported="false" />
         <activity
             android:name=".splash_screen"
-            android:exported="false"
-            android:theme="@style/fixit" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".carros_card"
             android:exported="false" />
@@ -38,7 +60,7 @@
             android:exported="false" />
         <activity
             android:name=".login_fixIT"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".crear_proveedores"
             android:exported="false" />
@@ -60,6 +82,14 @@
         <activity
             android:name=".BienvenidaFixit"
             android:exported="false" />
+
+        <activity
+            android:name=".inicio"
+            android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
         <activity
             android:name=".Inicio2"
             android:exported="false" />
@@ -80,19 +110,14 @@
             android:exported="false" />
         <activity
             android:name=".citas"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".repuestos_admin"
             android:exported="false" />
         <activity
             android:name=".RegisterAdmin"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:exported="false"/>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
         <activity
             android:name=".CodigoTaller"
             android:exported="false" />
