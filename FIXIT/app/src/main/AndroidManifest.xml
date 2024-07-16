@@ -47,13 +47,7 @@
             android:exported="false" />
         <activity
             android:name=".Menu1Activity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".carros_admin"
             android:exported="false" />
@@ -86,19 +80,19 @@
             android:exported="false" />
         <activity
             android:name=".citas"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".repuestos_admin"
             android:exported="false" />
         <activity
             android:name=".RegisterAdmin"
-            android:exported="true" />
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".CodigoTaller"
             android:exported="false" />

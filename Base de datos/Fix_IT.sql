@@ -14,6 +14,7 @@ Nombre VARCHAR2(20) NOT NULL
 );
 
 
+select * from rol;
 Create table Usuario(
 UUID_usuario VARCHAR2(50) PRIMARY KEY,
 UUID_rol VARCHAR2(50) NOT NULL,
@@ -126,7 +127,6 @@ UUID_cita Varchar2(50) PRIMARY KEY,
 Dui_cliente VARCHAR2(10) NOT NULL,
 Dui_empleado VARCHAR2(10) NOT NULL,
 Fecha_cita VARCHAR2(200) NOT NULL,
-Hora_cita VARCHAR2(200) NOT NULL,
 Descripcion VARCHAR2(250) NOT NULL,
 
 CONSTRAINT fk_c_empleado FOREIGN KEY (Dui_empleado) REFERENCES Empleado(Dui_empleado),
@@ -188,7 +188,8 @@ CONSTRAINT fk_proveedor_producto FOREIGN KEY (Dui_proveedor) REFERENCES Proveedo
 INSERT INTO Taller (Codigo_Taller, Nombre_Dueno, Apellido_Dueno, CorreoElectronico, Contrasena, Telefono, Direccion)
 VALUES ('TallerDisp', 'Fernando', 'Merino', 'fernando.merino@gmail.com', 'merino12', '23473411', 'Mexicanos Calle Sur');
 
-
+select * from Usuario;
+select * from rol;
 INSERT ALL
  INTO Rol (UUID_rol, Nombre) VALUES (SYS_GUID(), 'Administrador')
  INTO Rol (UUID_rol, Nombre) VALUES (SYS_GUID(), 'Empleado')
@@ -206,6 +207,8 @@ INSERT ALL
  INTO Usuario (UUID_usuario, UUID_rol, CorreoElectronico, Contrasena) 
  VALUES (SYS_GUID(), 'AC91F66EE9744D1C95854429D110E268', 'maria.dominguez@gmail.com', 'maria123')
 SELECT * FROM dual;
+
+select * from Usuario;
 
 INSERT INTO CategoriaItem (UUID_item, Nombre) VALUES (SYS_GUID(), 'Producto');
 INSERT INTO CategoriaItem (UUID_item, Nombre) VALUES (SYS_GUID(), 'Repuesto');
@@ -263,7 +266,7 @@ INSERT ALL
     VALUES ('345832463', 'Luis', 'Enrique', '23388572', 'luis.enrique@gmail.com', 'Las Arboledas')
 SELECT * FROM dual;
 
-select * from Proveedor;
+
 
 INSERT ALL
     INTO Servicio (UUID_servicio, Nombre, Descripcion, Precio) 
@@ -346,6 +349,22 @@ INSERT ALL
   VALUES (SYS_GUID(), 'GHI3456', 'Reparación de frenos')
   INTO HistorialCarro (UUID_historialCarro, Placa_carro, Descripcion)
   VALUES (SYS_GUID(), 'JKL7890', 'Cambio de llantas')
+SELECT * FROM dual;
+
+
+
+
+INSERT ALL
+  INTO Cita (UUID_cita, Dui_Cliente, Dui_empleado , Fecha_cita, Descripcion)
+  VALUES (SYS_GUID(), '345723699', '43862360' , '01/07/2024', 'Primera cita del taller')
+  INTO Cita (UUID_cita,  Dui_Cliente, Dui_empleado , Fecha_cita, Descripcion)
+  VALUES (SYS_GUID(), '091345821', '234734141', '02/07/2024', 'Segunda cita del taller')
+  INTO Cita (UUID_cita,  Dui_Cliente, Dui_empleado ,Fecha_cita, Descripcion)
+  VALUES (SYS_GUID(), '456789012', '527223462', '03/07/2024', 'Tercera cita del taller')
+  INTO Cita (UUID_cita,  Dui_Cliente, Dui_empleado ,Fecha_cita, Descripcion)
+  VALUES (SYS_GUID(), '218957987', '345834343', '04/07/2024', 'Cuarta cita del taller')
+  INTO Cita (UUID_cita,  Dui_Cliente, Dui_empleado ,Fecha_cita, Descripcion)
+  VALUES (SYS_GUID(), '092438653', '534233464', '02/07/2024', 'Quinta cita del taller')
 SELECT * FROM dual;
 
 

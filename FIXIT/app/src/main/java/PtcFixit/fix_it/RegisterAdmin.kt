@@ -1,6 +1,7 @@
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
+import Modelo.dataClassClientes
 import Modelo.dataClassRoles
 import android.content.Intent
 import android.os.Bundle
@@ -40,41 +41,43 @@ class RegisterAdmin : AppCompatActivity() {
         val Vercontrasena=findViewById<ImageView>(R.id.imgVerContraRegister)
         val SpinnerRol=findViewById<Spinner>(R.id.spRoles)
 
-        fun obtenerRol() : String?{
+        fun obtenerRol() : List<dataClassRoles>{
             val objconexion=ClaseConexion().cadenaConexion()
             val statement=objconexion?.createStatement()
-            val resultSet=statement?.executeQuery("select UUID_rol from Usuario where Nombre = 'Administrador'")!!
+            val resultSet=statement?.executeQuery("select * From Rol")!!
 
-            var uuidRol:String? = null
+            val listadoRol = mutableListOf<dataClassRoles>()
 
-            if(resultSet.next()){
-                uuidRol=resultSet.getString("UUID_rol")
-                println("este es el uuid traido del if $uuidRol")
+            while(resultSet.next()){
+
+                val uuidRol = resultSet.getString("UUID_rol")
+               val  nombre = resultSet.getString("Nombre")
+
+                val Rol = dataClassRoles(uuidRol,nombre)
+
+                listadoRol.add(Rol)
             }
-            println("Este es el uuid traido de la funcion $uuidRol")
-            return uuidRol
-
-
+            return listadoRol
         }
-        fun obtenerRol2() : String?{
-            val objconexion=ClaseConexion().cadenaConexion()
-            val statement=objconexion?.createStatement()
-            val resultSet1=statement?.executeQuery("select UUID_rol from Usuario where Nombre = 'Empleado'")!!
+//        fun obtenerRol2() : String?{
+//            val objconexion=ClaseConexion().cadenaConexion()
+//            val statement=objconexion?.createStatement()
+//            val resultSet1=statement?.executeQuery("select UUID_rol from Usuario where Nombre = 'Empleado'")!!
+//
+//            var uuidRol:String? = null
+//
+//            if(resultSet1.next()){
+//                uuidRol=resultSet1.getString("UUID_rol")
+//                println("este es el uuid traido del if $uuidRol")
+//            }
+//            println("Este es el uuid traido de la funcion $uuidRol")
+//            return uuidRol
+//
+//        }
 
-            var uuidRol:String? = null
+        val RolTraido=obtenerRol()
 
-            if(resultSet1.next()){
-                uuidRol=resultSet1.getString("UUID_rol")
-                println("este es el uuid traido del if $uuidRol")
-            }
-            println("Este es el uuid traido de la funcion $uuidRol")
-            return uuidRol
-
-        }
-
-        val uuidRolTraido=obtenerRol()
-
-        val EmpleadoTRaido=obtenerRol2()
+//        val EmpleadoTRaido=obtenerRol2()
 
 
         fun hashSHA256(contrasenaEscrita: String):String{
@@ -91,7 +94,7 @@ class RegisterAdmin : AppCompatActivity() {
                 val contrasenaEncriptada= hashSHA256(ContrasenaAdmin.text.toString())
                 val crearUsuario=objConexion?.prepareStatement("Insert into usuario(UUID_usuario,UUID_rol,CorreoElectronico,Contrasena) values(?,?,?,?) ")!!
                 crearUsuario.setString(1, UUID.randomUUID().toString())
-                crearUsuario.setString(2,uuidRolTraido)
+                crearUsuario.setString(2, RolTraido[SpinnerRol.selectedItemPosition].UUID_rol)
                 crearUsuario.setString(3,CorreoAdmin.text.toString())
                 crearUsuario.setString(4,contrasenaEncriptada)
 
