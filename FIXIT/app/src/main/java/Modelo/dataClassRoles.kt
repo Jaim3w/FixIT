@@ -1,6 +1,6 @@
 package Modelo
 
 data class dataClassRoles(
-    var UUID_ROL : String,
-    var NOMBRE : String
+    var UUID_rol : String,
+    var Nombre : String
 )

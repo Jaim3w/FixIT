@@ -1,0 +1,4 @@
+package CarrosHelpers
+
+class ViewModelCarros {
+}
