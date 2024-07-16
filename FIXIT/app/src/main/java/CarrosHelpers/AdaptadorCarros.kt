@@ -1,7 +1,5 @@
 package CarrosHelpers
 
-
-import CarrosHelpers.tbCarros
 import Modelo.ClaseConexion
 import PtcFixit.fix_it.R
 import android.app.DatePickerDialog
@@ -12,7 +10,6 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -157,8 +154,12 @@ class AdaptadorCarros(private var Datos: List<tbCarros>) : RecyclerView.Adapter<
                 val colorNuevo = nuevoColor.text.toString()
                 val nuevaDescripcionCarro = nuevaDescripcion.text.toString()
 
-                actualizarCarro(item.Placa_carro, fechaNuevaCarro, colorNuevo, nuevaDescripcionCarro)
-                actualizarItem(item.Placa_carro, fechaNuevaCarro, colorNuevo, nuevaDescripcionCarro)
+                if (fechaNuevaCarro.isBlank() || colorNuevo.isBlank() || nuevaDescripcionCarro.isBlank()) {
+                    Toast.makeText(holder.itemView.context, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
+                } else {
+                    actualizarCarro(item.Placa_carro, fechaNuevaCarro, colorNuevo, nuevaDescripcionCarro)
+                    actualizarItem(item.Placa_carro, fechaNuevaCarro, colorNuevo, nuevaDescripcionCarro)
+                }
             }
 
             alertDialogBuilder.setNegativeButton("Cancelar") { dialog, which ->

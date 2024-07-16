@@ -5,26 +5,25 @@ import Modelo.RCVproveedor
 import PtcFixit.fix_it.R
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import recyclerViewHelper_CarrosAdmin.viewHolder
 import java.sql.SQLException
 
-class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>() {
+class Adaptador(var Datos: List<RCVproveedor>) : RecyclerView.Adapter<ViewHolder>() {
 
-    fun actualizarRecyclerView(nuevaLista: List<RCVproveedor>){
+    fun actualizarRecyclerView(nuevaLista: List<RCVproveedor>) {
         Datos = nuevaLista
         notifyDataSetChanged()
     }
 
-    fun actualizarItemprov(dui: String, nombre: String, telefono:String) {
+    fun actualizarItemprov(dui: String, nombre: String, telefono: String) {
         val index = Datos.indexOfFirst { it.dui == dui }
         if (index != -1) {
             Datos[index].nombre = nombre
@@ -33,10 +32,9 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
         }
     }
 
-    fun editarProveedores(nombre: String, telefono: String, dui: String){
+    fun editarProveedores(dui: String, nombre: String, telefono: String) {
         GlobalScope.launch(Dispatchers.IO) {
             val objConexion = ClaseConexion().cadenaConexion()
-
             try {
                 val actProveedoress = objConexion?.prepareStatement(
                     "UPDATE Proveedor SET Nombre = ?, Telefono = ? WHERE Dui_proveedor = ?"
@@ -62,12 +60,18 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
 
         GlobalScope.launch(Dispatchers.IO) {
             val objConexion = ClaseConexion().cadenaConexion()
-            val eliminarProv = objConexion?.prepareStatement("delete from Proveedor where  Nombre = ?")!!
-            eliminarProv.setString(1, nombre)
-            eliminarProv.executeUpdate()
+            try {
+                val eliminarProv = objConexion?.prepareStatement("DELETE FROM Proveedor WHERE Nombre = ?")
+                eliminarProv?.setString(1, nombre)
+                eliminarProv?.executeUpdate()
 
-            val commit = objConexion.prepareStatement("commit")
-            commit.executeUpdate()
+                val commit = objConexion?.prepareStatement("COMMIT")
+                commit?.executeUpdate()
+            } catch (e: SQLException) {
+                Log.e("eliminarProveedor", "Error al eliminar proveedor: ${e.message}")
+            } finally {
+                objConexion?.close()
+            }
         }
 
         Datos = listaProv.toList()
@@ -107,12 +111,19 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
             alertDialogBuilder.setView(layout)
 
             alertDialogBuilder.setPositiveButton("Actualizar") { dialog, _ ->
-                val nuevoNombre = inputNombre.text.toString()
-                val nuevoTelefono = inputTelefono.text.toString()
+                val nuevoNombre = inputNombre.text.toString().trim()
+                val nuevoTelefono = inputTelefono.text.toString().trim()
 
-                // Llama a la función editarProveedores para actualizar en la base de datos
-                editarProveedores(item.dui, nuevoNombre, nuevoTelefono, )
-                actualizarItemprov(item.dui, nuevoNombre, nuevoTelefono)
+                if (nuevoNombre.isBlank() || nuevoTelefono.isBlank()) {
+                    Toast.makeText(holder.itemView.context, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
+                } else {
+                    try {
+                        editarProveedores(item.dui, nuevoNombre, nuevoTelefono)
+                        actualizarItemprov(item.dui, nuevoNombre, nuevoTelefono)
+                    } catch (e: Exception) {
+                        Log.e("onBindViewHolder", "Error al actualizar proveedor: ${e.message}")
+                    }
+                }
             }
 
             alertDialogBuilder.setNegativeButton("Cancelar") { dialog, _ ->
@@ -131,7 +142,11 @@ class Adaptador(var Datos :List<RCVproveedor>): RecyclerView.Adapter<ViewHolder>
             builder.setMessage("¿Deseas continuar con la eliminación del proveedor?")
 
             builder.setPositiveButton("Continuar") { _, _ ->
-                eliminarProveedor(item.nombre, position)
+                try {
+                    eliminarProveedor(item.nombre, position)
+                } catch (e: Exception) {
+                    Log.e("onBindViewHolder", "Error al eliminar proveedor: ${e.message}")
+                }
             }
 
             builder.setNegativeButton("Cancelar") { dialog, _ ->
