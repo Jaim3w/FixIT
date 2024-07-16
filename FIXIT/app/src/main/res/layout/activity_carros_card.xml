@@ -2,11 +2,9 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true"
@@ -44,21 +42,20 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="Carro"
+                    android:text="Cliente"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtMarcaCardCarros"
+                    android:id="@+id/txtClienteCarroCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="Marca carro"
+                    android:text="TextView"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -72,19 +69,19 @@
                 <TextView
                     android:id="@+id/textView15"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="42dp"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
                     android:text="Placa"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtPlacaCardCarros"
+                    android:id="@+id/txtPlacaCarroCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingStart="14dp"
-                    android:text="P00 000"
+                    android:text="TextView"
                     android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -93,7 +90,7 @@
 
         <LinearLayout
             android:layout_width="120dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -102,27 +99,58 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingStart="14dp"
-                android:text="Modelo"
+                android:text="Fecha de registro"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/txtModeloCardCarros"
+                android:id="@+id/txtfechaRegistroCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingStart="14dp"
-                android:text="Modelo año"
+                android:text="TextView"
                 android:textColor="#000000"
                 android:textSize="16sp" />
 
+            <!-- Nuevo campo para Descripción del carro -->
             <TextView
-                android:id="@+id/txtServicioCardCarros"
-                android:layout_width="wrap_content"
-                android:layout_height="47dp"
+                android:id="@+id/textViewDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingTop="7dp"
-                android:text="Servicio que se esta realizando"
-                android:textAlignment="center" />
+                android:paddingStart="14dp"
+                android:text="Descripción "
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtDescripcionCarroCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="14dp"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <!-- Nuevo campo para Color del carro -->
+            <TextView
+                android:id="@+id/textViewColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="14dp"
+                android:text="Color del carro"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txtColorCarroCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="14dp"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -132,13 +160,13 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/icActualizar"
+                android:id="@+id/imgActualizarCarros"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:srcCompat="@drawable/ajustes1" />
 
             <ImageView
-                android:id="@+id/icEliminar"
+                android:id="@+id/imgEliminarCarros"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:srcCompat="@drawable/borrar1" />

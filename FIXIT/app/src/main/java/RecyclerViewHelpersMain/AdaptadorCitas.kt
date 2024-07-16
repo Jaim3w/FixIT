@@ -6,14 +6,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class AdaptadorCitas(private var listaCitas: List<listadoCita>, private val context: Context) : RecyclerView.Adapter<AdaptadorCitas.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textViewNombreCliente: TextView = view.findViewById(R.id.txtCliente)
+        val textViewNombreCliente: TextView = view.findViewById(R.id.txtClienteCarroCard)
 
         fun bind(Nombre_cliente: String) {
             textViewNombreCliente.text = Nombre_cliente

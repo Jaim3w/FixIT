@@ -1,5 +1,6 @@
 package PtcFixit.fix_it
 
+import FragmentCarros
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 
 class carros_admin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +25,13 @@ class carros_admin : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        setupTabClickListeners()
         setupNavClickListeners()
+
+        // Load AgregarCarros fragment initially
+        if (savedInstanceState == null) {
+            loadFragment(AgregarCarros())
+        }
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -36,6 +45,19 @@ class carros_admin : AppCompatActivity() {
                 finish()
             }
         })
+    }
+
+    private fun setupTabClickListeners() {
+        val txtAgregarCarro = findViewById<View>(R.id.txtAgregarCarro)
+        val txtVerHistorialCarro = findViewById<View>(R.id.txtHistorialDecarros)
+
+        txtAgregarCarro.setOnClickListener {
+            loadFragment(AgregarCarros())
+        }
+
+        txtVerHistorialCarro.setOnClickListener {
+            loadFragment(FragmentCarros())
+        }
     }
 
     private fun setupNavClickListeners() {
@@ -74,5 +96,12 @@ class carros_admin : AppCompatActivity() {
         imgProveedoresnav.setOnClickListener(clickListener)
         imgCarrosnav.setOnClickListener(clickListener)
         imgCitasnav.setOnClickListener(clickListener)
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.commit {
+            replace(R.id.fragmentContainerView, fragment)
+            addToBackStack(null)
+        }
     }
 }
