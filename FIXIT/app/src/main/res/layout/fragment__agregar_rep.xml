@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
+    android:id="@+id/txtPrecioRep"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragment_AgregarRep">
@@ -73,7 +73,7 @@
                 app:layout_constraintVertical_bias="0.045" />
 
             <Button
-                android:id="@+id/button9"
+                android:id="@+id/btnSelect"
                 android:layout_width="196dp"
                 android:layout_height="95dp"
                 android:layout_marginBottom="240dp"
@@ -89,7 +89,7 @@
                 app:layout_constraintVertical_bias="0.514" />
 
             <Button
-                android:id="@+id/button10"
+                android:id="@+id/btnCamara"
                 android:layout_width="196dp"
                 android:layout_height="95dp"
                 android:background="@drawable/wybtn"
