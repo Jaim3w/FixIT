@@ -18,8 +18,8 @@ class citas : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val txtCrearCita = findViewById<TextView>(R.id.txtcrearCita)
-        val txtCitaspendientes = findViewById<TextView>(R.id.txtAll)
+        val txtCrearCita = findViewById<TextView>(R.id.txtCrearcita)
+        val txtCitaspendientes = findViewById<TextView>(R.id.txtCitasPendientes)
 
         replaceFragment(citasFragment())
 
@@ -34,7 +34,7 @@ class citas : AppCompatActivity() {
 
     private fun replaceFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
+        transaction.replace(R.id.fragmentContainerView, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
