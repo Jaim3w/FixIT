@@ -1,6 +1,10 @@
 package PtcFixit.fix_it
 
+import CitasHelpers.tbCita
+import Modelo.ClaseConexion
+import RepuestosHelpers.tbRepuesto
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +24,28 @@ class Fragment_All : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    fun obtenerDatos(): List<tbRepuesto> {
+        val listadoRepuestos = mutableListOf<tbRepuesto>()
+        try {
+            val objConexion = ClaseConexion().cadenaConexion()
+            val statement = objConexion?.createStatement()
+            val resultSet = statement?.executeQuery("SELECT ProductoRepuesto.UUID_productoRepuesto, ProductoRepuesto.Nombre, ProductoRepuesto.ImagenProductoRepuesto, CategoriaItem.Nombre, ProductoRepuesto.Precio  FROM ProductoRepuesto INNER JOIN CategoriaItem ON ProductoRepuesto.UUID_item = CategoriaItem.UUID_item")!!
+
+            while (resultSet.next()) {
+                val uuid = resultSet.getString("UUID_productoRepuesto")
+                val nombre = resultSet.getString("Nombre")
+                val imagen = resultSet.getString("ImagenProductoRepuesto")
+                val nombreitem = resultSet.getString("Nombre")
+                val precio = resultSet.getDouble("Precio")
+                val repuesto = tbRepuesto(uuid, nombre, imagen, nombreitem, precio)
+                listadoRepuestos.add(repuesto)
+            }
+        } catch (e: Exception) {
+            Log.e("Fragment_All", "Error fetching Repuestos data", e)
+        }
+        return listadoRepuestos
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

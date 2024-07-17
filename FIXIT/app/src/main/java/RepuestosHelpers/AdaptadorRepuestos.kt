@@ -86,6 +86,7 @@ class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Ada
         holder.txtNombreRepuesto.text = item.Nombre
         holder.txtCategoria.text = item.UUID_item
         holder.txtPrecio.text = item.Precio.toString()
+        holder.txtuuid.text = item.UUID_productoRepuesto
 
         holder.imgBorrarRep.setOnClickListener {
             val context = holder.itemView.context
