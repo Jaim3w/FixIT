@@ -2,6 +2,7 @@ package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
 import Modelo.dataClassRoles
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.widget.ArrayAdapter
@@ -37,11 +38,8 @@ class RegistrarseAdmin : AppCompatActivity() {
         val spinner=findViewById<Spinner>(R.id.spRoles)
         val btnRegistrar=findViewById<Button>(R.id.btnSiguienteRegister)
 
-        //funcion para la encriptacion
-        fun hashSHA256(contraseniaEscrita : String):String{
-            val bytes=java.security.MessageDigest.getInstance("SHA_256").digest(contraseniaEscrita.toByteArray())
-            return bytes.joinToString(""){"0%2x".format(it)}
-        }
+
+
 
         fun getRol(): List<dataClassRoles>{
             val conexion = ClaseConexion().cadenaConexion()
@@ -73,23 +71,33 @@ class RegistrarseAdmin : AppCompatActivity() {
 
         //fun para crear cuenta
         btnRegistrar.setOnClickListener {
+            val pantallaInicio=Intent(this,Menu1Activity::class.java)
             GlobalScope.launch(Dispatchers.IO){
                 val objConexion=ClaseConexion().cadenaConexion()
 
                 val rol = getRol()
 
-                val contraseniaEncriptada=hashSHA256(txtContrasenaRegister.text.toString())
+
                 val crearUsuario=
                     objConexion?.prepareStatement("INSERT INTO Usuario(UUID_usuario,UUID_rol,CorreoElectronico,Contrasena) values(?,?,?,?)")!!
                  crearUsuario.setString(1,UUID.randomUUID().toString())
                 crearUsuario.setString(2, rol[spinner.selectedItemPosition].UUID_rol)
                 crearUsuario.setString(3,txtCorreo.text.toString())
-                crearUsuario.setString(4,contraseniaEncriptada)
+                crearUsuario.setString(4,txtContrasenaRegister.text.toString())
                 crearUsuario.executeQuery()
                 withContext(Dispatchers.Main){
                     Toast.makeText(this@RegistrarseAdmin, "Usuario creado", Toast.LENGTH_SHORT).show()
                     txtCorreo.setText("")
                     txtContrasenaRegister.setText("")
+                    startActivity(pantallaInicio)
+                    try{
+                        if(txtContrasenaRegister == null || txtCorreo == null){
+                            throw IllegalArgumentException("El nombre o el correo no pueden ser nulos")
+                        }
+
+                    }catch (e : IllegalArgumentException){
+                        println("Error ${e.message}")
+                    }
                 }
             }
         }

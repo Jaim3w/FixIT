@@ -46,13 +46,7 @@
             android:exported="false" />
         <activity
             android:name=".RegistrarseAdmin"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".carros_card"
             android:exported="false" />
@@ -61,7 +55,13 @@
             android:exported="false" />
         <activity
             android:name=".login_fixIT"
-            android:exported="false" />
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".crear_proveedores"
             android:exported="false" />
