@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnRegistrarseTaller.setOnClickListener {
-            startActivity(Intent(this@MainActivity, RegisterAdmin::class.java))
+            startActivity(Intent(this@MainActivity, RegistrarseAdmin::class.java))
             finish()
         }
     }

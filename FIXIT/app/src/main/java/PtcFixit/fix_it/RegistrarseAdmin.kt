@@ -1,8 +1,10 @@
 package PtcFixit.fix_it
 
 import Modelo.ClaseConexion
+import Modelo.dataClassRoles
 import android.os.Bundle
 import android.text.InputType
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -40,17 +42,49 @@ class RegistrarseAdmin : AppCompatActivity() {
             val bytes=java.security.MessageDigest.getInstance("SHA_256").digest(contraseniaEscrita.toByteArray())
             return bytes.joinToString(""){"0%2x".format(it)}
         }
+
+        fun getRol(): List<dataClassRoles>{
+            val conexion = ClaseConexion().cadenaConexion()
+            val statement = conexion?.createStatement()
+            val resultSet = statement?.executeQuery("SELECT * FROM Rol")!!
+
+            val listaRol = mutableListOf<dataClassRoles>()
+
+            while (resultSet.next()) {
+                val uuidRol = resultSet.getString("UUID_rol")
+                val nombreRol = resultSet.getString("Nombre")
+
+                val Rol = dataClassRoles(uuidRol,nombreRol)
+                listaRol.add(Rol)
+            }
+            return listaRol
+            }
+
+
+        GlobalScope.launch(Dispatchers.IO) {
+            val listaRol = getRol()
+            val nombreRol = listaRol.map { it.Nombre }
+
+            withContext(Dispatchers.Main){
+                val rolAdapter = ArrayAdapter(this@RegistrarseAdmin, android.R.layout.simple_spinner_dropdown_item, nombreRol)
+                spinner.adapter = rolAdapter
+            }
+        }
+
         //fun para crear cuenta
         btnRegistrar.setOnClickListener {
             GlobalScope.launch(Dispatchers.IO){
                 val objConexion=ClaseConexion().cadenaConexion()
+
+                val rol = getRol()
+
                 val contraseniaEncriptada=hashSHA256(txtContrasenaRegister.text.toString())
                 val crearUsuario=
                     objConexion?.prepareStatement("INSERT INTO Usuario(UUID_usuario,UUID_rol,CorreoElectronico,Contrasena) values(?,?,?,?)")!!
                  crearUsuario.setString(1,UUID.randomUUID().toString())
-                //falta un crear que es el de rol del spinner que seria el numero 2 luego correo 3 y el otro 4
-                crearUsuario.setString(2,txtCorreo.text.toString())
-                crearUsuario.setString(3,contraseniaEncriptada)
+                crearUsuario.setString(2, rol[spinner.selectedItemPosition].UUID_rol)
+                crearUsuario.setString(3,txtCorreo.text.toString())
+                crearUsuario.setString(4,contraseniaEncriptada)
                 crearUsuario.executeQuery()
                 withContext(Dispatchers.Main){
                     Toast.makeText(this@RegistrarseAdmin, "Usuario creado", Toast.LENGTH_SHORT).show()

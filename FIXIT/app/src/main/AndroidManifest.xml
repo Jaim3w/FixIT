@@ -34,9 +34,7 @@
         android:supportsRtl="true"
         android:theme="@style/fixit"
         tools:targetApi="34">
-        <activity
-            android:name=".RegistrarseAdmin"
-            android:exported="false" />
+
         <activity
             android:name=".proveedores_admin"
             android:exported="false" />
@@ -47,7 +45,7 @@
             android:name=".RecuperarContra3"
             android:exported="false" />
         <activity
-            android:name=".splash_screen"
+            android:name=".RegistrarseAdmin"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -114,9 +112,6 @@
             android:exported="false" />
         <activity
             android:name=".repuestos_admin"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterAdmin"
             android:exported="false" />
         <activity
             android:name=".CodigoTaller"
