@@ -26,7 +26,7 @@ class RecuperarContra : AppCompatActivity() {
         val txtNum2 = findViewById<EditText>(R.id.txtSegundoNum)
         val txtNum3 = findViewById<EditText>(R.id.txtTercerNum)
         val txtNum4 = findViewById<EditText>(R.id.txtCuartoNum)
-        val btnContinuar = findViewById<Button>(R.id.btnGurdadContra)
+        val btnContinuar = findViewById<Button>(R.id.btnContinuar)
 
         txtNum1.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_UP) {

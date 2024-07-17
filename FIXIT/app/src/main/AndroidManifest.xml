@@ -44,6 +44,7 @@
         <activity
             android:name=".RecuperarContra3"
             android:exported="false" />
+
         <activity
             android:name=".RegistrarseAdmin"
             android:exported="false" />
@@ -56,13 +57,7 @@
             android:exported="false" />
         <activity
             android:name=".login_fixIT"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".crear_proveedores"
             android:exported="false" />
@@ -80,7 +75,13 @@
             android:exported="false" />
         <activity
             android:name=".RecuperarContraParte2"
-            android:exported="false" />
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".BienvenidaFixit"
             android:exported="false" />

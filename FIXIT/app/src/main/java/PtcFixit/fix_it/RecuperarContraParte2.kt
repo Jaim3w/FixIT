@@ -27,7 +27,7 @@ class RecuperarContraParte2 : AppCompatActivity() {
             insets
         }
         val txtCorreo=findViewById<EditText>(R.id.txtNuevaContra)
-        val btnContinuar=findViewById<Button>(R.id.btnGurdadContra)
+        val btnContinuar=findViewById<Button>(R.id.btnContinuar)
         btnContinuar.setOnClickListener{
             val intent=Intent(this,RecuperarContra::class.java)
             CoroutineScope(Dispatchers.Main).launch {

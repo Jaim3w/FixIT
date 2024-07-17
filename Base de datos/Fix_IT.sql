@@ -13,6 +13,7 @@ UUID_rol VARCHAR2(50) primary key,
 Nombre VARCHAR2(20) NOT NULL
 );
 
+select * from usuario;
 
 select * from rol;
 Create table Usuario(
