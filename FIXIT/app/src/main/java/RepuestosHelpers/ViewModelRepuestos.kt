@@ -1,0 +1,4 @@
+package RepuestosHelpers
+
+class ViewModelRepuestos {
+}
