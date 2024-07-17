@@ -1,7 +1,9 @@
 package PtcFixit.fix_it
 
+import CitasHelpers.AdaptadorCitas
 import CitasHelpers.tbCita
 import Modelo.ClaseConexion
+import RepuestosHelpers.AdaptadorRepuestos
 import RepuestosHelpers.tbRepuesto
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +11,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +33,7 @@ class Fragment_All : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    fun obtenerDatos(): List<tbRepuesto> {
+    fun obtenerDatosRep(): List<tbRepuesto> {
         val listadoRepuestos = mutableListOf<tbRepuesto>()
         try {
             val objConexion = ClaseConexion().cadenaConexion()
@@ -59,8 +67,19 @@ class Fragment_All : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__all, container, false)
+        val root = inflater.inflate(R.layout.fragment__all, container, false)
+        val rcvRepuesto = root.findViewById<RecyclerView>(R.id.rcvAll)
+        rcvRepuesto.layoutManager = LinearLayoutManager(context)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val RepuestosBd = obtenerDatosRep()
+            withContext(Dispatchers.Main) {
+                val adapter = AdaptadorRepuestos(RepuestosBd)
+                rcvRepuesto.adapter = adapter
+            }
+        }
+
+        return root
     }
 
     companion object {

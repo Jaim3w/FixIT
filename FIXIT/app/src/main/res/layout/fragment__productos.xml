@@ -8,6 +8,7 @@
     tools:context=".Fragment_Productos" >
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvProductos"
         android:layout_width="385dp"
         android:layout_height="375dp"
         app:layout_constraintBottom_toBottomOf="parent"
