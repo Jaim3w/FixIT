@@ -46,7 +46,8 @@
             android:exported="false" />
         <activity
             android:name=".RegistrarseAdmin"
-            android:exported="false"/>
+            android:exported="false" />
+
         <activity
             android:name=".carros_card"
             android:exported="false" />

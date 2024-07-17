@@ -44,17 +44,19 @@ class login_fixIT : AppCompatActivity() {
             GlobalScope.launch(Dispatchers.IO){
                 val objconexion=ClaseConexion().cadenaConexion()
 
+                val contraseniaEncriptada= hashSHA256(txtContrasenaLogin.text.toString())
+
 
                 val comprobacion=objconexion?.prepareStatement("select * from Usuario where correoElectronico = ? and Contrasena = ?")!!
                 comprobacion.setString(1,txtCorreoAdmin.text.toString())
-                comprobacion.setString(2,txtContrasenaLogin.text.toString())
+                comprobacion.setString(2,contraseniaEncriptada)
                 val resultado=comprobacion.executeQuery()
                 if(resultado.next()){
                     startActivity(pantallaPrincipal)
                 }else{
                     withContext(Dispatchers.Main){
                         Toast.makeText(this@login_fixIT, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
-                        println("contraseña ")
+                        println("contraseña $contraseniaEncriptada ")
                     }
                 }
                 try{

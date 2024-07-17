@@ -19,8 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import oracle.security.crypto.core.MessageDigest
+import java.security.MessageDigest
 import java.util.UUID
+
 
 class RegistrarseAdmin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +38,6 @@ class RegistrarseAdmin : AppCompatActivity() {
         val imgVer=findViewById<ImageView>(R.id.imgVerContraRegister)
         val spinner=findViewById<Spinner>(R.id.spRoles)
         val btnRegistrar=findViewById<Button>(R.id.btnSiguienteRegister)
-
-
 
 
         fun getRol(): List<dataClassRoles>{
@@ -58,7 +57,6 @@ class RegistrarseAdmin : AppCompatActivity() {
             return listaRol
             }
 
-
         GlobalScope.launch(Dispatchers.IO) {
             val listaRol = getRol()
             val nombreRol = listaRol.map { it.Nombre }
@@ -69,11 +67,19 @@ class RegistrarseAdmin : AppCompatActivity() {
             }
         }
 
+        fun hashSHA256(contraseniaEncriptada: String):String{
+            val bytes=MessageDigest.getInstance("SHA-256").digest(contraseniaEncriptada.toByteArray())
+            return bytes.joinToString("") {"%02x".format(it)}
+        }
+
+
         //fun para crear cuenta
         btnRegistrar.setOnClickListener {
             val pantallaInicio=Intent(this,Menu1Activity::class.java)
             GlobalScope.launch(Dispatchers.IO){
                 val objConexion=ClaseConexion().cadenaConexion()
+
+                val contraseniaEncriptada=hashSHA256(txtContrasenaRegister.text.toString())
 
                 val rol = getRol()
 
@@ -83,7 +89,7 @@ class RegistrarseAdmin : AppCompatActivity() {
                  crearUsuario.setString(1,UUID.randomUUID().toString())
                 crearUsuario.setString(2, rol[spinner.selectedItemPosition].UUID_rol)
                 crearUsuario.setString(3,txtCorreo.text.toString())
-                crearUsuario.setString(4,txtContrasenaRegister.text.toString())
+                crearUsuario.setString(4,contraseniaEncriptada)
                 crearUsuario.executeQuery()
                 withContext(Dispatchers.Main){
                     Toast.makeText(this@RegistrarseAdmin, "Usuario creado", Toast.LENGTH_SHORT).show()
