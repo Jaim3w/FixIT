@@ -3,6 +3,7 @@ package PtcFixit.fix_it
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -30,6 +31,13 @@ class MainActivity : AppCompatActivity() {
 
         val btnIniciarSesionTaller = findViewById<Button>(R.id.btnIniciarSesionTaller)
         val btnRegistrarseTaller = findViewById<Button>(R.id.btnRegistrarseTaller)
+        val txtOlvideMicontra = findViewById<TextView>(R.id.txtOlvideMicontra)
+
+        txtOlvideMicontra.setOnClickListener {
+            val intentO =Intent(this@MainActivity,RecuperarContraParte2::class.java)
+            startActivity(intentO)
+            finish()
+        }
 
         btnIniciarSesionTaller.setOnClickListener {
             startActivity(Intent(this@MainActivity, login_fixIT::class.java))

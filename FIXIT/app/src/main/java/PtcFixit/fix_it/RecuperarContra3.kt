@@ -36,7 +36,7 @@ class RecuperarContra3 : AppCompatActivity() {
 
         try {
             btnGuardarContra.setOnClickListener {
-                val pantallaNExt=Intent(this,Menu1Activity::class.java)
+                val pantallaNExt=Intent(this,MainActivity::class.java)
                 val nombreUser = RecuperarContraParte2.correoIngresado
                 CoroutineScope(Dispatchers.IO).launch {
                     

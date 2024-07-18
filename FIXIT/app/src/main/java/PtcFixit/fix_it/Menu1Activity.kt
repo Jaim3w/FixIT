@@ -140,7 +140,7 @@ class Menu1Activity : AppCompatActivity() {
                         "FROM Cita c\n" +
                         "INNER JOIN Cliente cli ON c.Dui_cliente = cli.Dui_cliente\n" +
                         "ORDER BY c.Fecha_cita ASC"
-            )
+            )!!
 
             while (resultSet?.next() == true) {
                 val uuidCita = resultSet.getString("UUID_cita")
@@ -176,7 +176,7 @@ class Menu1Activity : AppCompatActivity() {
 
         try {
             val statement = objConexion?.createStatement()
-            val resultSet = statement?.executeQuery("SELECT * FROM Carro")
+            val resultSet = statement?.executeQuery("SELECT * FROM Carro")!!
 
             while (resultSet?.next() == true) {
                 val placaCarro = resultSet.getString("Placa_carro")

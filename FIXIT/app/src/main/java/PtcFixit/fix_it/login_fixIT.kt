@@ -51,8 +51,8 @@ class login_fixIT : AppCompatActivity() {
 
                 if (resultado.next()) {
                     withContext(Dispatchers.Main) {
-                        val intent = Intent(this@login_fixIT, splash_screen::class.java)
-                        startActivity(intent)
+                        val intent1 = Intent(this@login_fixIT, Menu1Activity::class.java)
+                        startActivity(intent1)
                         finish()
                     }
                 } else {
