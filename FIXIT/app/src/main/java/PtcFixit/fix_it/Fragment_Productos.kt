@@ -3,6 +3,7 @@ package PtcFixit.fix_it
 import Modelo.ClaseConexion
 import RepuestosHelpers.AdaptadorRepuestos
 import RepuestosHelpers.tbRepuesto
+import Modelo.dataClassItem
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -31,7 +32,7 @@ class Fragment_Productos : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    fun obtenerDatosRep(): List<tbRepuesto> {
+    fun obtenerDatos(): List<tbRepuesto> {
         val listadoRepuestos = mutableListOf<tbRepuesto>()
         val filtroUUIDItem = "23E92E6C43A34B49ABC6B0E750B8F2EB"
         try {
@@ -72,14 +73,16 @@ class Fragment_Productos : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment__productos, container, false)
-        val rcvRepuesto = root.findViewById<RecyclerView>(R.id.rcvProductos)
-        rcvRepuesto.layoutManager = LinearLayoutManager(context)
+        val rcvProductos = root.findViewById<RecyclerView>(R.id.rcvProductos)
+        rcvProductos.layoutManager = LinearLayoutManager(context)
+
+        val adapter = AdaptadorRepuestos(emptyList())
+        rcvProductos.adapter = adapter
 
         CoroutineScope(Dispatchers.IO).launch {
-            val RepuestosBd = obtenerDatosRep()
+            val RepuestosBd = obtenerDatos()
             withContext(Dispatchers.Main) {
-                val adapter = AdaptadorRepuestos(RepuestosBd)
-                rcvRepuesto.adapter = adapter
+                adapter.actualizarListado(RepuestosBd)
             }
         }
 

@@ -67,7 +67,7 @@ class repuestos_admin : AppCompatActivity() {
 
     private fun loadFragment(fragment: Fragment) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainerView, fragment)
+        transaction.replace(R.id.fcvRep, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }

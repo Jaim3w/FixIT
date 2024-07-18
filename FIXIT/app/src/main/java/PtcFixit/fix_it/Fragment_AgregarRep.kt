@@ -130,13 +130,14 @@ class Fragment_AgregarRep : Fragment() {
                     try {
                         val objConexion = ClaseConexion().cadenaConexion()
                         val item = getItems()
-
+                        val url = miPath ?: ""
                         val addRep =
-                            objConexion?.prepareStatement("INSERT INTO ProductoRepuesto (UUID_productoRepuesto,  UUID_item, Nombre, Precio) VALUES (?,?,?,?)")!!
+                            objConexion?.prepareStatement("INSERT INTO ProductoRepuesto (UUID_productoRepuesto, UUID_item, Nombre, ImagenProductoRepuesto, Precio) VALUES (?,?,?,?,?)")!!
                         addRep.setString(1, UUID.randomUUID().toString())
                         addRep.setString(2, item[txtCategoria.selectedItemPosition].UUID_item)
                         addRep.setString(3, txtNombreRep.text.toString())
-                        addRep.setString(4, txtPrecio.text.toString())
+                        addRep.setString(4, url) // Aquí se guarda la URL de la imagen
+                        addRep.setString(5, txtPrecio.text.toString())
                         addRep.executeUpdate()
                         withContext(Dispatchers.Main) {
                             Toast.makeText(
@@ -232,8 +233,8 @@ class Fragment_AgregarRep : Fragment() {
                     imageUri?.let {
                         val imageBitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, it)
                         subirimagenFirebase(imageBitmap) { url ->
-                            miPath = url // Set miPath here
-                            imageView.setImageURI(it)
+                            miPath = url // Guardar la URL en tu objeto o base de datos si es necesario
+                            imageView.setImageURI(it) // Mostrar la imagen en imageView
                         }
                     }
                 }
@@ -241,8 +242,8 @@ class Fragment_AgregarRep : Fragment() {
                     val imageBitmap = data?.extras?.get("data") as? Bitmap
                     imageBitmap?.let {
                         subirimagenFirebase(it) { url ->
-                            miPath = url // Set miPath here
-                            imageView.setImageBitmap(it)
+                            miPath = url // Guardar la URL en tu objeto o base de datos si es necesario
+                            imageView.setImageBitmap(it) // Mostrar la imagen en imageView
                         }
                     }
                 }
@@ -262,7 +263,7 @@ class Fragment_AgregarRep : Fragment() {
             Toast.makeText(requireContext(), "Error al subir la imagen", Toast.LENGTH_SHORT).show()
         }.addOnSuccessListener { taskSnapshot ->
             imageRef.downloadUrl.addOnSuccessListener { uri ->
-                onSuccess(uri.toString())
+                onSuccess(uri.toString()) // Llama a la función de callback con la URL de la imagen
             }
         }
     }

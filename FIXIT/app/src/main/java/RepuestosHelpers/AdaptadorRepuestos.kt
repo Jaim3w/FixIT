@@ -1,16 +1,21 @@
 package RepuestosHelpers
 
 import Modelo.ClaseConexion
-import PtcFixit.fix_it.R
-import android.text.InputType
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
+import PtcFixit.fix_it.R
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.*
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.sql.Connection
 import java.sql.SQLException
 
@@ -83,10 +88,29 @@ class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: ViewHolderRepuestos, position: Int) {
         val item = Datos[position]
+
+        val storageRef = FirebaseStorage.getInstance().reference.child(item.ImagenProductoRepuesto)
+        val MAX_DOWNLOAD_TRIES = 3
+        val streamTask = storageRef.stream
+        streamTask.addOnSuccessListener {
+            val image = BitmapFactory.decodeStream(it.stream)
+            holder.imgRep.setImageBitmap(image)
+        }
+        streamTask.addOnFailureListener {
+            var nbRetry = 0
+            while (nbRetry < MAX_DOWNLOAD_TRIES) {
+                storageRef.stream.addOnSuccessListener {
+                    val image = BitmapFactory.decodeStream(it.stream)
+                    holder.imgRep.setImageBitmap(image)
+                    nbRetry = MAX_DOWNLOAD_TRIES
+                }
+                nbRetry++
+            }
+            Toast.makeText(holder.itemView.context, "Intentando descargar... Inténtalo más tarde.", Toast.LENGTH_SHORT).show()
+        }
         holder.txtNombreRepuesto.text = item.Nombre
         holder.txtCategoria.text = item.UUID_item
         holder.txtPrecio.text = item.Precio.toString()
-        holder.txtuuid.text = item.UUID_productoRepuesto
 
         holder.imgBorrarRep.setOnClickListener {
             val context = holder.itemView.context
@@ -117,7 +141,6 @@ class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Ada
 
             val nuevoPrecioRepuesto = EditText(holder.itemView.context)
             nuevoPrecioRepuesto.hint = "Precio"
-            nuevoPrecioRepuesto.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
             layout.addView(nuevoPrecioRepuesto)
 
             alertDialogBuilder.setView(layout)
@@ -147,5 +170,6 @@ class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Ada
         }
     }
 }
+
 
 

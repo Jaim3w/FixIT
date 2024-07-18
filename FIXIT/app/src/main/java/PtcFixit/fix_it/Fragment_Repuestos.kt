@@ -31,7 +31,7 @@ class Fragment_Repuestos : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    fun obtenerDatosRep(): List<tbRepuesto> {
+    fun obtenerDatos(): List<tbRepuesto> {
         val listadoRepuestos = mutableListOf<tbRepuesto>()
         val filtroUUIDItem = "710E1E1319F6450D8B3278B4B2FDC95D"
         try {
@@ -74,16 +74,19 @@ class Fragment_Repuestos : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment__repuestos, container, false)
-        val rcvRepuesto = root.findViewById<RecyclerView>(R.id.rcvRep)
-        rcvRepuesto.layoutManager = LinearLayoutManager(context)
+        val rcvRep = root.findViewById<RecyclerView>(R.id.rcvRep)
+        rcvRep.layoutManager = LinearLayoutManager(context)
+
+        val adapter = AdaptadorRepuestos(emptyList())
+        rcvRep.adapter = adapter
 
         CoroutineScope(Dispatchers.IO).launch {
-            val RepuestosBd = obtenerDatosRep()
+            val RepuestosBd = obtenerDatos()
             withContext(Dispatchers.Main) {
-                val adapter = AdaptadorRepuestos(RepuestosBd)
-                rcvRepuesto.adapter = adapter
+                adapter.actualizarListado(RepuestosBd)
             }
         }
+
         return root
     }
 

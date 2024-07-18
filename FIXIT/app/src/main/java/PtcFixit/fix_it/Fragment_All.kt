@@ -1,10 +1,11 @@
 package PtcFixit.fix_it
 
-import CitasHelpers.AdaptadorCitas
-import CitasHelpers.tbCita
+
+import Modelo.dataClassItem
 import Modelo.ClaseConexion
 import RepuestosHelpers.AdaptadorRepuestos
 import RepuestosHelpers.tbRepuesto
+import android.database.SQLException
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import oracle.ons.Connection
+import java.sql.ResultSet
+import java.sql.Statement
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,25 +37,40 @@ class Fragment_All : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    fun obtenerDatosRep(): List<tbRepuesto> {
+    fun obtenerDatos(): List<tbRepuesto> {
         val listadoRepuestos = mutableListOf<tbRepuesto>()
-        try {
-            val objConexion = ClaseConexion().cadenaConexion()
-            val statement = objConexion?.createStatement()
-            val resultSet = statement?.executeQuery("SELECT ProductoRepuesto.UUID_productoRepuesto, ProductoRepuesto.Nombre, ProductoRepuesto.ImagenProductoRepuesto, CategoriaItem.Nombre, ProductoRepuesto.Precio  FROM ProductoRepuesto INNER JOIN CategoriaItem ON ProductoRepuesto.UUID_item = CategoriaItem.UUID_item")!!
+        var objConexion: java.sql.Connection? = null
+        var statement: Statement? = null
+        var resultSet: ResultSet? = null
 
-            while (resultSet.next()) {
-                val uuid = resultSet.getString("UUID_productoRepuesto")
-                val nombre = resultSet.getString("Nombre")
-                val imagen = resultSet.getString("ImagenProductoRepuesto")
-                val nombreitem = resultSet.getString("Nombre")
-                val precio = resultSet.getDouble("Precio")
-                val repuesto = tbRepuesto(uuid, nombre, imagen, nombreitem, precio)
-                listadoRepuestos.add(repuesto)
+        try {
+            objConexion = ClaseConexion().cadenaConexion()
+            if (objConexion != null) {
+                statement = objConexion.createStatement()
+                resultSet = statement.executeQuery("SELECT ProductoRepuesto.UUID_productoRepuesto, ProductoRepuesto.Nombre, ProductoRepuesto.ImagenProductoRepuesto, CategoriaItem.Nombre, ProductoRepuesto.Precio  FROM ProductoRepuesto INNER JOIN CategoriaItem ON ProductoRepuesto.UUID_item = CategoriaItem.UUID_item")
+
+                while (resultSet.next()) {
+                    val uuid = resultSet.getString("UUID_productoRepuesto")
+                    val nombre = resultSet.getString("Nombre")
+                    val imagen = resultSet.getString("ImagenProductoRepuesto")
+                    val nombreitem = resultSet.getString("Nombre")
+                    val precio = resultSet.getDouble("Precio")
+                    val repuesto = tbRepuesto(uuid, nombre, imagen, nombreitem, precio)
+                    listadoRepuestos.add(repuesto)
+                }
+            } else {
+                Log.e("Fragment_All", "objConexion es null")
             }
+        } catch (e: SQLException) {
+            Log.e("Fragment_All", "Error SQL al obtener datos de repuestos", e)
         } catch (e: Exception) {
-            Log.e("Fragment_All", "Error fetching Repuestos data", e)
+            Log.e("Fragment_All", "Error inesperado al obtener datos de repuestos", e)
+        } finally {
+            resultSet?.close()
+            statement?.close()
+            objConexion?.close()
         }
+
         return listadoRepuestos
     }
 
@@ -68,14 +87,16 @@ class Fragment_All : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment__all, container, false)
-        val rcvRepuesto = root.findViewById<RecyclerView>(R.id.rcvAll)
-        rcvRepuesto.layoutManager = LinearLayoutManager(context)
+        val rcvAll = root.findViewById<RecyclerView>(R.id.rcvAll)
+        rcvAll.layoutManager = LinearLayoutManager(context)
+
+        val adapter = AdaptadorRepuestos(emptyList())
+        rcvAll.adapter = adapter
 
         CoroutineScope(Dispatchers.IO).launch {
-            val RepuestosBd = obtenerDatosRep()
+            val RepuestosBd = obtenerDatos()
             withContext(Dispatchers.Main) {
-                val adapter = AdaptadorRepuestos(RepuestosBd)
-                rcvRepuesto.adapter = adapter
+                adapter.actualizarListado(RepuestosBd)
             }
         }
 

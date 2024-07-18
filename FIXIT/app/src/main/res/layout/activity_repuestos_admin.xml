@@ -209,7 +209,7 @@
         app:layout_constraintVertical_bias="0.649">
 
         <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView"
+            android:id="@+id/fcvRep"
             android:name="PtcFixit.fix_it.Fragment_Repuestos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
