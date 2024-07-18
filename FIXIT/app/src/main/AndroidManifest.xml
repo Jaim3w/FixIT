@@ -75,13 +75,8 @@
             android:exported="false" />
         <activity
             android:name=".RecuperarContraParte2"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:exported="false" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
         <activity
             android:name=".BienvenidaFixit"
             android:exported="false" />
@@ -118,6 +113,20 @@
         <activity
             android:name=".CodigoTaller"
             android:exported="false" />
+
+        <activity
+            android:name=".splash_screen"
+            android:exported="true" >
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".splash_screen_logo"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

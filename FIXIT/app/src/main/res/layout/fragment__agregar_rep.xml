@@ -32,7 +32,10 @@
                 app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.154" />
+                app:layout_constraintVertical_bias="0.154"
+                android:paddingStart="18dp"
+                />
+
 
             <ImageView
                 android:id="@+id/imgRep"
@@ -74,8 +77,8 @@
 
             <Button
                 android:id="@+id/btnSelect"
-                android:layout_width="196dp"
-                android:layout_height="95dp"
+                android:layout_width="210dp"
+                android:layout_height="100dp"
                 android:layout_marginBottom="240dp"
                 android:background="@drawable/wybtn"
                 android:text="Seleccionar de galeria"
@@ -132,7 +135,9 @@
                 app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.797" />
+                app:layout_constraintVertical_bias="0.797"
+                android:paddingStart="18dp"
+                />
 
             <Spinner
                 android:id="@+id/spinner"

@@ -30,7 +30,7 @@ class splash_screen : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             delay(3000)
-            val intent = Intent(this@splash_screen, inicio::class.java)
+            val intent = Intent(this@splash_screen, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
