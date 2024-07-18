@@ -45,17 +45,6 @@
             motion:layout_constraintStart_toStartOf="parent"
             android:scaleX="1"
             android:scaleY="1" />
-        <Constraint
-            android:id="@+id/fixitLetras"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            android:scaleX="0"
-            android:scaleY="0"
-            android:alpha="0" />
 
     </ConstraintSet>
 
@@ -92,17 +81,5 @@
             motion:layout_constraintStart_toStartOf="parent"
             android:scaleX="0"
             android:scaleY="0" />
-        <Constraint
-            android:id="@+id/fixitLetras"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            motion:layout_constraintBottom_toBottomOf="parent"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
-            android:scaleX="1"
-            android:scaleY="1"
-            android:alpha="1" motion:transitionEasing="cubic(1,0,1,0)"
-            android:layout_marginBottom="-150dp" />
     </ConstraintSet>
 </MotionScene>

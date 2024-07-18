@@ -28,52 +28,55 @@ class login_fixIT : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val txtCorreoAdmin=findViewById<EditText>(R.id.txtCorreologin)
-        val txtContrasenaLogin=findViewById<EditText>(R.id.txtContrasena)
-        val imgVerContraLogin=findViewById<ImageView>(R.id.imgVerContraLogin)
-        val btnIniciar=findViewById<Button>(R.id.btnSiguienteLogin)
+        val txtCorreoAdmin = findViewById<EditText>(R.id.txtCorreologin)
+        val txtContrasenaLogin = findViewById<EditText>(R.id.txtContrasena)
+        val imgVerContraLogin = findViewById<ImageView>(R.id.imgVerContraLogin)
+        val btnIniciar = findViewById<Button>(R.id.btnSiguienteLogin)
 
-        fun hashSHA256(input: String):String{
-            val bytes =MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+        fun hashSHA256(input: String): String {
+            val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
             return bytes.joinToString("") { "%02x".format(it) }
         }
 
-        btnIniciar.setOnClickListener{
-            val pantallaPrincipal=Intent(this,Menu1Activity::class.java)
+        btnIniciar.setOnClickListener {
+            GlobalScope.launch(Dispatchers.IO) {
+                val objConexion = ClaseConexion().cadenaConexion()
 
-            GlobalScope.launch(Dispatchers.IO){
-                val objconexion=ClaseConexion().cadenaConexion()
+                val contraseniaEncriptada = hashSHA256(txtContrasenaLogin.text.toString())
 
-                val contraseniaEncriptada= hashSHA256(txtContrasenaLogin.text.toString())
+                val comprobacion = objConexion?.prepareStatement("SELECT * FROM Usuario WHERE CorreoElectronico = ? AND Contrasena = ?")!!
+                comprobacion.setString(1, txtCorreoAdmin.text.toString())
+                comprobacion.setString(2, contraseniaEncriptada)
+                val resultado = comprobacion.executeQuery()
 
-
-                val comprobacion=objconexion?.prepareStatement("select * from Usuario where correoElectronico = ? and Contrasena = ?")!!
-                comprobacion.setString(1,txtCorreoAdmin.text.toString())
-                comprobacion.setString(2,contraseniaEncriptada)
-                val resultado=comprobacion.executeQuery()
-                if(resultado.next()){
-                    startActivity(pantallaPrincipal)
-                }else{
-                    withContext(Dispatchers.Main){
+                if (resultado.next()) {
+                    withContext(Dispatchers.Main) {
+                        val intent = Intent(this@login_fixIT, splash_screen::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
                         Toast.makeText(this@login_fixIT, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
-                        println("contraseña $contraseniaEncriptada ")
+                        println("contraseña $contraseniaEncriptada")
                     }
                 }
-                try{
-                    if(txtCorreoAdmin == null || txtContrasenaLogin == null){
+
+                try {
+                    if (txtCorreoAdmin == null || txtContrasenaLogin == null) {
                         throw IllegalArgumentException("El nombre o el correo no pueden ser nulos")
                     }
-
-                }catch (e : IllegalArgumentException){
+                } catch (e: IllegalArgumentException) {
                     println("Error ${e.message}")
                 }
             }
-            imgVerContraLogin.setOnClickListener{
-                if (txtContrasenaLogin.inputType==InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD){
-                    txtContrasenaLogin.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                }else{
-                    txtContrasenaLogin.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                }
+        }
+
+        imgVerContraLogin.setOnClickListener {
+            if (txtContrasenaLogin.inputType == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD) {
+                txtContrasenaLogin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            } else {
+                txtContrasenaLogin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             }
         }
     }
