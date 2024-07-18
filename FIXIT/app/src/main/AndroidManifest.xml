@@ -35,6 +35,15 @@
         android:theme="@style/fixit"
         tools:targetApi="34">
 
+        <activity android:name=".splash_screen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".proveedores_admin"
             android:exported="false" />
@@ -44,23 +53,9 @@
         <activity
             android:name=".RecuperarContra3"
             android:exported="false" />
-
         <activity
             android:name=".RegistrarseAdmin"
             android:exported="false" />
-
-        <activity android:name=".splash_screen"
-            android:exported="true" >
-            <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-
-        <category android:name="android.intent.category.LAUNCHER" />
-    </intent-filter>
-    </activity>
-
-        <activity
-            android:name=".splash_screen_logo"
-            android:exported="false"/>
 
         <activity
             android:name=".carros_card"
@@ -89,7 +84,6 @@
         <activity
             android:name=".RecuperarContraParte2"
             android:exported="false" />
-
         <activity
             android:name=".BienvenidaFixit"
             android:exported="false" />
@@ -122,7 +116,8 @@
             android:exported="false" />
         <activity
             android:name=".repuestos_admin"
-            android:exported="false" />
+            android:exported="false"/> >
+
         <activity
             android:name=".CodigoTaller"
             android:exported="false" />
