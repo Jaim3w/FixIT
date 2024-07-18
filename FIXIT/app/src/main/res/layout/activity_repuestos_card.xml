@@ -2,119 +2,94 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-
+    android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true"
     app:contentPadding="10dp"
     tools:context=".Repuestos_Card">
 
-
     <LinearLayout
-        android:layout_width="369dp"
-        android:layout_height="155dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
+        <!-- Sección de la Imagen -->
         <LinearLayout
-            android:layout_width="137dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imgRepCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 app:srcCompat="@android:drawable/ic_menu_gallery" />
         </LinearLayout>
 
+        <!-- Sección de Información -->
         <LinearLayout
-            android:layout_width="174dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/txtuuid"
                 android:layout_width="match_parent"
-                android:layout_height="61dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:text="UUID"
+                android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/txtNombreRepCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="47dp"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:gravity="center_vertical"
-                    android:text="Nombre Repuesto"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/txtNombreRepCard"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center_vertical"
+                android:text="Nombre Repuesto"
+                android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/txtCategoria"
-                    android:layout_width="78dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/categoria"
-                    android:gravity="center"
-                    android:text="Categoria" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtPrecio"
-                    android:layout_width="85dp"
-                    android:layout_height="wrap_content"
-                    android:text="Precio" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="79dp"
+            <TextView
+                android:id="@+id/txtCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/categoria"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:padding="4dp"
+                android:text="Categoria" />
 
-                <Button
-                    android:id="@+id/imgActuRep"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:background="@drawable/ajustes1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="76dp"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/imgBorrarRep"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/borrar1" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/txtPrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio" />
         </LinearLayout>
 
+        <!-- Sección de Botones -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/imgActuRep"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/ajustes1" />
+
+            <Button
+                android:id="@+id/imgBorrarRep"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/borrar1" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

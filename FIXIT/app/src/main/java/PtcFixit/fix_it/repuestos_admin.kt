@@ -45,6 +45,8 @@ class repuestos_admin : AppCompatActivity() {
     private fun setupTabClickListeners() {
         val txtAll = findViewById<TextView>(R.id.txtAll)
         val btnAgregarRep = findViewById<View>(R.id.btnAgregarRep)
+        val txtRepuestos = findViewById<TextView>(R.id.txtRepuestos)
+        val txtProductos = findViewById<TextView>(R.id.txtProductos)
 
         txtAll.setOnClickListener {
             loadFragment(Fragment_All())
@@ -52,6 +54,13 @@ class repuestos_admin : AppCompatActivity() {
 
         btnAgregarRep.setOnClickListener {
             loadFragment(Fragment_AgregarRep())
+        }
+
+        txtRepuestos.setOnClickListener {
+            loadFragment(FragmentRepuestos())
+        }
+        txtProductos.setOnClickListener {
+            loadFragment(FragmentProductos())
         }
     }
 

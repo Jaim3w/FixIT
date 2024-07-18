@@ -17,7 +17,6 @@ class ViewHolderRepuestos(view: View): RecyclerView.ViewHolder(view) {
     val imgBorrarRep: Button = view.findViewById(R.id.imgBorrarRep)
 
     init {
-        // Imprimir los valores para debug
-        println("ViewHolder initialized: txtNombreRepuesto = ${txtNombreRepuesto}, imgRepuesto = ${imgRepuesto}, txtPrecio = ${txtPrecio}, txtCategoria = ${txtCategoria}, txtuuid = ${txtuuid}, imgActuRep = ${imgActuRep}, imgBorrarRep = ${imgBorrarRep}")
+        println("ViewHolder initialized: txtNombreRepuesto = $txtNombreRepuesto, imgRepuesto = $imgRepuesto, txtPrecio = $txtPrecio, txtCategoria = $txtCategoria, txtuuid = $txtuuid, imgActuRep = $imgActuRep, imgBorrarRep = $imgBorrarRep")
     }
 }
