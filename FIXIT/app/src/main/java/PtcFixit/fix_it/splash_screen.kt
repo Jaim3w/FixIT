@@ -1,7 +1,9 @@
 package PtcFixit.fix_it
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class splash_screen : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,14 +28,11 @@ class splash_screen : AppCompatActivity() {
             insets
         }
 
-        GlobalScope.launch(Dispatchers.Main){
+        GlobalScope.launch(Dispatchers.Main) {
             delay(3000)
-
-            startActivity(Intent(this@splash_screen, Menu1Activity::class.java))
+            val intent = Intent(this@splash_screen, MainActivity::class.java)
+            startActivity(intent)
             finish()
         }
-
-
     }
-
 }

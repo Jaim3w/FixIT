@@ -1,4 +1,6 @@
-package PtcFixit.fix_it
+import PtcFixit.fix_it.R
+
+
 
 import CarrosHelpers.AdaptadorCarros
 import CarrosHelpers.tbCarros
@@ -10,81 +12,71 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentCarros.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentCarros : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    fun obtenerDatosCarro(): List<tbCarros> {
+        val objConexion = ClaseConexion().cadenaConexion()
+        val statement = objConexion?.createStatement()
+        val resultSet = statement?.executeQuery(
+                    "SELECT  Carro.Placa_carro AS Placa_carro,Cliente.Nombre AS Dui_cliente,Carro.UUID_modelo AS UUID_modelo, Carro.Color AS Color,Carro.Año AS Anio,Carro.ImagenCarro AS ImagenCarro, Carro.FechaRegistro AS FechaRegistro,Carro.Descripcion AS DescripcionCarro FROM Carro Inner Join Cliente on Carro.Dui_cliente = Cliente.Dui_cliente")!!
+
+        val listadoCarro = mutableListOf<tbCarros>()
+
+        resultSet?.use { rs ->
+            while (rs.next()) {
+                val placaCarro = rs.getString("Placa_carro")
+                val duiCliente = rs.getString("Dui_cliente")
+                val uuidModelo = rs.getString("UUID_modelo")
+                val colorCarro = rs.getString("Color")
+                val anioCarro = rs.getString("Anio")
+                val imagenCarro = rs.getString("ImagenCarro")
+                val fechaRegistro = rs.getString("FechaRegistro")
+                val descripcionCarro = rs.getString("DescripcionCarro")
+
+                val carro = tbCarros(
+                    placaCarro,
+                    duiCliente,
+                    uuidModelo,
+                    colorCarro,
+                    anioCarro,
+                    imagenCarro,
+                    fechaRegistro,
+                    descripcionCarro
+                )
+                listadoCarro.add(carro)
+            }
         }
+
+        return listadoCarro
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_carros, container, false)
-
         val root = inflater.inflate(R.layout.fragment_carros, container, false)
-        val rcvlistaCarros = root.findViewById<RecyclerView>(R.id.rcvListadoCarros)
+        val rcvCarro = root.findViewById<RecyclerView>(R.id.rcvListadoCarros)
+        rcvCarro.layoutManager = LinearLayoutManager(context)
 
-        rcvlistaCarros.layoutManager = LinearLayoutManager(requireContext())
-
-        fun ObtenerCarros ():List<tbCarros>{
-            val objConexion = ClaseConexion().cadenaConexion()
-            val statement = objConexion?.createStatement()
-            val resulSet = statement?.executeQuery("SELECT * FROM Carro ")!!
-
-            val listaCarro = mutableListOf<tbCarros>()
-            while (resulSet.next()){
-                val placaCarro =resulSet.getString("Placa_carro")
-                val duiCliente =resulSet.getString("Dui_cliente")
-                val uuidModelo =resulSet.getString("UUID_modelo")
-                val colorCarro = resulSet.getString("Color")
-                val anioCarro = resulSet.getString("Año")
-                val imagenCarro = resulSet.getString("ImagenCarro")
-                val fechaRegistroCarro = resulSet.getString("FechaRegistro")
-                val descripcionCarro = resulSet.getString("Descripcion")
-
-                val valoresJuntos = tbCarros(placaCarro,duiCliente,uuidModelo,colorCarro,anioCarro,imagenCarro,fechaRegistroCarro,descripcionCarro)
-
-                listaCarro.add(valoresJuntos)
-
-
+        CoroutineScope(Dispatchers.IO).launch {
+            val carrodb = obtenerDatosCarro()
+            withContext(Dispatchers.Main) {
+                val adapter = AdaptadorCarros(carrodb)
+                rcvCarro.adapter = adapter
             }
-            return listaCarro
-
-            CoroutineScope(Dispatchers.IO).launch {
-                val CarroData = ObtenerCarros()
-                withContext(Dispatchers.Main){
-                    val adaptador = AdaptadorCarros(CarroData)
-                    rcvlistaCarros.adapter= adaptador
-                }
-            }
-
         }
-
+        return root
     }
 
     companion object {
@@ -96,7 +88,6 @@ class FragmentCarros : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment FragmentCarros.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             FragmentCarros().apply {

@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 class RecuperarContraParte2 : AppCompatActivity() {
     companion object variablesGlobales{
         lateinit var correoIngresado : String
+        val codigoRecu=(1000..9000).random()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,14 +26,13 @@ class RecuperarContraParte2 : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val txtCorreo=findViewById<EditText>(R.id.txtCorreo)
+        val txtCorreo=findViewById<EditText>(R.id.txtNuevaContra)
         val btnContinuar=findViewById<Button>(R.id.btnContinuar)
         btnContinuar.setOnClickListener{
             val intent=Intent(this,RecuperarContra::class.java)
             CoroutineScope(Dispatchers.Main).launch {
                 correoIngresado=txtCorreo.text.toString()
                 startActivity(intent)
-                val codigoRecu=(1000..9000).random()
                 EnviarRecuperacion(
                     correoIngresado,
                     "Recuperacion de contraseña",
