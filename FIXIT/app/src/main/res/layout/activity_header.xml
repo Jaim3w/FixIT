@@ -14,17 +14,19 @@
 
     <ImageView
         android:id="@+id/imageView17"
-        android:layout_width="439dp"
-        android:layout_height="156dp"
+        android:layout_width="510dp"
+        android:layout_height="119dp"
+        android:background="#08172E"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_navrectangle" />
 
     <ImageView
         android:id="@+id/imageView18"
-        android:layout_width="177dp"
-        android:layout_height="56dp"
+        android:layout_width="173dp"
+        android:layout_height="49dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView17"
         app:layout_constraintEnd_toEndOf="@+id/imageView17"
         app:layout_constraintHorizontal_bias="0.498"
@@ -38,9 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toEndOf="@+id/imageView18"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_not" />
@@ -49,7 +51,7 @@
         android:id="@+id/imageView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toStartOf="@+id/imageView18"
         app:layout_constraintHorizontal_bias="1.0"

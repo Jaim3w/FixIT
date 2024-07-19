@@ -4,11 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 
 class repuestos_admin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,16 +25,50 @@ class repuestos_admin : AppCompatActivity() {
             insets
         }
 
+        setupTabClickListeners()
         setupNavClickListeners()
-
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(this@repuestos_admin, Menu1Activity::class.java)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this@repuestos_admin,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         })
+    }
+
+    private fun setupTabClickListeners() {
+        val txtAll = findViewById<TextView>(R.id.txtAll)
+        val btnAgregarRep = findViewById<View>(R.id.btnAgregarRep)
+        val txtRepuestos = findViewById<TextView>(R.id.txtRepuestos)
+        val txtProductos = findViewById<TextView>(R.id.txtProductos)
+
+        txtAll.setOnClickListener {
+            loadFragment(Fragment_All())
+        }
+
+        btnAgregarRep.setOnClickListener {
+            loadFragment(Fragment_AgregarRep())
+        }
+
+        txtRepuestos.setOnClickListener {
+            loadFragment(FragmentRepuestos())
+        }
+        txtProductos.setOnClickListener {
+            loadFragment(FragmentProductos())
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fcvRep, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     private fun setupNavClickListeners() {
@@ -54,7 +92,12 @@ class repuestos_admin : AppCompatActivity() {
             }
             if (targetActivity != null && currentActivity != targetActivity) {
                 val intent = Intent(this, targetActivity)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         }

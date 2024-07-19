@@ -1,17 +1,31 @@
 package PtcFixit.fix_it
 
+import Modelo.ClaseConexion
+import Modelo.RCVproveedor
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import oracle.net.aso.e
 
-class crear_proveedores : AppCompatActivity() {
+class  crear_proveedores : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,21 +36,96 @@ class crear_proveedores : AppCompatActivity() {
             insets
         }
 
+        val txtDuiProv = findViewById<EditText>(R.id.txtDuiProveedor)
+        val txtNombreProv = findViewById<EditText>(R.id.txtNombreProveedor)
+        val txtApellidosProv = findViewById<EditText>(R.id.txtApellidosProveedor)
+        val txtTelefonoProv = findViewById<EditText>(R.id.txtTelefonoProveedor)
+        val txtCorreoProv = findViewById<EditText>(R.id.txtCorreoElectronicoProveedor)
+        val txtDireccionProv = findViewById<EditText>(R.id.txtDirecccionProveedor)
+        val btnIngresarProv = findViewById<Button>(R.id.btnIngresarProveedor)
 
+        btnIngresarProv.setOnClickListener {
+            if (txtDuiProv.text.toString().isEmpty() || txtNombreProv.text.toString().isEmpty()
+                || txtApellidosProv.text.toString().isEmpty() || txtTelefonoProv.text.toString().isEmpty()
+                || txtCorreoProv.text.toString().isEmpty() || txtDireccionProv.text.toString().isEmpty()
+            ) {
+                Toast.makeText(
+                    applicationContext,
+                    "Por favor, complete todos los campos.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val objConexion = ClaseConexion().cadenaConexion() // Ajusta según tu implementación
 
+                        // Verificar si la conexión es válida
+                        if (objConexion != null) {
+                            val addNombreProv = objConexion.prepareStatement(
+                                "INSERT INTO Proveedor (Dui_proveedor, Nombre, Apellido, Telefono, Correo_Electronico, Direccion) VALUES (?, ?, ?, ?, ?, ?)"
+                            )
+                            addNombreProv.setString(1, txtDuiProv.text.toString())
+                            addNombreProv.setString(2, txtNombreProv.text.toString())
+                            addNombreProv.setString(3, txtApellidosProv.text.toString())
+                            addNombreProv.setString(4, txtTelefonoProv.text.toString())
+                            addNombreProv.setString(5, txtCorreoProv.text.toString())
+                            addNombreProv.setString(6, txtDireccionProv.text.toString())
+
+                            addNombreProv.executeUpdate()
+
+                            // Confirmar la transacción (commit)
+                            objConexion.commit()
+
+                            // Cerrar la conexión después de usarla
+                            objConexion.close()
+
+                            // Mostrar mensaje en el hilo principal
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Proveedor agregado exitosamente.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Error de conexión a la base de datos.",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    } catch (e: Exception) {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Error al agregar el proveedor: ${e.message}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+            }
+        }
+
+        //--------------------------------NAV-----------------------------------------------------------------------------
 
         setupNavClickListeners()
-
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val intent = Intent(this@crear_proveedores, Menu1Activity::class.java)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this@crear_proveedores,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         })
     }
-    val txtduiproverdor = findViewById<TextView>(R.id.txtDuiProveedor)
 
     private fun setupNavClickListeners() {
         val navView = findViewById<View>(R.id.include_nav)
@@ -59,7 +148,12 @@ class crear_proveedores : AppCompatActivity() {
             }
             if (targetActivity != null && currentActivity != targetActivity) {
                 val intent = Intent(this, targetActivity)
-                startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(
+                    this,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
+                startActivity(intent, options.toBundle())
                 finish()
             }
         }
@@ -71,3 +165,7 @@ class crear_proveedores : AppCompatActivity() {
         imgCitasnav.setOnClickListener(clickListener)
     }
 }
+
+
+
+

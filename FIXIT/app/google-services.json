@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "457127471923",
+    "project_id": "fixit-fe3e4",
+    "storage_bucket": "fixit-fe3e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457127471923:android:b85c98cbac18286900ac46",
+        "android_client_info": {
+          "package_name": "PtcFixit.fix_it"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeye74VNtYAJvrylpCprIP4JWz-5uOnhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

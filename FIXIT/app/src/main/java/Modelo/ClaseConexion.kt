@@ -4,12 +4,13 @@ package Modelo
 import java.sql.Connection
 import java.sql.DriverManager
 
-class ClaseConexion {
+class  ClaseConexion {
     fun cadenaConexion():Connection?{
         try{
+            
             val ip="jdbc:oracle:thin:@192.168.1.6:1521:xe"
-            val usuario= "fito_DEVELOPER"
-            val contrasena= "qatar2024"
+            val usuario= "fito_DEVE"
+            val contrasena= "fito17"
             val conexion=DriverManager.getConnection(ip, usuario , contrasena)
             return conexion
         }catch (e:Exception){
