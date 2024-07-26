@@ -28,17 +28,41 @@ class RecuperarContraParte2 : AppCompatActivity() {
         }
         val txtCorreo=findViewById<EditText>(R.id.txtNuevaContra)
         val btnContinuar=findViewById<Button>(R.id.btnContinuar)
+
         btnContinuar.setOnClickListener{
-            val intent=Intent(this,RecuperarContra::class.java)
-            CoroutineScope(Dispatchers.Main).launch {
-                correoIngresado=txtCorreo.text.toString()
-                startActivity(intent)
-                EnviarRecuperacion(
-                    correoIngresado,
-                    "Recuperacion de contraseña",
-                    "Este es tu codigo de verificacion $codigoRecu"
-                )
+
+            val correoIngre=txtCorreo.text.toString()
+            var valiCamp=false
+
+            if(correoIngre.isEmpty()){
+                txtCorreo.error="El correo es obligatorio"
+                valiCamp=true
+            }else{
+                txtCorreo.error=null
             }
+            if(!correoIngre.matches(Regex("[a-zA-Z0-9._-]+@[a-z]+[.][a-z]+"))){
+                txtCorreo.error="El correo no tiene un formato valido"
+                valiCamp=true
+            }else{
+                txtCorreo.error=null
+            }
+            if(!valiCamp){
+                try {
+                    val intent=Intent(this,RecuperarContra::class.java)
+                    CoroutineScope(Dispatchers.Main).launch {
+                        correoIngresado=txtCorreo.text.toString()
+                        startActivity(intent)
+                        EnviarRecuperacion(
+                            correoIngresado,
+                            "Recuperacion de contraseña",
+                            "Este es tu codigo de verificacion $codigoRecu"
+                        )
+                    }
+                }catch (e:Exception){
+                    println("El error es: $e")
+                }
+            }
+
         }
     }
 }
