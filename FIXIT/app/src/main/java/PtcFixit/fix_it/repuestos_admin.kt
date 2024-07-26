@@ -44,30 +44,29 @@ class repuestos_admin : AppCompatActivity() {
 
     private fun setupTabClickListeners() {
         val txtAll = findViewById<TextView>(R.id.txtAll)
+        val btnAgregarRep = findViewById<View>(R.id.btnAgregarRep)
         val txtRepuestos = findViewById<TextView>(R.id.txtRepuestos)
         val txtProductos = findViewById<TextView>(R.id.txtProductos)
-        val btnAgregarRep = findViewById<View>(R.id.btnAgregarRep)
 
         txtAll.setOnClickListener {
             loadFragment(Fragment_All())
         }
 
-        txtRepuestos.setOnClickListener {
-            loadFragment(Fragment_Repuestos())
-        }
-
-        txtProductos.setOnClickListener {
-            loadFragment(Fragment_Productos())
-        }
-
         btnAgregarRep.setOnClickListener {
             loadFragment(Fragment_AgregarRep())
+        }
+
+        txtRepuestos.setOnClickListener {
+            loadFragment(FragmentRepuestos())
+        }
+        txtProductos.setOnClickListener {
+            loadFragment(FragmentProductos())
         }
     }
 
     private fun loadFragment(fragment: Fragment) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainerView, fragment)
+        transaction.replace(R.id.fcvRep, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }

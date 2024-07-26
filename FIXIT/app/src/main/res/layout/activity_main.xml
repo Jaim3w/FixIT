@@ -29,6 +29,7 @@
         android:layout_width="194dp"
         android:layout_height="51dp"
         android:background="@drawable/btn1"
+        android:gravity="center"
         android:text="Registrarme"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
@@ -67,5 +68,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/dise_o_sin_t_tulo__3__2" />
+
+    <TextView
+        android:id="@+id/txtOlvideMicontra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="16dp"
+        android:text="¿Olvide Mi contraseña"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.941" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

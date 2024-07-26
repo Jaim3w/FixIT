@@ -2,6 +2,7 @@ package RepuestosHelpers
 
 import Modelo.ClaseConexion
 import PtcFixit.fix_it.R
+import android.graphics.BitmapFactory
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.*
 import java.sql.Connection
 import java.sql.SQLException
@@ -17,11 +20,13 @@ import java.sql.SQLException
 class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Adapter<ViewHolderRepuestos>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderRepuestos {
-        val vista = LayoutInflater.from(parent.context).inflate(R.layout.activity_carros_card, parent, false)
+        val vista = LayoutInflater.from(parent.context).inflate(R.layout.activity_repuestos_card, parent, false)
         return ViewHolderRepuestos(vista)
     }
 
-    override fun getItemCount() = Datos.size
+    override fun getItemCount(): Int {
+        return Datos.size
+    }
 
     fun actualizarListado(nuevaListaRepuestos: List<tbRepuesto>) {
         Datos = nuevaListaRepuestos
@@ -83,6 +88,19 @@ class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: ViewHolderRepuestos, position: Int) {
         val item = Datos[position]
+
+        Glide.with(holder.itemView.context)
+            .clear(holder.imgRepuesto)
+
+        val storageRef = FirebaseStorage.getInstance().reference.child(item.ImagenProductoRepuesto)
+        storageRef.downloadUrl.addOnSuccessListener { uri ->
+            Glide.with(holder.itemView.context)
+                .load(uri)
+                .into(holder.imgRepuesto)
+        }.addOnFailureListener {
+            Toast.makeText(holder.itemView.context, "Error al descargar la imagen.", Toast.LENGTH_SHORT).show()
+        }
+
         holder.txtNombreRepuesto.text = item.Nombre
         holder.txtCategoria.text = item.UUID_item
         holder.txtPrecio.text = item.Precio.toString()
@@ -93,10 +111,10 @@ class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Ada
             val builder = AlertDialog.Builder(context)
             builder.setTitle("Eliminar")
             builder.setMessage("¿Desea eliminar el Repuesto?")
-            builder.setPositiveButton("Sí") { dialog, which ->
+            builder.setPositiveButton("Sí") { dialog, _ ->
                 eliminarRepuesto(item.Nombre, position)
             }
-            builder.setNegativeButton("No") { dialog, which ->
+            builder.setNegativeButton("No") { dialog, _ ->
                 dialog.dismiss()
             }
             val dialog = builder.create()
@@ -122,7 +140,7 @@ class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Ada
 
             alertDialogBuilder.setView(layout)
 
-            alertDialogBuilder.setPositiveButton("Actualizar") { dialog, which ->
+            alertDialogBuilder.setPositiveButton("Actualizar") { _, _ ->
                 val nuevoNombre = nuevoNombreRepuesto.text.toString()
                 val nuevoPrecio = nuevoPrecioRepuesto.text.toString()
                 if (nuevoNombre.isBlank() || nuevoPrecio.isBlank()) {
@@ -138,7 +156,7 @@ class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Ada
                 }
             }
 
-            alertDialogBuilder.setNegativeButton("Cancelar") { dialog, which ->
+            alertDialogBuilder.setNegativeButton("Cancelar") { dialog, _ ->
                 dialog.dismiss()
             }
 
@@ -147,5 +165,7 @@ class AdaptadorRepuestos(private var Datos: List<tbRepuesto>) : RecyclerView.Ada
         }
     }
 }
+
+
 
 
