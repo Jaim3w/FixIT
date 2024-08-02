@@ -68,7 +68,7 @@ class Fragment_AgregarRep : Fragment() {
 
     lateinit var imageView: ImageView
     private var miPath: String? = null
-    lateinit var txtNombreRep: EditText
+    lateinit var uuid: String
 
 
     // TODO: Rename and change types of parameters
@@ -90,7 +90,8 @@ class Fragment_AgregarRep : Fragment() {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment__agregar_rep, container, false)
 
-        txtNombreRep = root.findViewById<EditText>(R.id.txtNombreRep)
+        uuid = UUID.randomUUID().toString()
+        val txtNombreRep = root.findViewById<EditText>(R.id.txtNombreRep)
         imageView = root.findViewById<ImageView>(R.id.imgRep)
         val txtPrecio = root.findViewById<EditText>(R.id.editTextNumberDecimal2)
         val txtCategoria = root.findViewById<Spinner>(R.id.spinner)
@@ -133,7 +134,7 @@ class Fragment_AgregarRep : Fragment() {
                         val url = miPath ?: ""
                         val addRep =
                             objConexion?.prepareStatement("INSERT INTO ProductoRepuesto (UUID_productoRepuesto, UUID_item, Nombre, ImagenProductoRepuesto, Precio) VALUES (?,?,?,?,?)")!!
-                        addRep.setString(1, UUID.randomUUID().toString())
+                        addRep.setString(1, uuid)
                         addRep.setString(2, item[txtCategoria.selectedItemPosition].UUID_item)
                         addRep.setString(3, txtNombreRep.text.toString())
                         addRep.setString(4, url) // Aquí se guarda la URL de la imagen
@@ -187,16 +188,20 @@ class Fragment_AgregarRep : Fragment() {
 
     private fun pedirPermisoCamara() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), android.Manifest.permission.CAMERA)) {
-            // El usuario ya ha rechazado el permiso anteriormente, debemos informarle que vaya a ajustes.
+            // Mostrar explicación al usuario, por ejemplo, usando un diálogo
+            Toast.makeText(requireContext(), "Se requiere acceso a la cámara para tomar fotos.", Toast.LENGTH_SHORT).show()
         } else {
+            // Solicitar permiso
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
         }
     }
 
     private fun pedirPermisoAlmacenamiento() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            // El usuario ya ha rechazado el permiso anteriormente, debemos informarle que vaya a ajustes.
+            // Mostrar explicación al usuario, por ejemplo, usando un diálogo
+            Toast.makeText(requireContext(), "Se requiere acceso al almacenamiento para seleccionar imágenes.", Toast.LENGTH_SHORT).show()
         } else {
+            // Solicitar permiso
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), STORAGE_REQUEST_CODE)
         }
     }
@@ -253,7 +258,7 @@ class Fragment_AgregarRep : Fragment() {
 
     private fun subirimagenFirebase(bitmap: Bitmap, onSuccess: (String) -> Unit) {
         val storageRef = FirebaseStorage.getInstance().reference
-        val imageRef = storageRef.child("images/${txtNombreRep.text}.jpg")
+        val imageRef = storageRef.child("images/${uuid}.jpg")
         val baos = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()

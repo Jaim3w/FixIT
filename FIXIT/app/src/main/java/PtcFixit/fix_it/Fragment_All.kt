@@ -1,7 +1,5 @@
 package PtcFixit.fix_it
 
-
-import Modelo.dataClassItem
 import Modelo.ClaseConexion
 import RepuestosHelpers.AdaptadorRepuestos
 import RepuestosHelpers.tbRepuesto
@@ -18,24 +16,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import oracle.ons.Connection
 import java.sql.ResultSet
 import java.sql.Statement
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Fragment_All.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Fragment_All : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     fun obtenerDatos(): List<tbRepuesto> {
         val listadoRepuestos = mutableListOf<tbRepuesto>()
@@ -47,15 +34,15 @@ class Fragment_All : Fragment() {
             objConexion = ClaseConexion().cadenaConexion()
             if (objConexion != null) {
                 statement = objConexion.createStatement()
-                resultSet = statement.executeQuery("SELECT ProductoRepuesto.UUID_productoRepuesto, ProductoRepuesto.Nombre, ProductoRepuesto.ImagenProductoRepuesto, CategoriaItem.Nombre, ProductoRepuesto.Precio  FROM ProductoRepuesto INNER JOIN CategoriaItem ON ProductoRepuesto.UUID_item = CategoriaItem.UUID_item")
+                resultSet = statement.executeQuery("SELECT ProductoRepuesto.UUID_productoRepuesto, ProductoRepuesto.Nombre, ProductoRepuesto.ImagenProductoRepuesto, CategoriaItem.Nombre AS CategoriaNombre, ProductoRepuesto.Precio FROM ProductoRepuesto INNER JOIN CategoriaItem ON ProductoRepuesto.UUID_item = CategoriaItem.UUID_item ORDER BY ProductoRepuesto.Nombre")
 
                 while (resultSet.next()) {
                     val uuid = resultSet.getString("UUID_productoRepuesto")
                     val nombre = resultSet.getString("Nombre")
                     val imagen = resultSet.getString("ImagenProductoRepuesto")
-                    val nombreitem = resultSet.getString("Nombre")
+                    val categoriaNombre = resultSet.getString("CategoriaNombre")
                     val precio = resultSet.getDouble("Precio")
-                    val repuesto = tbRepuesto(uuid, nombre, imagen, nombreitem, precio)
+                    val repuesto = tbRepuesto(uuid, categoriaNombre, nombre, imagen, precio)
                     listadoRepuestos.add(repuesto)
                 }
             } else {
@@ -76,10 +63,6 @@ class Fragment_All : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -110,12 +93,12 @@ class Fragment_All : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment Fragment_All.
+         * @return A new instance of fragment Fragment_AgregarRep.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            Fragment_All().apply {
+            Fragment_AgregarRep().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

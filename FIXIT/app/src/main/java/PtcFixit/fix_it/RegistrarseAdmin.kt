@@ -72,8 +72,11 @@ class RegistrarseAdmin : AppCompatActivity() {
         }
 
         btnRegistrar.setOnClickListener {
+            val intentnext = Intent(this, MainActivity::class.java)
             GlobalScope.launch(Dispatchers.IO) {
                 val objConexion = ClaseConexion().cadenaConexion()
+
+
 
                 val contraseniaEncriptada = hashSHA256(txtContrasenaRegister.text.toString())
                 val rol = getRol()
@@ -90,7 +93,7 @@ class RegistrarseAdmin : AppCompatActivity() {
                         Toast.makeText(this@RegistrarseAdmin, "Usuario creado", Toast.LENGTH_SHORT).show()
                         txtCorreo.setText("")
                         txtContrasenaRegister.setText("")
-                        val intent = Intent(this@RegistrarseAdmin, splash_screen_logo::class.java)
+                        val intent = Intent(this@RegistrarseAdmin, MainActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
