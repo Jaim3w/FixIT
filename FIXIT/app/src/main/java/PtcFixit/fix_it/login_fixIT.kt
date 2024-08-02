@@ -28,55 +28,71 @@ class login_fixIT : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val txtCorreoAdmin = findViewById<EditText>(R.id.txtCorreologin)
-        val txtContrasenaLogin = findViewById<EditText>(R.id.txtContrasena)
-        val imgVerContraLogin = findViewById<ImageView>(R.id.imgVerContraLogin)
-        val btnIniciar = findViewById<Button>(R.id.btnSiguienteLogin)
+        val txtCorreoAdmin=findViewById<EditText>(R.id.txtCorreologin)
+        val txtContrasenaLogin=findViewById<EditText>(R.id.txtContrasena)
+        val imgVerContraLogin=findViewById<ImageView>(R.id.imgVerContraLogin)
+        val btnIniciar=findViewById<Button>(R.id.btnSiguienteLogin)
 
-        fun hashSHA256(input: String): String {
-            val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+        fun hashSHA256(input: String):String{
+            val bytes =MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
             return bytes.joinToString("") { "%02x".format(it) }
         }
 
-        btnIniciar.setOnClickListener {
-            GlobalScope.launch(Dispatchers.IO) {
-                val objConexion = ClaseConexion().cadenaConexion()
+        btnIniciar.setOnClickListener{
+            val Correo=txtCorreoAdmin.text.toString()
+            val Contrasena=txtContrasenaLogin.text.toString()
+            var ValidacionLogin=false
 
-                val contraseniaEncriptada = hashSHA256(txtContrasenaLogin.text.toString())
-
-                val comprobacion = objConexion?.prepareStatement("SELECT * FROM Usuario WHERE CorreoElectronico = ? AND Contrasena = ?")!!
-                comprobacion.setString(1, txtCorreoAdmin.text.toString())
-                comprobacion.setString(2, contraseniaEncriptada)
-                val resultado = comprobacion.executeQuery()
-
-                if (resultado.next()) {
-                    withContext(Dispatchers.Main) {
-                        val intent1 = Intent(this@login_fixIT, Menu1Activity::class.java)
-                        startActivity(intent1)
-                        finish()
-                    }
-                } else {
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@login_fixIT, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
-                        println("contraseña $contraseniaEncriptada")
-                    }
-                }
-
-                try {
-                    if (txtCorreoAdmin == null || txtContrasenaLogin == null) {
-                        throw IllegalArgumentException("El nombre o el correo no pueden ser nulos")
-                    }
-                } catch (e: IllegalArgumentException) {
-                    println("Error ${e.message}")
-                }
+            if (Correo.isEmpty()){
+                txtCorreoAdmin.error="El correo es obligatorio"
+                ValidacionLogin=true
+            }else{
+                txtCorreoAdmin.error=null
             }
-        }
+            if(Contrasena.isEmpty()){
+                txtContrasenaLogin.error="La contraseña es obligatoria"
+                ValidacionLogin=true
+            }else{
+                txtContrasenaLogin.error=null
+            }
 
-        imgVerContraLogin.setOnClickListener {
-            if (txtContrasenaLogin.inputType == InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-                txtContrasenaLogin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            } else {
-                txtContrasenaLogin.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+            if(!ValidacionLogin){
+                try{
+                    val pantallaPrincipal=Intent(this,Menu1Activity::class.java)
+
+                    GlobalScope.launch(Dispatchers.IO){
+                        val objconexion=ClaseConexion().cadenaConexion()
+
+                        val contraseniaEncriptada= hashSHA256(txtContrasenaLogin.text.toString())
+
+
+                        val comprobacion=objconexion?.prepareStatement("select * from Usuario where correoElectronico = ? and Contrasena = ?")!!
+                        comprobacion.setString(1,txtCorreoAdmin.text.toString())
+                        comprobacion.setString(2,contraseniaEncriptada)
+                        val resultado=comprobacion.executeQuery()
+                        if(resultado.next()){
+                            startActivity(pantallaPrincipal)
+                        }else{
+                            withContext(Dispatchers.Main){
+                                Toast.makeText(this@login_fixIT, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                                println("contraseña $contraseniaEncriptada ")
+                            }
+                        }
+
+                    }
+                }catch (e:Exception){
+                    println("El error es este: $e")
+                }
+
+            }
+
+            imgVerContraLogin.setOnClickListener{
+                if (txtContrasenaLogin.inputType==InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD){
+                    txtContrasenaLogin.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                }else{
+                    txtContrasenaLogin.inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                }
             }
         }
     }

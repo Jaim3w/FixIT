@@ -57,10 +57,9 @@ dependencies {
     implementation(files("libs\\mail.jar"))
     implementation("com.oracle.database.jdbc:ojdbc6:11.2.0.4")
     implementation(libs.firebase.storage.ktx)
-    implementation("com.github.bumptech.glide:glide:4.12.0")  // Añadir Glide
-    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")  // Añadir el procesador de anotaciones de Glide
+    implementation("com.airbnb.android:lottie:6.0.0")
+    implementation("com.airbnb.android:lottie-compose:6.0.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
-
