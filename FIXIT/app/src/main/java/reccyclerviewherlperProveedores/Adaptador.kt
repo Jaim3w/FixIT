@@ -23,25 +23,31 @@ class Adaptador(var Datos: List<RCVproveedor>) : RecyclerView.Adapter<ViewHolder
         notifyDataSetChanged()
     }
 
-    fun actualizarItemprov(dui: String, nombre: String, telefono: String) {
+    fun actualizarItemprov(dui: String, nombre: String, telefono: String, apellido: String, correo: String, direccion: String) {
         val index = Datos.indexOfFirst { it.dui == dui }
         if (index != -1) {
             Datos[index].nombre = nombre
             Datos[index].telefono = telefono
+            Datos[index].apellido = apellido
+            Datos[index].correo = correo
+            Datos[index].direccion = direccion
             notifyItemChanged(index)
         }
     }
 
-    fun editarProveedores(dui: String, nombre: String, telefono: String) {
+    fun editarProveedores(dui: String, nombre: String, apellido: String, telefono: String, correo: String, direccion: String) {
         GlobalScope.launch(Dispatchers.IO) {
             val objConexion = ClaseConexion().cadenaConexion()
             try {
                 val actProveedoress = objConexion?.prepareStatement(
-                    "UPDATE Proveedor SET Nombre = ?, Telefono = ? WHERE Dui_proveedor = ?"
+                    "UPDATE Proveedor SET Nombre = ?, Apellido = ?, Telefono = ?, Correo_Electronico = ?, Direccion = ? WHERE Dui_proveedor = ?"
                 )
                 actProveedoress?.setString(1, nombre)
-                actProveedoress?.setString(2, telefono)
-                actProveedoress?.setString(3, dui)
+                actProveedoress?.setString(2, apellido)
+                actProveedoress?.setString(3, telefono)
+                actProveedoress?.setString(4, correo)
+                actProveedoress?.setString(5, direccion)
+                actProveedoress?.setString(6, dui)
                 actProveedoress?.executeUpdate()
 
                 val commit = objConexion?.prepareStatement("COMMIT")
@@ -92,6 +98,8 @@ class Adaptador(var Datos: List<RCVproveedor>) : RecyclerView.Adapter<ViewHolder
         holder.txtProveedor.text = item.nombre
         holder.txtTelefono.text = item.telefono
 
+
+
         holder.imgEditar.setOnClickListener {
             val alertDialogBuilder = AlertDialog.Builder(holder.itemView.context)
             alertDialogBuilder.setTitle("Editar Proveedor")
@@ -104,22 +112,37 @@ class Adaptador(var Datos: List<RCVproveedor>) : RecyclerView.Adapter<ViewHolder
             inputNombre.setText(item.nombre)
             layout.addView(inputNombre)
 
+            val inputApellido = EditText(holder.itemView.context)
+            inputApellido.setText(item.apellido)
+            layout.addView(inputApellido)
+
             val inputTelefono = EditText(holder.itemView.context)
             inputTelefono.setText(item.telefono)
             layout.addView(inputTelefono)
+
+            val inputCorreo = EditText(holder.itemView.context)
+            inputCorreo.setText(item.correo)
+            layout.addView(inputCorreo)
+
+            val inputDireccion = EditText(holder.itemView.context)
+            inputDireccion.setText(item.direccion)
+            layout.addView(inputDireccion)
 
             alertDialogBuilder.setView(layout)
 
             alertDialogBuilder.setPositiveButton("Actualizar") { dialog, _ ->
                 val nuevoNombre = inputNombre.text.toString().trim()
                 val nuevoTelefono = inputTelefono.text.toString().trim()
+                val nuevoApellido = inputApellido.text.toString().trim()
+                val nuevoCorreo = inputCorreo.text.toString().trim()
+                val nuevoDireccion = inputDireccion.text.toString().trim()
 
                 if (nuevoNombre.isBlank() || nuevoTelefono.isBlank()) {
                     Toast.makeText(holder.itemView.context, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
                 } else {
                     try {
-                        editarProveedores(item.dui, nuevoNombre, nuevoTelefono)
-                        actualizarItemprov(item.dui, nuevoNombre, nuevoTelefono)
+                        editarProveedores(item.dui, nuevoNombre, nuevoApellido, nuevoTelefono, nuevoCorreo, nuevoDireccion)
+                        actualizarItemprov(item.dui, nuevoNombre, nuevoApellido, nuevoTelefono, nuevoCorreo, nuevoDireccion)
                     } catch (e: Exception) {
                         Log.e("onBindViewHolder", "Error al actualizar proveedor: ${e.message}")
                     }
