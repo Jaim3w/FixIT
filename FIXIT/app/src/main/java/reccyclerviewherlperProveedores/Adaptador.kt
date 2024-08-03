@@ -3,11 +3,14 @@ package reccyclerviewherlperProveedores
 import Modelo.ClaseConexion
 import Modelo.RCVproveedor
 import PtcFixit.fix_it.R
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +19,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.sql.SQLException
 
-class Adaptador(var Datos: List<RCVproveedor>) : RecyclerView.Adapter<ViewHolder>() {
+class Adaptador(var Datos: List<RCVproveedor>,  private val context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     fun actualizarRecyclerView(nuevaLista: List<RCVproveedor>) {
         Datos = nuevaLista
@@ -98,7 +101,9 @@ class Adaptador(var Datos: List<RCVproveedor>) : RecyclerView.Adapter<ViewHolder
         holder.txtProveedor.text = item.nombre
         holder.txtTelefono.text = item.telefono
 
-
+        holder.itemView.setOnClickListener {
+            ShowProveedoresInfo(item)
+        }
 
         holder.imgEditar.setOnClickListener {
             val alertDialogBuilder = AlertDialog.Builder(holder.itemView.context)
@@ -180,4 +185,31 @@ class Adaptador(var Datos: List<RCVproveedor>) : RecyclerView.Adapter<ViewHolder
             dialog.show()
         }
     }
+
+    fun ShowProveedoresInfo (proveedor: RCVproveedor) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.fragment_verproveedores, null)
+
+        val textViewNombres = dialogView.findViewById<TextView>(R.id.tvNombre)
+        val textViewApellidos = dialogView.findViewById<TextView>(R.id.tvApellidos)
+        val textViewTelefono = dialogView.findViewById<TextView>(R.id.tvTelefonoProveedor)
+        val textViewCorreo = dialogView.findViewById<TextView>(R.id.tvCorreo)
+        val textViewDui = dialogView.findViewById<TextView>(R.id.tvDui)
+        val textViewDireccion = dialogView.findViewById<TextView>(R.id.txtDescripcion)
+
+        textViewNombres.text = "${proveedor.nombre}"
+        textViewApellidos.text = "${proveedor.apellido}"
+        textViewTelefono.text = "${proveedor.telefono}"
+        textViewCorreo.text = "${proveedor.correo}"
+        textViewDui.text = "${proveedor.dui}"
+        textViewDireccion.text = "${proveedor.direccion}"
+
+        android.app.AlertDialog.Builder(context)
+            .setTitle("Información del Proveedor")
+            .setView(dialogView)
+            .setPositiveButton("OK", null)
+            .show()
+    }
+
+
+
 }
