@@ -18,6 +18,8 @@
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -34,7 +36,12 @@
         android:supportsRtl="true"
         android:theme="@style/fixit"
         tools:targetApi="34">
-
+        <activity
+            android:name=".Emergencia_usuario"
+            android:exported="false" />
+        <activity
+            android:name=".ruta_emergencia"
+            android:exported="false" />
         <activity
             android:name=".proveedores_admin"
             android:exported="false" />
@@ -49,8 +56,7 @@
             android:exported="false" />
         <activity
             android:name=".splash_screen"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".inicioanimated"
             android:exported="true">
@@ -60,7 +66,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".splash_screen_logo"
             android:exported="false" />
@@ -128,6 +133,9 @@
             android:name=".CodigoTaller"
             android:exported="false" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCjxvE10Ytj1IjFN1aigF2DKd1t_L8imyM" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

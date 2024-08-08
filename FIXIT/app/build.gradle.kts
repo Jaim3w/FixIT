@@ -55,11 +55,24 @@ dependencies {
     implementation(files("libs\\activation.jar"))
     implementation(files("libs\\additionnal.jar"))
     implementation(files("libs\\mail.jar"))
+
+    ///maps
+    implementation( "com.google.android.gms:play-services-maps:18.1.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.google.code.gson:gson:2.8.8")
+
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
     implementation("com.oracle.database.jdbc:ojdbc6:11.2.0.4")
     implementation(libs.firebase.storage.ktx)
     implementation("com.airbnb.android:lottie:6.0.0")
     implementation("com.airbnb.android:lottie-compose:6.0.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
 }
